@@ -1,0 +1,24 @@
+.menu {
+  background-color: #fffff2;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+}
+
+.menu a {
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.hamburger {
+  z-index: 9050;
+}
+
