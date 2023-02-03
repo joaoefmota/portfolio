@@ -38,13 +38,10 @@ export default function Projects() {
       <div className={`${"mainBlock"}`}>
         <div className="flex flex-col items-left">
           <h1 className={"title"}>02: Projects</h1>
-          <div className="flex flex-row gap-10">
+          <div className="grid grid-col-3 grid-flow-col gap-4 mb-20 sm:grid-rows-3">
             {projectsArray != null
               ? projectsArray.map((project) => (
-                  <div
-                    className="grid grid-rows-3 grid-flow-col"
-                    key={project.id}
-                  >
+                  <div className="mb-20" key={project.id}>
                     <Link href={`/projects/${project.id}`}>
                       <ProjectTile
                         src={

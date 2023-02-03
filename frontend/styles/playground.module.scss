@@ -1,0 +1,41 @@
+.tile {
+  box-shadow: 0 10px 30px -15px #31353a;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  height: 100%;
+  padding: 2rem 1.75rem;
+  border-radius: 5px;
+  background-color: #31353a;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  overflow: auto;
+}
+
+.tileTitle {
+  margin: 0px 0px 10px;
+  color: #fffff2;
+  font-size: 20px;
+}
+
+.tileDescription {
+  color: #fffff2;
+  font-size: 15px;
+  max-width: 35ch;
+}
+
+.techList {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 20px 0px 0px;
+  list-style: none;
+}
+
+.techList li {
+  margin-right: 15px;
+  line-height: 1.75;
+  color: #fffff2;
+}

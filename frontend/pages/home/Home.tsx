@@ -7,7 +7,9 @@ function Home() {
     <>
       <section>
         <div className={`${"mainBlock"} ${"flex flex-col justify-center"}`}>
-          <h1 className={"title"}>Hello there! I am João.</h1>
+          <h1 className={`${"title"} ${"titleHome"}`}>
+            Hello there! I am João.
+          </h1>
           <h2 className={"subtitle"}>I build stuff on the web.</h2>
           <p className={`${"text-paragraph leading-relaxed"} ${"paragraph"}`}>
             A super optimistic junior web developer, waiting to change the world
@@ -16,7 +18,7 @@ function Home() {
           <div className="flex flex-row items-center gap-5 justify-between mt-2 w-full">
             <button
               type="button"
-              className="bg-paragraph w-72 h-12 self-end text-white text-2xl mt-5 rounded"
+              className="bg-paragraph w-40 h-12 self-end text-white text-2xl mt-5 rounded text-center"
               onClick={() => router.push("#Projects")}
             >
               Projects

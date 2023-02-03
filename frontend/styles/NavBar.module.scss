@@ -3,6 +3,9 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
+  padding-bottom: 5rem;
+  left: 50px;
+  z-index: 2;
 }
 
 .menu a {
@@ -21,4 +24,3 @@
 .hamburger {
   z-index: 9050;
 }
-

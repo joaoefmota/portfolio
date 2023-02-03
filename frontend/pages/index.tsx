@@ -3,7 +3,9 @@ import Home from "./home/Home";
 import NavBar from "./components/NavBar";
 import About_Me from "./about_me/About_Me";
 import Projects from "./projects/Projects";
-import Contact from "./contact/Contact";
+import Contact_Me from "./contacts/Contact_Me";
+import Playground from "./playground/Playground";
+import Clickables from "./components/Clickables";
 
 export default function LandingPage() {
   return (
@@ -15,13 +17,15 @@ export default function LandingPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="z-10 absolute">
-        <NavBar />
+        <NavBar /> <Clickables />
       </div>
+
       <main className="scroll-container">
         <Home />
         <About_Me />
         <Projects />
-        <Contact />
+        <Playground />
+        <Contact_Me />
       </main>
     </>
   );

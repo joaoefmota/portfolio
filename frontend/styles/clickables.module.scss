@@ -1,0 +1,20 @@
+.container {
+  position: fixed;
+  left: auto;
+  right: 40px;
+  bottom: 60px;
+  z-index: -1;
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    right: auto;
+    left: 10px;
+    bottom: auto;
+    z-index: -2;
+  }
+
+  .icons {
+    width: 50%;
+  }
+}

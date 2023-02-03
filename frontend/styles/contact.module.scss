@@ -1,0 +1,18 @@
+.firstName,
+.lastName,
+.email,
+.message {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.message {
+  width: 100%;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  top: 20%;
+}

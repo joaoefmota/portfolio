@@ -15,6 +15,7 @@ html,
 body {
   color: var(--titlecolor);
   background: var(--background);
+  scroll-behaviour: smooth;
 }
 
 body {
@@ -26,20 +27,20 @@ body {
   }
   &::-webkit-scrollbar-thumb,
   & *::-webkit-scrollbar-thumb {
-    background-color: #3f42ec;
+    background-color: #31353a;
     min-height: 1rem;
   }
   &::-webkit-scrollbar-thumb:focus,
   & *::-webkit-scrollbar-thumb:focus {
-    background-color: #7274e4;
+    background-color: #909baa;
   }
   &::-webkit-scrollbar-thumb:active,
   & *::-webkit-scrollbar-thumb:active {
-    background-color: #9e9fe7;
+    background-color: #909baa;
   }
   &::-webkit-scrollbar-thumb:hover,
   & *::-webkit-scrollbar-thumb:hover {
-    background-color: #7475e8;
+    background-color: #909baa;
   }
   &::-webkit-scrollbar-corner,
   & *::-webkit-scrollbar-corner {
@@ -55,7 +56,7 @@ a {
 h1 {
   font-weight: 800;
   color: var(--titlecolor);
-  font-size: 120px;
+  font-size: 100px;
 }
 
 h2 {
@@ -66,6 +67,30 @@ h2 {
 section {
   height: 100vh;
   scroll-snap-align: center;
+}
+
+input {
+  border: 0.5px solid black;
+  border-radius: 1rem;
+  resize: none;
+  background: var(--background);
+}
+
+button {
+  background: grey;
+  border: 1px solid black;
+  color: black;
+  -webkit-border-radius: 3rem;
+  -moz-border-radius: 3rem;
+  border-radius: 3rem;
+  padding: 0.6rem 2rem;
+  font-weight: 600;
+  transition: all ease 0.15s;
+  &:hover {
+    text-decoration: none;
+    background: black;
+    color: white;
+  }
 }
 
 .scroll-container {
@@ -113,8 +138,33 @@ section {
   top: 3%;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@media screen and (max-width: 500px) {
+  .scroll-container {
+    scroll-snap-type: none;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  .title {
+    font-size: 45px;
+  }
+
+  .subtitle {
+    font-size: 30px;
+  }
+
+  .mainBlock {
+    position: static;
+    padding-left: 5rem;
+  }
+
+  .titleHome {
+    margin-top: 5rem;
+  }
+
+  section {
+    height: fit-content;
   }
 }

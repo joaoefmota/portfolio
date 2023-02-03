@@ -14,6 +14,7 @@ specifiers:
   postcss: ^8.4.21
   react: 18.2.0
   react-dom: 18.2.0
+  react-hydration-provider: ^1.0.2
   sass: ^1.58.0
   tailwindcss: ^3.2.4
   typescript: 4.9.4
@@ -30,6 +31,7 @@ dependencies:
   next: 13.1.2_5mhhrw5dq6gnbuirj2awdzvyuu
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hydration-provider: 1.0.2_react@18.2.0
   typescript: 4.9.4
 
 devDependencies:
@@ -2088,6 +2090,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-hydration-provider/1.0.2_react@18.2.0:
+    resolution: {integrity: sha512-2LhJbrUZ6DNB5HXc52XGoTlfOrRXmuqWgOj9CHJ6I4UUlWl/eQwFAgOYMr9owa86F+OvAEw3Rr1ik00zKuG52A==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is/16.13.1:

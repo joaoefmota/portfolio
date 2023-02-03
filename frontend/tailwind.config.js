@@ -10,6 +10,10 @@ module.exports = {
         paragraph: "#31353a",
       },
     },
+    screens: {
+      sm: { min: "375px", max: "600px" },
+      tall: { min: "601px", max: "1024px" },
+    },
   },
   plugins: [],
 };
