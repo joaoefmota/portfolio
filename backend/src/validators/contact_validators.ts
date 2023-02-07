@@ -27,15 +27,15 @@ export const validateSubmit: RequestHandler<{
   first_name: string;
   last_name: string;
   email: string;
-  message: string;
 }> = (req, res, next) => {
   const { first_name, last_name, email } = req.body;
-  const { errors } = userSchema.validate(
+  const { error } = userSchema.validate(
     { first_name, last_name, email },
     { abortEarly: false }
   );
-  if (errors) {
-    res.status(422).json({ validationErrors: errors.details });
+  if (error) {
+    res.status(422).json({ validationErrors: error.details });
+    console.log(error.details);
   } else {
     next();
   }

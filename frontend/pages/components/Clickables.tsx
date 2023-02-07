@@ -34,7 +34,7 @@ export default class Clickables extends Component {
       <div className={`${"flex flex-col gap-5 mt-9"} ${styles.container}`}>
         {clickables.map((item) => (
           <div key={item.id}>
-            <Link href={item.link}>
+            <Link href={item.link} target="_blank" rel="noopener noreferrer">
               <Image
                 src={item.image}
                 width={50}

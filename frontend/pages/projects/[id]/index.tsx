@@ -95,7 +95,12 @@ export default function ProjectPage() {
         </div>
       </div>
       <div>
-        <Link href={projectInfo.github} className="github">
+        <Link
+          href={projectInfo.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="github"
+        >
           <Image src={github} width={100} />
         </Link>
       </div>

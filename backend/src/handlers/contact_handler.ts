@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import database from "../database";
+import transporter from "../transporter";
 import { OkPacket } from "mysql2";
 
-export const submitContactForm = (req, res) => {
+export const submitContactForm = (req: Request, res: Response) => {
   const { first_name, last_name, email, message } = req.body;
   database
     .query<OkPacket>(
@@ -16,9 +17,23 @@ export const submitContactForm = (req, res) => {
         const newMessage = result.insertId;
         res.status(201).json(newMessage.toString());
       }
+    });
+
+  const mailOptions = {
+    from: email,
+    to: `joaoefmota@hotmail.com`, // this is the address to which the email will be sent
+    subject: "New message from contact form",
+    text: `${message} \n\n Name: ${first_name} \n\n Surname: ${last_name} \n\n Email: ${email}`,
+    html: `<p>${message}</p> <p>Name: ${first_name}</p> <p>Surname: ${last_name}</p> <p>Email: ${email}</p>`,
+  };
+
+  transporter
+    .sendMail(mailOptions)
+    .then((info) => {
+      console.warn(info);
+      
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).send("Internal Server Error");
+      console.warn(err);      
     });
 };

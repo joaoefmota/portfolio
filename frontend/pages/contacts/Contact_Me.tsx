@@ -72,7 +72,7 @@ function Contact_Me() {
                   "text-white text-center sm:text-xl md:text-2xl xl:text-2xl"
                 }
               >
-                Message received ✔
+                Message sent ✔
               </p>
             </div>
           )}
@@ -115,7 +115,7 @@ function Contact_Me() {
               <input
                 onChange={handleInputFields}
                 value={field.message}
-                className="h-32 p-8"
+                className={`${"h-32 p-8"} ${styles.textarea}`}
                 name="message"
                 type="text"
               />
