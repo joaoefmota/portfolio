@@ -3,6 +3,9 @@ import dotenv from "dotenv";
 import database from "./database";
 import cors from "cors";
 const path = require("path");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+
 import MainRouter from "./routers/mainrouter";
 
 dotenv.config();
@@ -10,12 +13,15 @@ dotenv.config();
 const EXPRESS_PORT = parseInt(process.env.EXPRESS_PORT ?? "5005", 10);
 
 const app = express();
+
 app.use(
   cors({
     origin: "*",
   })
 );
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("Hello There!");

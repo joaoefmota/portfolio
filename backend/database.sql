@@ -93,5 +93,13 @@ CREATE DATABASE portfolio
         `image_id` INT NOT NULL
     );
 
+    CREATE TABLE `users` (
+        `id` BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+        `username` VARCHAR (150) NOT NULL,
+        `email` VARCHAR (200) NOT NULL,
+        `hashedPassword` VARCHAR (255) NOT NULL
+    );
+
+USE portfolio;
     SELECT * FROM images;
     SELECT i.src AS source FROM images AS i INNER JOIN projects AS p ON i.id=p.image_id WHERE p.name="musique";
