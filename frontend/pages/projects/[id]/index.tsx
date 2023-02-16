@@ -8,6 +8,16 @@ import React, { useState } from "react";
 import github from "@/assets/images/github.png";
 import back from "@/assets/images/back.png";
 
+import styles from "@/styles/projects.module.scss";
+
+export interface ProjectInfoProps {
+  packages: string;
+  tools: string;
+  link: string;
+  name: string;
+  content: string;
+}
+
 export default function ProjectPage() {
   const router = useRouter();
   const { id } = router.query;
@@ -33,6 +43,7 @@ export default function ProjectPage() {
   });
 
   console.log("projectInfo", projectInfo);
+
   const tools =
     projectInfo != undefined ? projectInfo.tools.split(", ") : undefined;
   if (project == null) return <p>Loading</p>;
@@ -40,10 +51,10 @@ export default function ProjectPage() {
     projectInfo.packages != null ? projectInfo.packages.split(", ") : undefined;
 
   return (
-    <section id={`Project${id}`} className="relative">
+    <section id={`Project${id}`}>
       <div className={`${"mainBlock"}`} key={project.id}>
         <div className="flex flex-col items-left">
-          <h1 className={"title"}>02: Projects</h1>
+          <h1 className={"title"}>{projectInfo.name}</h1>
           <div className="flex flex-row gap-10">
             {projectImage != null ? (
               <Link href={projectInfo.link}>
@@ -60,7 +71,7 @@ export default function ProjectPage() {
             )}
             <div className="flex flex-col gap-5">
               <Link href={projectInfo.link}>
-                <h2 className="text-5xl">{projectInfo.name}</h2>
+                <h2 className="text-5xl">{projectInfo.subTitle}</h2>
               </Link>
               <p className="text-left text-paragraph text-xl paragraph">
                 {projectInfo.content}
@@ -108,6 +119,16 @@ export default function ProjectPage() {
         <Link href={"/#Projects"} className="back">
           <Image src={back} width={50} />
         </Link>
+      </div>
+      <div role="tablist" className={styles.projectSlider}>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
       </div>
     </section>
   );

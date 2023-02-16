@@ -16,17 +16,23 @@ export default function LandingPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="z-10 absolute">
-        <NavBar /> <Clickables />
+      <div id="app">
+        <header>
+          <NavBar />
+        </header>
+        <main tabIndex={-1}>
+          <Home /> <About_Me />
+          <Projects />
+          <Playground />
+          <Contact_Me />
+        </main>
       </div>
-
-      <main className="scroll-container">
-        <Home />
-        <About_Me />
-        <Projects />
-        <Playground />
-        <Contact_Me />
-      </main>
     </>
   );
+}
+
+{
+  /* 
+
+*/
 }

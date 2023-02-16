@@ -1,8 +1,20 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import useAxios from "../hooks/useAxios";
 import axios from "axios";
+
+{
+  /* Components */
+}
 import ProjectTile from "../components/ProjectTile";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+{
+  /* Styles */
+}
+import styles from "@/styles/projects.module.scss";
 
 export default function Projects() {
   const APIURL = "http://localhost:5005";
@@ -34,29 +46,42 @@ export default function Projects() {
   console.log("imagesMap", imagesMap);
 
   return (
-    <section id={"Projects"} className="relative">
-      <div className={`${"mainBlock"}`}>
-        <div className="flex flex-col items-left">
-          <h1 className={"title"}>02: Projects</h1>
-          <div className="grid grid-col-3 grid-flow-col gap-4 mb-20 sm:grid-rows-3">
-            {projectsArray != null
-              ? projectsArray.map((project) => (
-                  <div className="mb-20" key={project.id}>
-                    <Link href={`/projects/${project.id}`}>
-                      <ProjectTile
-                        src={
-                          imagesMap ? imagesMap.get(project.name) : undefined
-                        }
-                        alt={project.name}
-                        name={project.name}
-                      />
-                    </Link>
-                  </div>
-                ))
-              : null}
+    <>
+      <section id={"Projects"} className={styles.Projects}>
+        <div className="flex sm:flex-col flex-row w-full h-full items-center justify-center">
+          <div className="w-full h-3/4">
+            <h1 className={"title self-start h-1/4"}>02: Projects</h1>
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={30}
+              loop={true}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={true}
+              modules={[Pagination, Navigation]}
+              className="mySwiper rounded"
+            >
+              {projectsArray != null
+                ? projectsArray.map((project) => (
+                    <>
+                      <SwiperSlide key={project.id}>
+                        <ProjectTile
+                          src={
+                            imagesMap ? imagesMap.get(project.name) : undefined
+                          }
+                          name={project.name}
+                          link={`/projects/${project.id}`}
+                          aka={project.aka}
+                        />
+                      </SwiperSlide>
+                    </>
+                  ))
+                : null}
+            </Swiper>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

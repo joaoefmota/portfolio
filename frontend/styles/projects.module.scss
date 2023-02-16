@@ -1,19 +1,21 @@
 @import "./variables";
 
-.About {
+.Projects {
   z-index: 3;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: fit-content;
   height: $vh;
   width: $vw;
 }
 
-.pic {
-  margin: 0 2rem;
-  width: 50%;
+.projectSlider {
+  display: flex;
+  overflow: auto;
+  width: calc(100% + 10rem);
+  padding-left: 50px;
+  margin-bottom: 5rem;
 }
 
 @media (max-width: 700px) {
@@ -21,7 +23,7 @@
     margin-top: 2rem;
     width: 100%;
   }
-  .About {
-    height: fit-content;
+  .Projects {
+    height: 50vh;
   }
 }

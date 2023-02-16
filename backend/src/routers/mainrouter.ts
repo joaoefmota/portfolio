@@ -22,7 +22,7 @@ MainRouter.post("/contact", validateSubmit, submitContactForm);
 MainRouter.post("/api/create", createUser);
 MainRouter.post("/api/login", loginUser);
 
-MainRouter.use(verifyToken);
+// MainRouter.use(verifyToken);
 MainRouter.get("/secure");
 
 export default MainRouter;

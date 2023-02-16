@@ -1,11 +1,23 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-export default function ProjectTile({ src, alt, name }) {
+declare interface TilesProps {
+  src: any;
+  name: string;
+  link: string;
+  aka: string;
+}
+
+export default function ProjectTile({ src, name, link, aka }: TilesProps) {
   return (
-    <>
-      <Image src={src} alt={alt} width={300} height={500} className="rounded h-full"/>
-      <p className="text-center text-paragraph text-xl">{name}</p>
-    </>
+    <Link href={link}>
+      <div className="shade flex flex-col items-center justify-center">
+        <p className="paragraphShade paragraphAlt italic font-extrabold absolute pTilePosition">
+          {aka}
+        </p>
+        <Image src={src} alt={name} fill />
+      </div>
+    </Link>
   );
 }

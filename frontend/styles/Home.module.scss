@@ -1,5 +1,23 @@
-.scrollContainer {
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+.Home {
+  z-index: 3;
+  user-select: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100vw;
+  height: 100vh;
+}
+.textContainer {
+  width: min(1500px, 100%);
+}
+.pic {
+  margin: 0 2rem;
+  display: initial;
+  width: min(50%, 75%);
 }
 
+@media (max-width: 500px) {
+  .pic {
+    display: none;
+  }
+}

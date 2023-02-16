@@ -16,10 +16,10 @@ function Contact_Me() {
   const handleInputFields = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = event.target;
+    // const { name, value } = event.target;
     setField((prevFormData) => ({
       ...prevFormData,
-      [name]: value,
+      [event.target.name]: event.target.value,
     }));
   };
 
