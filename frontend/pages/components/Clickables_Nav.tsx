@@ -37,8 +37,8 @@ export default class Clickables extends Component {
             <Link href={item.link} target="_blank" rel="noopener noreferrer">
               <Image
                 src={item.image}
-                width={25}
-                height={25}
+                width={50}
+                height={50}
                 alt={item.name}
                 className={styles.iconsNav}
               />

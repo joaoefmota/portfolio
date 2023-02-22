@@ -40,7 +40,7 @@ function Playground() {
     <>
       <section id={"Playground"} className="relative sectionAlt">
         <div className={`${"mainBlock"} ${"flex flex-col justify-center"}`}>
-          <h1 className={"title"}>03: Playground</h1>
+          <h1 className={"title titleAlt"}>03: Playground</h1>
 
           <div className="flex flex-row gap-4 flex-wrap">
             {playTiles.map((tile) => (

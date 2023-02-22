@@ -60,12 +60,13 @@ export const createUser = async (req: Request, res: Response) => {
       console.log(hash);
       req.body.hashedPassword = hash;
       delete req.body.password;
+      return hash;
     })
     .catch((error: any) => {
       console.error(error);
     });
 
-  console.log("hashedPassword", req.body.hashedPassword); //WTF????
+  console.log("hashedPassword", hashedPassword); //WTF????
 
   const result = await database
     .query<OkPacket>(

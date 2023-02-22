@@ -4,18 +4,118 @@
   z-index: 3;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: $vh;
   width: $vw;
 }
 
+#ProjectID {
+  height: fit-content;
+  padding: 6rem 16rem;
+}
+
 .projectSlider {
   display: flex;
   overflow: auto;
-  width: calc(100% + 10rem);
-  padding-left: 50px;
-  margin-bottom: 5rem;
+  scroll-behavior: none;
+  padding: 0.5rem 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  & img {
+    cursor: pointer;
+  }
+  & img:hover {
+    opacity: 0.5;
+  }
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2vw + 1rem, 15rem);
+}
+
+.github {
+  background: url("../assets/images/github-mark.png") no-repeat center center;
+}
+
+.web {
+  background: url("../assets/images/web.png") no-repeat center center;
+}
+
+.github,
+.web {
+  display: inline-block;
+  background-color: transparent;
+  background-size: contain;
+  border-radius: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.8rem 1.8rem;
+  transition: all ease 0.2s;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.back {
+  position: absolute;
+  left: 3%;
+  top: 3%;
+}
+
+.lightbox {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 80%;
+  position: relative;
+  top: -100%;
+  /* Transition */
+  transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -webkit-transition: all 1s ease;
+}
+
+.lightbox:target {
+  outline: none;
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 1.2s ease;
+  -moz-transition: all 1.2s ease;
+  -ms-transition: all 1.2s ease;
+  -o-transition: all 1.2s ease;
+  -webkit-transition: all 1.2s ease;
+}
+
+.lightbox:target img {
+  top: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+}
+
+.transition {
+  transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -webkit-transition: all 1s ease;
 }
 
 @media (max-width: 700px) {
@@ -25,5 +125,10 @@
   }
   .Projects {
     height: 50vh;
+  }
+
+  #ProjectID {
+    padding: 1rem 1rem;
+    padding-top: 5rem;
   }
 }

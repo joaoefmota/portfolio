@@ -13,20 +13,11 @@ export default function NavBar() {
     const html = document.querySelector("html");
     setisOpen(!isOpen);
     const hamburger = document.getElementsByClassName("hamburger-react");
-    const hamburgerSons = hamburger[0].querySelectorAll("div");
-
     console.log("Hamburger", hamburger);
     if (!isOpen) {
-      hamburger[0].ariaExpanded = "true";
       html.style.overflow = "hidden";
     } else {
-      hamburger[0].ariaExpanded = "false";
       html.style.overflow = "auto";
-      hamburger[0].style.transform = "none";
-      hamburgerSons.forEach(function (trans) {
-        trans.style.transform = "none";
-        trans.style.translate = "initial";
-      });
     }
   }
 
@@ -48,13 +39,17 @@ export default function NavBar() {
   const [backToTop, setBackToTop] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const scrollListener = () => {
       if (window.pageYOffset > 100) {
         setBackToTop(true);
       } else {
         setBackToTop(false);
       }
-    });
+    };
+    window.addEventListener("scroll", scrollListener);
+    return () => {
+      window.removeEventListener("scroll", scrollListener);
+    };
   }, []);
 
   const scrollToTop = () => {
@@ -65,14 +60,19 @@ export default function NavBar() {
   return (
     <>
       <div className="flex flex-row justify-between items-center w-full">
-        <div id={styles.burguer}>
-          <Hamburger easing="ease-in" onToggle={handleToggle} />
+        <div id={styles.burger}>
+          <Hamburger
+            easing="ease-in"
+            onToggle={handleToggle}
+            toggled={isOpen}
+            toggle={setisOpen}
+          />
         </div>
         {backToTop && (
           <button
             type="button"
             onClick={scrollToTop}
-            className={`${styles.backToTop} ${"mr-1 mt-2 z-50"}`}
+            className={`${styles.backToTop} ${"mr-1 mt-2 z-50 scroll-to-top"}`}
           >
             To top
           </button>

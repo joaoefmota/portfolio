@@ -29,12 +29,8 @@ function Home() {
               problems.
             </p>
           </article>
-          <button
-            className="mt-10"
-            onClick={() => router.push("/#Projects")}
-            smooth={true}
-          >
-            Check out my projects!
+          <button className="mt-10" onClick={() => router.push("/#Projects")}>
+            Check out my Projects!
           </button>
         </div>
       </section>

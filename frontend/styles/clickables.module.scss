@@ -1,14 +1,3 @@
-.container {
-  position: fixed;
-  left: auto;
-  right: 40px;
-  bottom: 60px;
-  z-index: -1;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
 .containerNav {
   text-align: center;
 }
@@ -26,5 +15,9 @@
 
   .icons {
     width: 40%;
+  }
+
+  .iconsNav {
+    width: 25px;
   }
 }

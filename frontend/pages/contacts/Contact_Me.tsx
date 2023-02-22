@@ -1,13 +1,14 @@
 import React, { use, useState } from "react";
 import styles from "@/styles/contact.module.scss";
 import axios from "axios";
+import Link from "next/link";
 
 function Contact_Me() {
-  const [field, setField] = useState({
-    first_name: " ",
-    last_name: " ",
-    email: " ",
-    message: " ",
+  const [data, setData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    message: "",
   });
 
   const [isSubmitted, setIsSubmited] = useState(false);
@@ -17,7 +18,7 @@ function Contact_Me() {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     // const { name, value } = event.target;
-    setField((prevFormData) => ({
+    setData((prevFormData) => ({
       ...prevFormData,
       [event.target.name]: event.target.value,
     }));
@@ -26,7 +27,7 @@ function Contact_Me() {
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
     axios
-      .post("http://localhost:5005/contact", field, {
+      .post("http://localhost:5005/contact", data, {
         headers: {
           Accept: "application/json, text/plain, */*",
           "Content-Type": "application/json",
@@ -35,7 +36,7 @@ function Contact_Me() {
       .then((res) => {
         if (res.status === 201) {
           setIsSubmited(true);
-          setField({
+          setData({
             first_name: "",
             last_name: "",
             email: "",
@@ -58,31 +59,23 @@ function Contact_Me() {
 
   return (
     <>
-      <section id={"Contact"} className="relative">
-        <div className={`${"mainBlock"} ${"flex flex-col justify-center"}`}>
-          <h1 className={"title"}>04: Contact</h1>
-          {isSubmitted && (
-            <div
-              className={
-                "container mb-16 mt-1 py-6 px-4 rounded-3xl bg-slate-700 h-1/2"
-              }
-            >
-              <p
-                className={
-                  "text-white text-center sm:text-xl md:text-2xl xl:text-2xl"
-                }
-              >
-                Message sent ✔
-              </p>
-            </div>
-          )}
-          <form className="flex flex-row sm:flex-wrap gap-5 w-full pr-5">
-            <div className="w-1/2">
+      <section id={"Contact"} className={styles.Contact}>
+        <h1 className={"title self-start"}>04: Contact</h1>
+        <p className="paragraph">
+          Do you have a question or a proposal at hand? Maybe just drop by to
+          write an "hello"? Then feel free to use the form down bellow.
+        </p>
+        <div
+          className={`${"flex flex-col justify-center w-full justify-between"}`}
+        >
+          <form className="flex flex-row sm:flex-wrap gap-5 w-full">
+            <div className="w-1/2 sm:w-full">
               <div className={styles.firstName}>
                 <label htmlFor="first-name">First name*</label>
                 <input
                   onChange={handleInputFields}
-                  value={field.first_name}
+                  placeholder="John/Johanna"
+                  value={data.first_name}
                   className="h-12 p-8"
                   name="first_name"
                   type="text"
@@ -92,7 +85,8 @@ function Contact_Me() {
                 <label htmlFor="last-name">Last name*</label>
                 <input
                   onChange={handleInputFields}
-                  value={field.last_name}
+                  placeholder="Doe"
+                  value={data.last_name}
                   className="h-12 p-8"
                   name="last_name"
                   type="text"
@@ -102,31 +96,65 @@ function Contact_Me() {
                 <label htmlFor="email">Email*</label>
                 <input
                   onChange={handleInputFields}
-                  value={field.email}
+                  placeholder="email@email.com"
+                  value={data.email}
                   className="h-12 p-8"
                   name="email"
                   type="text"
                 />
               </div>
+              <div>
+                <h2 className="paragraph">Or contact directly to:</h2>
+                <Link
+                  href={"mailto:joaoefmota@gmail.com"}
+                  className="text-2xl font-extrabold"
+                >
+                  joaoefmota@gmail.com
+                </Link>
+              </div>
             </div>
 
             <div className={styles.message}>
               <label htmlFor="message">Your message*</label>
-              <input
+              <textarea
+                placeholder="Hello João, how are you?"
                 onChange={handleInputFields}
-                value={field.message}
+                value={data.message}
                 className={`${"h-32 p-8"} ${styles.textarea}`}
                 name="message"
-                type="text"
               />
-              <div className={styles.submit}>
-                <button onClick={handleSubmit} className="mt-5" type="submit">
-                  Submit
-                </button>
-              </div>
+              <button
+                onClick={handleSubmit}
+                className={styles.submit}
+                type="submit"
+              >
+                Submit
+              </button>
             </div>
           </form>
         </div>
+        {isSubmitted && (
+          <div
+            className={
+              "w-fit mx-auto mt-1 py-4 px-6  rounded-3xl bg-slate-700 "
+            }
+          >
+            <p
+              className={
+                "text-white text-center sm:text-xl md:text-2xl xl:text-2xl"
+              }
+            >
+              Message sent ✔
+            </p>
+            <p
+              className={
+                "text-white text-center sm:text-xl md:text-2xl xl:text-2xl"
+              }
+            >
+              You are awesome!
+            </p>
+          </div>
+        )}
       </section>
     </>
   );

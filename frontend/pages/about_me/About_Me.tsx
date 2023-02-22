@@ -11,21 +11,23 @@ import profile from "@/assets/images/profile.jpg";
 const enjoy = [
   { id: 1, name: "NextJs" },
   { id: 2, name: "SQL" },
-  { id: 3, name: "Node" },
+  { id: 3, name: "Node.js" },
   { id: 4, name: "Tailwind" },
   { id: 5, name: "Typescript" },
-  { id: 6, name: "Copywriting" },
-  { id: 7, name: "Editing" },
-  { id: 8, name: "Video" },
+  { id: 6, name: "CSS" },
+  { id: 7, name: "Copywriting" },
+  { id: 8, name: "Photography" },
+  { id: 9, name: "Editing" },
+  { id: 10, name: "Video" },
 ];
 
 export default class About_Me extends Component {
   render() {
     return (
       <section id="About_Me" className={`${"sectionAlt"} ${styles.About}`}>
+        <h1 className={"title titleAlt mb-10 self-start"}>01: About me</h1>
         <div className="flex sm:flex-col flex-row w-full items-center justify-center">
           <article className="sm:w-full w-3/4">
-            <h1 className={"title titleAlt mb-10 self-start"}>01: About me</h1>
             <p
               className={`${"text-paragraph leading-relaxed"} ${"paragraph paragraphAlt"}`}
             >
@@ -45,7 +47,7 @@ export default class About_Me extends Component {
                 >
                   A few examples of the technologies I work with:
                 </p>
-                <div className="grid grid-rows-2 grid-flow-col">
+                <div className="grid grid-rows-5 grid-flow-col">
                   {enjoy.map((item) => (
                     <p
                       key={item.id}
