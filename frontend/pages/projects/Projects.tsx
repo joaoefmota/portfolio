@@ -52,7 +52,7 @@ export default function Projects() {
 
   return (
     <>
-      <section id={"Projects"} className={styles.Projects}>
+      <section id={"Projects"} className={`${"sectionBg1"} ${styles.Projects}`}>
         <h1 className={"title self-start "}>02: Projects</h1>
 
         <Swiper

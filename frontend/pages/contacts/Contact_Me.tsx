@@ -59,7 +59,7 @@ function Contact_Me() {
 
   return (
     <>
-      <section id={"Contact"} className={styles.Contact}>
+      <section id={"Contact"} className={`${styles.Contact} ${"sectionBg1"}`}>
         <h1 className={"title self-start"}>04: Contact</h1>
         <p className="paragraph">
           Do you have a question or a proposal at hand? Maybe just drop by to

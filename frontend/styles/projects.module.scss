@@ -11,7 +11,7 @@
 }
 
 #ProjectID {
-  height: fit-content;
+  
   padding: 6rem 16rem;
 }
 
@@ -60,6 +60,27 @@
   position: absolute;
   left: 3%;
   top: 3%;
+  border-radius: 100%;
+  border: 1px solid rgba(29, 28, 29, 0.2);
+  padding: 1rem 1rem;
+  margin: 0 0.1rem;
+  background-color: rgb(108, 104, 109, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+.back:hover {
+  background-color: $background;
+}
+
+.back img {
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.back:hover img {
+  transform: scale(1.1);
+  content: url("../assets/images/back_dark.png");
 }
 
 .lightbox {

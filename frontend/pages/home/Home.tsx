@@ -8,7 +8,7 @@ function Home() {
   const router = useRouter();
   return (
     <>
-      <section id={`${"Home"}`} className={styles.Home}>
+      <section id={`${"Home"}`} className={`${styles.Home} ${"sectionBg1"}`}>
         <div className={`${"mainBlock"}`}>
           <article className={`${styles.textContainer}`}>
             <h3 className={"subtitle"}>Hello, I'm</h3>

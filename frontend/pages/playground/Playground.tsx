@@ -38,7 +38,7 @@ const playTiles = [
 function Playground() {
   return (
     <>
-      <section id={"Playground"} className="relative sectionAlt">
+      <section id={"Playground"} className="relative sectionBg2">
         <div className={`${"mainBlock"} ${"flex flex-col justify-center"}`}>
           <h1 className={"title titleAlt"}>03: Playground</h1>
 

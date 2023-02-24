@@ -24,7 +24,7 @@ const enjoy = [
 export default class About_Me extends Component {
   render() {
     return (
-      <section id="About_Me" className={`${"sectionAlt"} ${styles.About}`}>
+      <section id="About_Me" className={`${"sectionBg2"} ${styles.About}`}>
         <h1 className={"title titleAlt mb-10 self-start"}>01: About me</h1>
         <div className="flex sm:flex-col flex-row w-full items-center justify-center">
           <article className="sm:w-full w-3/4">

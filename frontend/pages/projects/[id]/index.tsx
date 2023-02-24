@@ -1,16 +1,14 @@
+import React, { useEffect, useState } from "react";
 import useAxios from "@/pages/hooks/useAxios";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
 
-import { Gallery } from "react-grid-gallery";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
-import back from "@/assets/images/back.png";
-
+import back from "@/assets/images/back_light.png";
 import styles from "@/styles/projects.module.scss";
 
 export default function ProjectPage() {
@@ -18,9 +16,10 @@ export default function ProjectPage() {
   const { id } = router.query;
 
   const APIURL = "http://localhost:5005";
-  const [restOfImages, setRestOfImages] = useState<[]>();
-  const [projectInfo, setProjectInfo] = useState<[]>();
-  const [index, setIndex] = useState(-1);
+  const [restOfImages, setRestOfImages] = useState<[]>([]);
+  const [projectInfo, setProjectInfo] = useState<[]>([]);
+  const [photoIndex, setPhotoIndex] = useState(-1);
+  const [isOpen, setIsOpen] = useState(false);
 
   const project = useAxios<any>({
     url: id != null ? `${APIURL}/project-nr?id=${id}` : null,
@@ -37,49 +36,64 @@ export default function ProjectPage() {
     },
   });
 
-  console.log("projectInfo", projectInfo);
+  useEffect(() => {
+    console.log("photoIndex updated:", photoIndex);
+    const sourceImage =
+      photoIndex >= 0 && `${APIURL}${restOfImages[photoIndex].source}`;
+    console.log("sourceImage", sourceImage);
+  }, [photoIndex, restOfImages]);
 
-  // console.log(    "restOfImages",    restOfImages != undefined      ? restOfImages.map((img) => APIURL + img.source)      : undefined  );
+  useEffect(() => {
+    if (isOpen && photoIndex >= 0) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isOpen, photoIndex]);
 
-  {
-    /* Tools and Packages array */
-  }
-  const tools =
-    projectInfo != undefined ? projectInfo.tools.split(", ") : undefined;
-  if (project == null) return <p>Loading</p>;
-  const packages =
-    projectInfo.packages != null ? projectInfo.packages.split(", ") : undefined;
+  const handleClick = (event: React.MouseEvent<HTMLImageElement>) => {
+    const index = event.currentTarget.dataset.index;
+    console.log("index", index);
+    setPhotoIndex(index);
+    console.log("photoIndex", photoIndex);
+    setIsOpen(true);
+  };
 
-  const currentImage =
-    restOfImages != undefined ? restOfImages[index] : undefined;
-  console.log("current Image", currentImage);
+  const handleClose = () => {
+    setPhotoIndex(-1);
+    setIsOpen(false);
+  };
 
   const nextIndex =
-    restOfImages != undefined ? (index + 1) % restOfImages.length : undefined;
-
-  const nextImage =
     restOfImages != undefined
-      ? restOfImages[nextIndex] || currentImage
+      ? () => {
+          setPhotoIndex((photoIndex + 1) % restOfImages.length);
+        }
       : undefined;
 
   const prevIndex =
     restOfImages != undefined
-      ? (index + restOfImages.length - 1) % restOfImages.length
+      ? () => {
+          setPhotoIndex(
+            (photoIndex + restOfImages.length - 1) % restOfImages.length
+          );
+        }
       : undefined;
 
-  const prevImage =
-    restOfImages != undefined
-      ? restOfImages[prevIndex] || currentImage
+  {
+    /* Tools and Packages array */
+  }
+  if (project == null) return <p>Loading</p>;
+
+  const tools =
+    projectInfo != null && projectInfo.tools != null
+      ? projectInfo.tools.split(", ")
       : undefined;
 
-  const handleClick = (index: number, item: typeof restOfImages) => {
-    setIndex(index);
-  };
-  console.log("index", index);
-  console.log("restOfImages", restOfImages);
-  const handleClose = () => setIndex(-1);
-  const handleMovePrev = () => setIndex(prevIndex);
-  const handleMoveNext = () => setIndex(nextIndex);
+  const packages =
+    projectInfo != null && projectInfo.packages != null
+      ? projectInfo.packages.split(", ")
+      : undefined;
 
   return (
     <section id={styles.ProjectID}>
@@ -88,20 +102,44 @@ export default function ProjectPage() {
           <h1 className={"title self-center"}>{projectInfo.aka}</h1>
           <div className="flex flex-col gap-10">
             <div className={styles.projectSlider}>
-              {restOfImages != null
-                ? restOfImages
-                    .slice(0, 7)
-                    .map((image, index) => (
-                      <Image
-                        src={`${APIURL}${image.source}`}
-                        alt=""
-                        width={1000}
-                        height={1000}
-                        onClick={handleClick}
-                        key={index}
+              {restOfImages != null && (
+                <>
+                  {restOfImages.slice(0, 7).map((image, index) => (
+                    <Image
+                      src={`${APIURL}${image.source}`}
+                      alt=""
+                      width={1000}
+                      height={1000}
+                      onClick={handleClick}
+                      data-index={index} // Add data-index attribute
+                      key={index}
+                    />
+                  ))}
+                  {isOpen &&
+                    photoIndex >= 0 &&
+                    restOfImages &&
+                    restOfImages.length > 0 &&
+                    restOfImages[photoIndex] &&
+                    restOfImages[photoIndex].source && (
+                      <Lightbox
+                        mainSrc={`${APIURL}${restOfImages[photoIndex].source}`}
+                        nextSrc={`${APIURL}${
+                          restOfImages[(photoIndex + 1) % restOfImages.length]
+                            .source
+                        }`}
+                        prevSrc={`${APIURL}${
+                          restOfImages[
+                            (photoIndex + restOfImages?.length - 1) %
+                              restOfImages?.length
+                          ].source
+                        }`}
+                        onCloseRequest={() => setIsOpen(false)}
+                        onMovePrevRequest={prevIndex}
+                        onMoveNextRequest={nextIndex}
                       />
-                    ))
-                : null}
+                    )}
+                </>
+              )}
             </div>
 
             <article className="flex flex-col px-10 gap-5">
@@ -156,7 +194,7 @@ export default function ProjectPage() {
       </div>
 
       <Link href={"/#Projects"} className={styles.back}>
-        <Image src={back} width={50} alt={"go-back"} />
+        <Image src={back} width={25} alt={"go-back"} />
       </Link>
     </section>
   );

@@ -33,7 +33,7 @@ html {
 body {
   scrollbar-color: #bfc0ce;
   color: var(--titlecolor);
-  background: var(--background);
+  background-color: var(--background);
   display: block;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -125,11 +125,17 @@ section {
   padding: 2rem;
   width: 100svw;
   padding: 3rem 10rem;
+  background-color: var(--background);
 }
 
-.sectionAlt {
+.sectionBg1 {
+  background-color: var(--background);
+}
+
+.sectionBg2 {
   background-color: var(--titlecolor);
 }
+
 article {
   width: 100%;
 }
@@ -201,16 +207,16 @@ label {
 }
 
 .titleAlt {
-  color: var(--background1);
+  color: var(--background);
   align-self: flex-start;
 }
 
 .subtitleAlt {
-  color: var(--background1);
+  color: var(--background);
 }
 
 .paragraphAlt {
-  color: var(--background1);
+  color: var(--background);
 }
 
 .pTilePosition {
@@ -251,10 +257,6 @@ label {
   height: 75%;
 }
 
-.swiper-slide {
-  /* Center slide text vertically */
-}
-
 .swiper-slide img {
   display: block;
   object-fit: cover;
@@ -270,6 +272,19 @@ label {
 .swiper-button-prev:after {
   font-size: 80px !important;
   color: var(--background1);
+}
+
+.hamburger-react,
+.hamburger-react div {
+  transition: all 0.4s ease-in-out, color 0.05s ease-in-out !important;
+}
+
+.hamburger-react.dark {
+  color: var(--background);
+}
+
+.hamburger-react.light {
+  color: var(--titlecolor);
 }
 
 @media (max-width: 500px) {
