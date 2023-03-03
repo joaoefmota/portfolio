@@ -49,7 +49,7 @@ MainRouter.delete("/api/project-nr/", deleteProjectById);
 const uploadMain = multer({ dest: "src/images/projects/proj_container/" });
 MainRouter.post(
   "/api/projects/uploadMain",
-  uploadMain.single("uploaded_file"), // rename the "field name" on the PostMan to avatar or whatever we want or the upload fails
+  // rename the "field name" on the PostMan to avatar or whatever we want or the upload fails
   uploadMainImage
 );
 

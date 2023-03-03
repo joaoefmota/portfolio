@@ -1,59 +1,66 @@
 import database from "../database";
-import { OkPacket, FieldPacket } from "mysql2";
+import { OkPacket } from "mysql2";
 import { Request, Response } from "express";
 const fs = require("fs"); // to rename files, for example
 
+const ADMIN = process.env.ADMIN;
+
+interface AuthenticatedRequest extends Request {
+  payload: {
+    sub: string;
+  };
+}
+
 const dataError = "Error retrieving data from the database";
 
-export const getAllProjects = (req: Request, res: Response) => {
-  database
-    .query("SELECT * FROM projects")
-    .then((result) => {
-      res.status(200).json(result[0]);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send(dataError);
-    });
+export const getAllProjects = async (req: Request, res: Response) => {
+  try {
+    const [query] = await database.query("SELECT * FROM projects");
+    res.status(200).json(query);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(dataError);
+  }
 };
 
-export const getProjectByName = (
+export const getProjectByName = async (
   req: TypedRequestQuery<{ name: string }>,
   res: Response
 ) => {
   const { name } = req.query;
-  database
-    .query("SELECT * FROM projects WHERE name=?", [name])
-    .then((result) => {
-      res.status(200).json(result[0]);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send(dataError);
-    });
+  try {
+    const [query] = await database.query(
+      "SELECT * FROM projects WHERE name=?",
+      [name]
+    );
+    res.status(200).json(query);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(dataError);
+  }
 };
 
-export const getProjectById = (
+export const getProjectById = async (
   req: TypedRequestQuery<{ id: number }>,
   res: Response
 ) => {
   const id = req.query.id;
-  database
-    .query("SELECT * FROM projects WHERE id=?", [id])
-    .then((result) => {
-      if (result[0] != null) {
-        res.status(200).json(result[0]);
-      } else {
-        res.status(404).send("Project not found");
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send(dataError);
-    });
+  try {
+    const [query] = await database.query("SELECT * FROM projects WHERE id=?", [
+      id,
+    ]);
+    if (query != null) {
+      res.status(200).json(query);
+    } else {
+      res.status(404).send("Project not found");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(dataError);
+  }
 };
 
-export const postProject = (req: Request, res: Response) => {
+export const postProject = async (req: Request, res: Response) => {
   const {
     name,
     image_id,
@@ -68,8 +75,9 @@ export const postProject = (req: Request, res: Response) => {
     lg_content2,
     project_id,
   } = req.body;
-  database
-    .query<OkPacket>(
+
+  try {
+    const [query] = await database.query<OkPacket>(
       "INSERT INTO projects (name, image_id, content, tools, link, packages, github, subTitle, lg_content1, aka, lg_content2, project_id) VALUES  (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         name,
@@ -85,38 +93,45 @@ export const postProject = (req: Request, res: Response) => {
         lg_content2,
         project_id,
       ]
-    )
-    .then((result: [OkPacket, FieldPacket[]]) => {
-      const insertId: number = result[0].insertId;
-      res.location(`./api/projects/${insertId}`).sendStatus(201);
-      fs.mkdirSync(`src/images/projects/${name}`);
-    })
-    .catch((err) => {
-      if ((err.code = "ERR_DUP_ENTRY")) {
-        res.status(500).send(`The project with email: ${name} already exists`);
-      } else {
-        console.log(err);
-        res.status(500).send("Error updating projects database");
-      }
-    });
+    );
+    const insertId: number = query.insertId;
+    res.location(`./api/projects/${insertId}`).sendStatus(201);
+    fs.mkdirSync(`src/images/projects/${name}`);
+  } catch (err: any) {
+    if ((err.code = "ERR_DUP_ENTRY")) {
+      res.status(500).send(`The project with email: ${name} already exists`);
+    } else {
+      console.log(err);
+      res.status(500).send(dataError);
+    }
+  }
 };
 
-export const deleteProjectById = (
-  req: TypedRequestQuery<{ name: string; project_id: number }>,
+export const deleteProjectById = async (
+  req: Request | TypedRequestQuery<{ name: string; project_id: number }>,
   res: Response
 ) => {
   const id = req.query.project_id;
-  database
-    .query("DELETE FROM projects WHERE id=?", [id])
-    .then((result) => {
-      if (result[0] != null) {
-        res.status(200).json(result[0]);
-      } else {
-        res.status(404).send("Project not found");
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send(dataError);
-    });
+  const payloadSub: string = (req as AuthenticatedRequest).payload.sub;
+  console.log("reqPayload", payloadSub);
+
+  if (payloadSub !== ADMIN) {
+    res.status(403).send("Forbidden");
+    return;
+  }
+
+  try {
+    const [query] = await database.query("DELETE FROM projects WHERE project_id=?", [
+      id,
+    ]);
+    const result = query as OkPacket;
+    if (result.affectedRows === 0) {
+      res.status(404).send("Not found");
+    } else {
+      res.status(204).send("Project deleted");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(dataError);
+  }
 };

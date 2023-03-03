@@ -2,34 +2,38 @@ import { Request, Response } from "express";
 import database from "../database";
 import { RowDataPacket } from "mysql2";
 
-export const dashboard = (req: Request, res: Response) => {
-  const username = req.payload.sub;
+interface AuthenticatedRequest extends Request {
+  payload: {
+    sub: string;
+  };
+}
+
+export const dashboard = async (req: Request, res: Response) => {
+  const payloadSub: string = (req as AuthenticatedRequest).payload.sub;
+  const username = payloadSub;
   // console.log("Username Payload", username);
+  try {
+    const [query] = await database.query<RowDataPacket[]>(
+      "SELECT * FROM users WHERE username = ?",
+      [username]
+    );
+    if (!query) {
+      res.status(404).send("User not found");
+      return;
+    }
 
-  database
-    .query<RowDataPacket[]>("SELECT * FROM users WHERE username = ?", [
-      username,
-    ])
-    .then(([data]) => {
-      if (!data) {
-        res.status(404).send("User not found");
-
-        return;
-      }
-
-      const [user] = data;
-      console.log("USER", user);
-      res.status(200).send({
-        accountName: user.username,
-        email: user.email,
-        user_id: user.user_id,
-        hashedPassword: user.hashedPassword,
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("No data was received");
+    const [user] = query;
+    console.log("USER", user);
+    res.status(200).send({
+      accountName: user.username,
+      email: user.email,
+      user_id: user.user_id,
+      hashedPassword: user.hashedPassword,
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("No data was received");
+  }
 };
 
 {

@@ -14,7 +14,7 @@ export const getImages = (
   const { project } = req.query;
   database
     .query<ImageCountainer[]>(
-      "SELECT i.src AS source, i.id AS id FROM images AS i INNER JOIN projects AS p ON i.project_id=p.id WHERE p.name=?",
+      "SELECT i.src AS source, i.id AS id FROM images AS i INNER JOIN projects AS p ON i.project_id=p.project_id WHERE p.name=?",
       [project]
     )
     .then((result) => {

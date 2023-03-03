@@ -160,27 +160,29 @@ export const loginUser = async (req: Request, res: Response) => {
     });
 };
 
-export const getUserById = (
+export const getUserById = async (
   req: TypedRequestQuery<{ user_id: number }>,
   res: Response
 ) => {
   const id = req.query.user_id;
-  database
-    .query("SELECT * FROM users WHERE user_id=?", [id])
-    .then((result) => {
-      if (result[0] != null) {
-        res.status(200).json(result[0]);
-      } else {
-        res.status(404).send("Project not found");
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send(err);
-    });
+
+  try {
+    const [query] = await database.query(
+      "SELECT * FROM users WHERE user_id=?",
+      [id]
+    );
+    if (query != null) {
+      res.status(200).json(query);
+    } else {
+      res.status(404).send("Project not found");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
 };
 
-export const deleteUserById = (
+export const deleteUserById = async (
   req: Request | TypedRequestQuery<{ username: string; user_id: number }>,
   res: Response
 ) => {
@@ -192,18 +194,18 @@ export const deleteUserById = (
     res.status(403).send("Forbidden");
     return;
   }
-
-  database
-    .query("DELETE FROM users WHERE user_id=?", [id])
-    .then(([result]: any) => {
-      if (result.affectedRows === 0) {
-        res.status(404).send("Not found");
-      } else {
-        res.status(204).send("User deleted");
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send(err);
-    });
+  try {
+    const [query] = await database.query("DELETE FROM users WHERE user_id=?", [
+      id,
+    ]);
+    const result = query as OkPacket;
+    if (result.affectedRows === 0) {
+      res.status(404).send("Not found");
+    } else {
+      res.status(204).send("User deleted");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
 };

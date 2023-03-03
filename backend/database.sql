@@ -106,4 +106,4 @@ USE portfolio;
     SELECT i.src AS source, p.name AS name FROM images AS i INNER JOIN projects AS p ON i.project_id=p.id WHERE p.name="wildjournal";
 SELECT i.src AS source FROM images AS i INNER JOIN projects AS p ON i.project_id=p.id WHERE p.name="wildjournal" AND i.image_id=1;
 
-SELECT project_id FROM projects WHERE name = "skyhub";
+SELECT name, project_id FROM projects WHERE name = "test1";
