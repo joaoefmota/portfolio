@@ -1,4 +1,5 @@
 @import "./variables";
+@import "./lightbox";
 
 .Projects {
   z-index: 3;
@@ -8,10 +9,16 @@
   align-items: center;
   height: $vh;
   width: $vw;
+  opacity: 0;
+}
+
+.swiperContainer {
+  width: 100%;
+  height: 100%;
+  padding: 5rem 10rem;
 }
 
 #ProjectID {
-  
   padding: 6rem 16rem;
 }
 
@@ -30,8 +37,35 @@
   }
 }
 
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  & img {
+    opacity: 0.9;
+  }
+  & img:hover {
+    opacity: 1;
+  }
+  img {
+    height: fit-content;
+    width: fit-content;
+  }
+}
+
+.title {
+  font-size: clamp(2rem, 4vw + 0.5rem, 20rem);
+  margin-bottom: 1.5rem;
+  transition: all ease 0.5s;
+  &:hover {
+    color: $subtitlecolor;
+  }
+}
+
 .subtitle {
-  font-size: clamp(1rem, 2vw + 1rem, 15rem);
+  font-size: clamp(1rem, 2vw + 0.5rem, 15rem);
+  color: $text;
+  font-weight: 700;
 }
 
 .github {
@@ -50,7 +84,7 @@
   border-radius: 100%;
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1.8rem 1.8rem;
-  transition: all ease 0.2s;
+  transition: all ease 0.5s;
   &:hover {
     transform: scale(1.05);
   }
@@ -61,11 +95,10 @@
   left: 3%;
   top: 3%;
   border-radius: 100%;
-  border: 1px solid rgba(29, 28, 29, 0.2);
+  border: 1px solid rgba(29, 28, 29, 0.05);
   padding: 1rem 1rem;
   margin: 0 0.1rem;
-  background-color: rgb(108, 104, 109, 0.5);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .back:hover {
@@ -75,68 +108,14 @@
 .back img {
   width: 2.5rem;
   height: 2.5rem;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  opacity: 0.6;
 }
 
 .back:hover img {
   transform: scale(1.1);
-  content: url("../assets/images/back_dark.png");
-}
-
-.lightbox {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-  z-index: 999;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.lightbox img {
-  max-width: 90%;
-  max-height: 80%;
-  position: relative;
-  top: -100%;
-  /* Transition */
-  transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -ms-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  -webkit-transition: all 1s ease;
-}
-
-.lightbox:target {
-  outline: none;
-  top: 0;
+  // content: url("../assets/images/back_light.png");
   opacity: 1;
-  pointer-events: auto;
-  transition: all 1.2s ease;
-  -moz-transition: all 1.2s ease;
-  -ms-transition: all 1.2s ease;
-  -o-transition: all 1.2s ease;
-  -webkit-transition: all 1.2s ease;
-}
-
-.lightbox:target img {
-  top: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-}
-
-.transition {
-  transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -ms-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  -webkit-transition: all 1s ease;
 }
 
 @media (max-width: 700px) {
@@ -151,5 +130,11 @@
   #ProjectID {
     padding: 1rem 1rem;
     padding-top: 5rem;
+  }
+
+  .swiperContainer {
+    width: 100%;
+    height: 100%;
+    padding: 4rem 0.5rem;
   }
 }

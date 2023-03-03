@@ -23,7 +23,7 @@ export default function NavBar() {
     const html = document.querySelector("html");
     setisOpen(!isOpen);
     const hamburger = document.getElementsByClassName("hamburger-react");
-    console.log("Hamburger", hamburger);
+    // console.log("Hamburger", hamburger);
     if (!isOpen) {
       html.style.overflow = "hidden";
     } else {
@@ -69,7 +69,6 @@ export default function NavBar() {
   useEffect(() => {
     function checkBackgroundColor() {
       let currentSection = null;
-
       // Loop through all the sections and determine the current section
       $(".sectionBg1, .sectionBg2").each(function () {
         const sectionTop = $(this).offset()?.top;
@@ -83,14 +82,14 @@ export default function NavBar() {
           return false; // Exit the loop
         }
       });
-      console.log("currentSEction", currentSection);
+      // console.log("currentSEction", currentSection);
       // Get the background color of the current section
       const backgroundColor = $(currentSection).css("background-color");
-      console.log("backgroundColor", backgroundColor);
+      // console.log("backgroundColor", backgroundColor);
 
       // Determine if the background color is light or dark
       const isLight = tinycolor(backgroundColor).isLight();
-      console.log("isLight", isLight);
+      // console.log("isLight", isLight);
       const colorClass = isLight ? "light" : "dark";
 
       // Update the hamburger menu's class

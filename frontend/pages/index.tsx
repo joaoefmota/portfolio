@@ -6,7 +6,6 @@ import Projects from "./projects/Projects";
 import Contact_Me from "./contacts/Contact_Me";
 import Playground from "./playground/Playground";
 import Footer from "./components/Footer";
-import Clickables from "./components/Clickables";
 
 export default function LandingPage() {
   return (
@@ -22,21 +21,52 @@ export default function LandingPage() {
           <NavBar />
         </header>
         <main tabIndex={-1}>
-          <Home /> <About_Me />
+          <Home />
+          <About_Me />
           <Projects />
           <Playground />
           <Contact_Me />
         </main>
-        <footer>
-          <Footer />
-        </footer>
+        <Footer />
       </div>
     </>
   );
 }
 
 {
-  /* 
+  /*
+  const [scrollPosition, setScrollPosition] = useState({ x: 0, y: 0 });
 
+  const handleWheel = (event) => {
+    const deltaY = event.deltaY;
+    const sectionIndex =
+      deltaY > 0
+        ? Math.ceil(window.scrollY / window.innerHeight)
+        : Math.floor(window.scrollY / window.innerHeight);
+    const sections = document.querySelectorAll("section");
+    const section = sections[sectionIndex];
+    console.log(section.offsetTop, section.clientHeight);
+    if (section) {
+      const yPosition =
+        section.offsetTop + section.clientHeight / 2 - window.innerHeight / 2;
+      setScrollPosition({ x: window.scrollX, yPosition });
+      window.scrollTo({ top: yPosition, behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, []);
+
+  console.log("scrollPosition", scrollPosition);
+
+
+        <div
+        className="cursor"
+        style={{
+          transform: `translate(${scrollPosition.x}px, ${scrollPosition.y}px)`,
+        }}
+      />
 */
 }

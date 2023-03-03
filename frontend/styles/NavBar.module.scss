@@ -17,6 +17,12 @@
   & a {
     animation: fadeIn 1s;
   }
+  & li {
+    transition: all ease 0.5s;
+  }
+  & li:hover{
+    transform: scale(1.03);
+  }
 }
 
 #burger {

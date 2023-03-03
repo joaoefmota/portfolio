@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import argon2 = require("argon2");
 import jwt from "jsonwebtoken";
 
-const verifyPassword = (req: Request, res: Response) => {
+export const verifyPassword = (req: Request, res: Response) => {
   argon2
     .verify(req.user.hashedPassword, req.body.password)
     .then((isVerified) => {

@@ -1,4 +1,5 @@
 @import "./variables";
+@import "./mixin";
 
 .About {
   z-index: 3;
@@ -6,9 +7,9 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: fit-content;
   height: $vh;
   width: $vw;
+  opacity: 0;
 }
 
 .pic {

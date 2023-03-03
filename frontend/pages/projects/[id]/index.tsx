@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
-import back from "@/assets/images/back_light.png";
+import back from "@/assets/images/back_dark.png";
 import styles from "@/styles/projects.module.scss";
 
 export default function ProjectPage() {
@@ -22,7 +22,7 @@ export default function ProjectPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   const project = useAxios<any>({
-    url: id != null ? `${APIURL}/project-nr?id=${id}` : null,
+    url: id != null ? `${APIURL}/api/project-nr?id=${id}` : null,
     initialValue: undefined,
     transform: ([project]) => {
       if (project == null) return undefined;
@@ -30,7 +30,7 @@ export default function ProjectPage() {
       return axios
         .get(`${APIURL}/images/?project=${project.name}`)
         .then((result) => {
-          // console.log("Result.data", result.data);
+          console.log("Result.data", result.data);
           setRestOfImages(result.data);
         });
     },
@@ -99,22 +99,32 @@ export default function ProjectPage() {
     <section id={styles.ProjectID}>
       <div className={`${"mainBlock"}`} key={project.id}>
         <div className="flex flex-col items-left">
-          <h1 className={"title self-center"}>{projectInfo.aka}</h1>
+          <Link
+            href={projectInfo.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="self-center"
+          >
+            <h1 className={styles.title}>{projectInfo.aka}</h1>
+          </Link>
           <div className="flex flex-col gap-10">
-            <div className={styles.projectSlider}>
+            <div className={styles.galleryGrid}>
               {restOfImages != null && (
                 <>
-                  {restOfImages.slice(0, 7).map((image, index) => (
-                    <Image
-                      src={`${APIURL}${image.source}`}
-                      alt=""
-                      width={1000}
-                      height={1000}
-                      onClick={handleClick}
-                      data-index={index} // Add data-index attribute
-                      key={index}
-                    />
-                  ))}
+                  {restOfImages
+                    .filter((image) => image.source.includes("img"))
+                    .map((image, index) => (
+                      <Image
+                        src={`${APIURL}${image.source}`}
+                        alt=""
+                        width={1000}
+                        height={1000}
+                        onClick={handleClick}
+                        data-index={index} // Add data-index attribute
+                        key={index}
+                        className="rounded cursor-pointer "
+                      />
+                    ))}
                   {isOpen &&
                     photoIndex >= 0 &&
                     restOfImages &&
@@ -133,7 +143,7 @@ export default function ProjectPage() {
                               restOfImages?.length
                           ].source
                         }`}
-                        onCloseRequest={() => setIsOpen(false)}
+                        onCloseRequest={handleClose}
                         onMovePrevRequest={prevIndex}
                         onMoveNextRequest={nextIndex}
                       />
@@ -143,13 +153,15 @@ export default function ProjectPage() {
             </div>
 
             <article className="flex flex-col px-10 gap-5">
-              <Link href={projectInfo.link}>
-                <h2 className={styles.subtitle}>{projectInfo.subTitle}</h2>
-              </Link>
-              <p className="text-left text-paragraph text-xl paragraph">
+              <h2 className={styles.subtitle}>{projectInfo.subTitle}</h2>
+              <p className="text-left text-xl paragraph mb-5">
                 {projectInfo.content}
               </p>
-              <p className="paragraph">{projectInfo.lg_content}</p>
+              <div className="flex flex-col gap-5">
+                <p className="paragraph">{projectInfo.lg_content1}</p>
+                <p className="paragraph">{projectInfo.lg_content2}</p>
+              </div>
+
               <div className="flex flex-row gap-3 mt-3 w-3/4">
                 <div className="flex flex-col w-1/2 gap-2">
                   <h2 className="text-4xl">Tools</h2>

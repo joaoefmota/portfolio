@@ -1,0 +1,34 @@
+@import "./variables";
+
+.findMe {
+  font-size: clamp(1rem, 1vw + 1rem, 15rem);
+  color: $background;
+}
+
+.designedBy {
+  color: $background;
+}
+
+.quote,
+.author {
+  color: $background;
+  font-size: clamp(0.5rem, 0.5vw + 0.8rem, 10rem);
+}
+
+.quote {
+  font-style: italic;
+}
+
+.author {
+  text-align: end;
+  font-weight: 800;
+}
+
+.getQuotes {
+  background-color: $span2;
+  color: $titlecolor;
+  &:hover {
+    background-color: $background;
+    color: $titlecolor;
+  }
+}

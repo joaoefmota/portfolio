@@ -1,14 +1,26 @@
 import { Request, Response } from "express";
 import database from "../database";
 import argon2 = require("argon2");
-import { OkPacket, RowDataPacket } from "mysql2";
+import { OkPacket, RowDataPacket, FieldPacket } from "mysql2";
 import jwt from "jsonwebtoken";
-import { hash } from "argon2";
+
+const ADMIN = process.env.ADMIN;
+
+interface AuthenticatedRequest extends Request {
+  payload: {
+    sub: string;
+  };
+}
 
 export const createUser = async (req: Request, res: Response) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, user_id } = req.body;
 
-  if (email == null || username == null || password == null) {
+  if (
+    email == null ||
+    username == null ||
+    password == null ||
+    user_id === null
+  ) {
     return res.status(401).send({ error: "Incorrect credentials" });
   }
 
@@ -46,6 +58,24 @@ export const createUser = async (req: Request, res: Response) => {
     return res.status(400).send({ error: "User already exists" });
   }
 
+  const user_idExists = await database
+    .query<RowDataPacket[]>("SELECT email FROM users WHERE user_id = ?", [
+      user_id,
+    ])
+    .then(([rows]) => {
+      if (rows.length > 0) {
+        return true;
+      }
+      return false;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  if (user_idExists) {
+    return res.status(400).send({ error: "User_id already exists" });
+  }
+
   const hashingOptions = {
     type: argon2.argon2d,
     memoryCost: 2 ** 16,
@@ -66,15 +96,16 @@ export const createUser = async (req: Request, res: Response) => {
       console.error(error);
     });
 
-  console.log("hashedPassword", hashedPassword); //WTF????
+  // console.log("hashedPassword", hashedPassword); //WTF????
 
   const result = await database
     .query<OkPacket>(
-      "INSERT INTO users (email, username, hashedPassword) VALUES (?, ?, ?)",
-      [email, username, req.body.hashedPassword]
+      "INSERT INTO users (email, username, hashedPassword, user_id) VALUES (?, ?, ?, ?)",
+      [email, username, req.body.hashedPassword, user_id]
     )
-    .then((result) => {
-      res.location(`./api/users/${result.insertId}`).sendStatus(201);
+    .then((result: [OkPacket, FieldPacket[]]) => {
+      const insertId: number = result[0].insertId;
+      res.location(`./api/users/${insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -87,7 +118,7 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const loginUser = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { username, password, user_id } = req.body;
 
   if (!username || !password) {
     res.status(403).send("Incomplete credentials");
@@ -112,7 +143,7 @@ export const loginUser = async (req: Request, res: Response) => {
     .verify(user.hashedPassword, password)
     .then((isCorrect: any) => {
       if (isCorrect) {
-        const payload = { sub: user.username };
+        const payload: { sub: string } = { sub: user.username };
         const token = jwt.sign(payload, process.env.JWT_SECRET!, {
           expiresIn: "1h",
         });
@@ -120,11 +151,59 @@ export const loginUser = async (req: Request, res: Response) => {
         res.json({ token, user });
         return;
       } else {
-        res.sendStatus(401);
+        res.status(401).json({ error: "Invalid credentials" });
       }
     })
     .catch((err: string) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Server error. Unable to process request.");
+    });
+};
+
+export const getUserById = (
+  req: TypedRequestQuery<{ user_id: number }>,
+  res: Response
+) => {
+  const id = req.query.user_id;
+  database
+    .query("SELECT * FROM users WHERE user_id=?", [id])
+    .then((result) => {
+      if (result[0] != null) {
+        res.status(200).json(result[0]);
+      } else {
+        res.status(404).send("Project not found");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err);
+    });
+};
+
+export const deleteUserById = (
+  req: Request | TypedRequestQuery<{ username: string; user_id: number }>,
+  res: Response
+) => {
+  const id = req.query.user_id;
+  const payloadSub: string = (req as AuthenticatedRequest).payload.sub;
+  console.log("reqPayload", payloadSub);
+
+  if (payloadSub !== ADMIN) {
+    res.status(403).send("Forbidden");
+    return;
+  }
+
+  database
+    .query("DELETE FROM users WHERE user_id=?", [id])
+    .then(([result]: any) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not found");
+      } else {
+        res.status(204).send("User deleted");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err);
     });
 };

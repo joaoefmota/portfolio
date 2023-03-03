@@ -1,7 +1,8 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import styles from "@/styles/contact.module.scss";
 import axios from "axios";
 import Link from "next/link";
+import useFadeIn from "../hooks/useFadeIn";
 
 function Contact_Me() {
   const [data, setData] = useState({
@@ -13,6 +14,14 @@ function Contact_Me() {
 
   const [isSubmitted, setIsSubmited] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>();
+
+  const { componentRef, isVisible } = useFadeIn(0.25);
+
+  const contactRef = useRef(null);
+
+  useEffect(() => {
+    componentRef.current = contactRef.current;
+  }, [componentRef, contactRef]);
 
   const handleInputFields = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -59,7 +68,13 @@ function Contact_Me() {
 
   return (
     <>
-      <section id={"Contact"} className={`${styles.Contact} ${"sectionBg1"}`}>
+      <section
+        id={"Contact"}
+        className={`${styles.Contact} ${"sectionBg1"} ${
+          isVisible ? "fade-in " : ""
+        }`}
+        ref={contactRef}
+      >
         <h1 className={"title self-start"}>04: Contact</h1>
         <p className="paragraph">
           Do you have a question or a proposal at hand? Maybe just drop by to
@@ -68,7 +83,7 @@ function Contact_Me() {
         <div
           className={`${"flex flex-col justify-center w-full justify-between"}`}
         >
-          <form className="flex flex-row sm:flex-wrap gap-5 w-full">
+          <form className="flex flex-row sm:flex-wrap gap-5 h-full w-full mt-16 mb-16">
             <div className="w-1/2 sm:w-full">
               <div className={styles.firstName}>
                 <label htmlFor="first-name">First name*</label>
