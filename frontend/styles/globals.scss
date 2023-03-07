@@ -288,6 +288,28 @@ label {
   color: var(--titlecolor);
 }
 
+.ril-image-current {
+  transform: none !important;
+}
+
+.react-photo-gallery--gallery div {
+  display: grid !important;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  & img {
+    cursor: pointer;
+  }
+  & img:hover {
+    opacity: 0.5;
+  }
+}
+
+.slider-wrapper {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+}
+
 /*
 
 @keyframes fade-in {

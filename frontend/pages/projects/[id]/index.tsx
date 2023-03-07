@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
+import Gallery from "react-photo-gallery";
+import Carousel, { Modal, ModalGateway } from "react-images";
+// import Carousel from "react-responsive-carousel";
 
 import back from "@/assets/images/back_dark.png";
 import styles from "@/styles/projects.module.scss";
@@ -18,8 +19,9 @@ export default function ProjectPage() {
   const APIURL = "http://localhost:5005";
   const [restOfImages, setRestOfImages] = useState<[]>([]);
   const [projectInfo, setProjectInfo] = useState<[]>([]);
-  const [photoIndex, setPhotoIndex] = useState(-1);
-  const [isOpen, setIsOpen] = useState(false);
+
+  const [photoIndex, setPhotoIndex] = useState<number>(0);
+  const [lightBoxIsOpen, setLightBoxisOpen] = useState(false);
 
   const project = useAxios<any>({
     url: id != null ? `${APIURL}/api/project-nr?id=${id}` : null,
@@ -30,55 +32,48 @@ export default function ProjectPage() {
       return axios
         .get(`${APIURL}/images/?project=${project.name}`)
         .then((result) => {
-          console.log("Result.data", result.data);
-          setRestOfImages(result.data);
+          console.log(
+            "Result.data",
+            result.data.filter((image: { source: string | string[] }) =>
+              image.source.includes(`img`)
+            )
+          );
+          setRestOfImages(
+            result.data.filter((image: { source: string | string[] }) =>
+              image.source.includes(`img`)
+            )
+          );
         });
     },
   });
 
-  useEffect(() => {
-    console.log("photoIndex updated:", photoIndex);
-    const sourceImage =
-      photoIndex >= 0 && `${APIURL}${restOfImages[photoIndex].source}`;
-    console.log("sourceImage", sourceImage);
-  }, [photoIndex, restOfImages]);
+  const validImages = restOfImages.filter((image) =>
+    image.source.includes("img")
+  );
 
-  useEffect(() => {
-    if (isOpen && photoIndex >= 0) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  }, [isOpen, photoIndex]);
+  const photos = validImages.map((image) => ({
+    src: `${APIURL}${image.source}`,
+    width: 500,
+    height: 500,
+  }));
 
-  const handleClick = (event: React.MouseEvent<HTMLImageElement>) => {
-    const index = event.currentTarget.dataset.index;
-    console.log("index", index);
-    setPhotoIndex(index);
-    console.log("photoIndex", photoIndex);
-    setIsOpen(true);
+  console.log("photos", photos);
+  console.log("photoIndex", photoIndex);
+  /* 
+   const nextIndex = () => {
+    restOfImages && setPhotoIndex((photoIndex + 1) % restOfImages.length);
+    console.log("nextIndex Function called", photoIndex);
   };
 
-  const handleClose = () => {
-    setPhotoIndex(-1);
-    setIsOpen(false);
+  const prevIndex = () => {
+    restOfImages &&
+      setPhotoIndex(
+        (photoIndex + restOfImages.length - 1) % restOfImages.length
+      );
+    console.log("prevIndex Function called", photoIndex);
   };
 
-  const nextIndex =
-    restOfImages != undefined
-      ? () => {
-          setPhotoIndex((photoIndex + 1) % restOfImages.length);
-        }
-      : undefined;
-
-  const prevIndex =
-    restOfImages != undefined
-      ? () => {
-          setPhotoIndex(
-            (photoIndex + restOfImages.length - 1) % restOfImages.length
-          );
-        }
-      : undefined;
+  */
 
   {
     /* Tools and Packages array */
@@ -108,49 +103,31 @@ export default function ProjectPage() {
             <h1 className={styles.title}>{projectInfo.aka}</h1>
           </Link>
           <div className="flex flex-col gap-10">
-            <div className={styles.galleryGrid}>
-              {restOfImages != null && (
-                <>
-                  {restOfImages
-                    .filter((image) => image.source.includes("img"))
-                    .map((image, index) => (
-                      <Image
-                        src={`${APIURL}${image.source}`}
-                        alt=""
-                        width={1000}
-                        height={1000}
-                        onClick={handleClick}
-                        data-index={index} // Add data-index attribute
-                        key={index}
-                        className="rounded cursor-pointer "
-                      />
-                    ))}
-                  {isOpen &&
-                    photoIndex >= 0 &&
-                    restOfImages &&
-                    restOfImages.length > 0 &&
-                    restOfImages[photoIndex] &&
-                    restOfImages[photoIndex].source && (
-                      <Lightbox
-                        mainSrc={`${APIURL}${restOfImages[photoIndex].source}`}
-                        nextSrc={`${APIURL}${
-                          restOfImages[(photoIndex + 1) % restOfImages.length]
-                            .source
-                        }`}
-                        prevSrc={`${APIURL}${
-                          restOfImages[
-                            (photoIndex + restOfImages?.length - 1) %
-                              restOfImages?.length
-                          ].source
-                        }`}
-                        onCloseRequest={handleClose}
-                        onMovePrevRequest={prevIndex}
-                        onMoveNextRequest={nextIndex}
-                      />
-                    )}
-                </>
+            <Gallery
+              photos={photos}
+              onClick={(event, obj) => {
+                setPhotoIndex(obj.index);
+                setLightBoxisOpen(true);
+              }}
+            />
+            <ModalGateway>
+              {lightBoxIsOpen && (
+                <Modal
+                  onClose={() => {
+                    setPhotoIndex(0);
+                    setLightBoxisOpen(false);
+                  }}
+                >
+                  <Carousel
+                    currentIndex={photoIndex}
+                    views={photos.map((x) => ({
+                      ...x,
+                      srcset: x.src,
+                    }))}
+                  />
+                </Modal>
               )}
-            </div>
+            </ModalGateway>
 
             <article className="flex flex-col px-10 gap-5">
               <h2 className={styles.subtitle}>{projectInfo.subTitle}</h2>

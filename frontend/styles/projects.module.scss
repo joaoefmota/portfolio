@@ -22,21 +22,6 @@
   padding: 6rem 16rem;
 }
 
-.projectSlider {
-  display: flex;
-  overflow: auto;
-  scroll-behavior: none;
-  padding: 0.5rem 1rem;
-  margin-bottom: 2rem;
-  width: 100%;
-  & img {
-    cursor: pointer;
-  }
-  & img:hover {
-    opacity: 0.5;
-  }
-}
-
 .galleryGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

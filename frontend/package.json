@@ -24,7 +24,10 @@
     "react-dom": "18.2.0",
     "react-grid-gallery": "^1.0.0",
     "react-hydration-provider": "^1.0.2",
-    "react-image-lightbox": "^5.1.4",
+    "react-images": "1.2.0-beta.7",
+    "react-modal-image": "^2.6.0",
+    "react-photo-gallery": "^8.0.0",
+    "react-responsive-carousel": "^3.2.23",
     "swiper": "^9.0.5",
     "tinycolor2": "^1.6.0",
     "typescript": "4.9.4"
