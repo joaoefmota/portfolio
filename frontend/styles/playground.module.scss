@@ -6,13 +6,13 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: $vh;
+  height: fit-content;
   width: $vw;
   opacity: 0;
 }
 
 .tile {
-  box-shadow: 0 10px 30px -15px #31353a;
+  box-shadow: 0 10px 30px -15px $tilebackground;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -20,7 +20,7 @@
   position: relative;
   padding: 2rem 1.75rem;
   border-radius: 5px;
-  background-color: #31353a;
+  background-color: $tilebackground;
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   overflow: auto;
   transition: all ease 0.5s;
@@ -45,12 +45,12 @@
 
 .tileTitle {
   margin: 0px 0px 10px;
-  color: #fffff2;
+  color: $background1;
   font-size: 20px;
 }
 
 .tileDescription {
-  color: #fffff2;
+  color: $background1;
   font-size: 15px;
   max-width: 35ch;
 }
@@ -67,5 +67,14 @@
 .techList li {
   margin-right: 15px;
   line-height: 1.75;
-  color: #fffff2;
+  color: $background1;
+}
+
+.buttonMore {
+  margin-top: 2rem;
+  background-color: $tilebackground;
+  &:hover {
+    background-color: $background1;
+    color: $titlecolor;
+  }
 }

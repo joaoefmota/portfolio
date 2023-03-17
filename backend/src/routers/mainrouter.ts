@@ -24,6 +24,11 @@ import {
   uploadMainImage,
   uploadProjectImages,
 } from "../handlers/multer_handlers";
+import {
+  deletePlayground,
+  getAllPlayground,
+  postPlayground,
+} from "../handlers/playground_handlers";
 
 const MainRouter = Router();
 
@@ -32,6 +37,7 @@ MainRouter.get("/api/project", getProjectByName);
 MainRouter.get("/api/project-nr/", getProjectById);
 MainRouter.get("/images", getImages);
 MainRouter.get("/images-id", getImagesById);
+MainRouter.get("/api/playground", getAllPlayground);
 MainRouter.post("/contact", validateSubmit, submitContactForm);
 MainRouter.post("/api/login", loginUser);
 
@@ -46,7 +52,9 @@ MainRouter.post("/api/projects/", postProject);
 MainRouter.put("/api/project-nr/");
 MainRouter.delete("/api/project-nr/", deleteProjectById);
 
-const uploadMain = multer({ dest: "src/images/projects/proj_container/" });
+MainRouter.post("/api/playground", postPlayground);
+MainRouter.delete("/apli/playground-nr/", deletePlayground);
+
 MainRouter.post(
   "/api/projects/uploadMain",
   // rename the "field name" on the PostMan to avatar or whatever we want or the upload fails

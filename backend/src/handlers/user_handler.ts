@@ -24,56 +24,24 @@ export const createUser = async (req: Request, res: Response) => {
     return res.status(401).send({ error: "Incorrect credentials" });
   }
 
-  const emailExists = await database
-    .query<RowDataPacket[]>("SELECT email FROM users WHERE email = ?", [email])
-    .then(([rows]) => {
-      if (rows.length > 0) {
-        return true;
-      }
-      return false;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  const existsQuery =
+    "SELECT * FROM users WHERE username = ? OR email=? OR user_id=?";
+  const [rows] = await database.query(existsQuery, [username, email, user_id]);
+  const rowDataPacket = rows as RowDataPacket[];
+  if (rowDataPacket.length != 0) {
+    const {
+      username: existsUserName,
+      email: existsEmail,
+      user_id: existsUserId,
+    } = rowDataPacket[0];
 
-  if (emailExists) {
-    return res.status(400).send({ error: "Email already exists" });
-  }
-
-  const userExists = await database
-    .query<RowDataPacket[]>("SELECT email FROM users WHERE username = ?", [
-      username,
-    ])
-    .then(([rows]) => {
-      if (rows.length > 0) {
-        return true;
-      }
-      return false;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
-  if (userExists) {
-    return res.status(400).send({ error: "User already exists" });
-  }
-
-  const user_idExists = await database
-    .query<RowDataPacket[]>("SELECT email FROM users WHERE user_id = ?", [
-      user_id,
-    ])
-    .then(([rows]) => {
-      if (rows.length > 0) {
-        return true;
-      }
-      return false;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
-  if (user_idExists) {
-    return res.status(400).send({ error: "User_id already exists" });
+    if (existsEmail === email) {
+      return res.status(400).send({ error: "Email already exists" });
+    } else if (existsUserName === username) {
+      return res.status(400).send({ error: "Username already exists" });
+    } else if (existsUserId === user_id) {
+      return res.status(400).send({ error: "User id already exists" });
+    }
   }
 
   const hashingOptions = {

@@ -100,6 +100,23 @@ CREATE DATABASE portfolio
         `hashedPassword` VARCHAR (255) NOT NULL
     );
 
+     CREATE TABLE `playground` (
+        `id` BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+        `playground_id` INT NOT NULL,
+        `name` VARCHAR (150) NOT NULL,
+        `content` VARCHAR (1000) NOT NULL,
+        `tools` VARCHAR (500) NOT NULL,
+        `link` VARCHAR (1000) NOT NULL
+    );
+
+    INSERT INTO playground (playground_id, name, content, tools, link) 
+    VALUES (1, "Database fetch", "A modelized fullstack application, with a restfull API implementation (backend-frontend sinergy).", "Express.js, React.js, SQL", "#"), 
+    (2, "SocketIO dummy", "SocketIo implementation, for a website with real-time chat online between two users.", "Express.js, Vite.js, SocketIO", "#"), 
+    (3, "Hackathon AWS", "Hackathon under the AWS challenge, to create a car rental service website with user login.", "Express.js, SQL, NextJs", "#"), 
+    (4, "Checkpoint 3", "One of the several tests I did while studying. It involves manipulating the frontend with backend post requets", "Express.js, React.js, Typescript", "#"), 
+    (5, "CV Portfolio", "The repo for this very-same website, where I employed most of what I liked the most to learn.", "Express.js, NextJs, jsonwebtoken", "#"), 
+    (6, "Musique redo", "The redo of Musique's project, to continue from the point our group finished with improved content", "Vite.js, Typescrip, API", "#");
+
 USE portfolio;
     SELECT * FROM images;
     SELECT i.src AS source FROM images AS i INNER JOIN projects AS p ON i.id=p.image_id WHERE p.name="musique";
@@ -107,3 +124,4 @@ USE portfolio;
 SELECT i.src AS source FROM images AS i INNER JOIN projects AS p ON i.project_id=p.id WHERE p.name="wildjournal" AND i.image_id=1;
 
 SELECT name, project_id FROM projects WHERE name = "test1";
+

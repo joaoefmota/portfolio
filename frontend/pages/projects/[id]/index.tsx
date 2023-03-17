@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import useAxios from "@/pages/hooks/useAxios";
+import React, { useState } from "react";
+import useAxios from "@/hooks/useAxios";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,9 +16,31 @@ export default function ProjectPage() {
   const router = useRouter();
   const { id } = router.query;
 
+  interface ProjectInfo {
+    tools: string;
+    packages: string;
+    link: string;
+    aka: string;
+    subTitle: string;
+    lg_content1: string;
+    lg_content2: string;
+    github: string;
+    content: string;
+  }
+
   const APIURL = "http://localhost:5005";
   const [restOfImages, setRestOfImages] = useState<[]>([]);
-  const [projectInfo, setProjectInfo] = useState<[]>([]);
+  const [projectInfo, setProjectInfo] = useState<ProjectInfo>({
+    tools: "",
+    packages: "",
+    link: "",
+    aka: "",
+    subTitle: "",
+    lg_content1: "",
+    lg_content2: "",
+    github: "",
+    content: "",
+  });
 
   const [photoIndex, setPhotoIndex] = useState<number>(0);
   const [lightBoxIsOpen, setLightBoxisOpen] = useState(false);
@@ -47,11 +69,15 @@ export default function ProjectPage() {
     },
   });
 
-  const validImages = restOfImages.filter((image) =>
+  interface ImageSource {
+    source: string;
+  }
+
+  const validImages = restOfImages.filter((image: ImageSource) =>
     image.source.includes("img")
   );
 
-  const photos = validImages.map((image) => ({
+  const photos = validImages.map((image: ImageSource) => ({
     src: `${APIURL}${image.source}`,
     width: 500,
     height: 500,
@@ -122,7 +148,7 @@ export default function ProjectPage() {
                     currentIndex={photoIndex}
                     views={photos.map((x) => ({
                       ...x,
-                      srcset: x.src,
+                      source: x.src,
                     }))}
                   />
                 </Modal>

@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import useAxios from "../hooks/useAxios";
+import useAxios from "../../hooks/useAxios";
 import axios from "axios";
 
 {
   /* Components */
 }
-import ProjectTile from "../components/ProjectTile";
+import ProjectTile from "../../components/ProjectTile";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
 import "swiper/css";
@@ -20,7 +20,7 @@ import styles from "@/styles/projects.module.scss";
   /* TYPES */
 }
 import { ProjectInfoProps } from "@/types/ProjectInfoProps";
-import useFadeIn from "../hooks/useFadeIn";
+import useFadeIn from "../../hooks/useFadeIn";
 
 export default function Projects() {
   const APIURL = "http://localhost:5005";
@@ -45,12 +45,13 @@ export default function Projects() {
             .then((result) => {
               console.log(
                 "result.data",
-                result.data.filter((image) =>
+                result.data.filter((image: { source: string | string[] }) =>
                   image.source.includes(`proj_container/${project.name}`)
                 )
               );
-              const imageSet = result.data.filter((image) =>
-                image.source.includes(`proj_container/${project.name}`)
+              const imageSet = result.data.filter(
+                (image: { source: string | string[] }) =>
+                  image.source.includes(`proj_container/${project.name}`)
               );
               _imagesMap.set(project.name, APIURL + imageSet[0].source);
             });

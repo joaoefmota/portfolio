@@ -1,11 +1,11 @@
 import Head from "next/head";
 import Home from "./home/Home";
-import NavBar from "./components/NavBar";
+import NavBar from "../components/NavBar";
 import About_Me from "./about_me/About_Me";
 import Projects from "./projects/Projects";
 import Contact_Me from "./contacts/Contact_Me";
 import Playground from "./playground/Playground";
-import Footer from "./components/Footer";
+import Footer from "../components/Footer";
 
 export default function LandingPage() {
   return (

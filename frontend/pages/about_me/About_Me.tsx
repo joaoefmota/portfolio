@@ -8,7 +8,7 @@ import fade from "@/styles/fade.module.scss";
   /* IMAGES */
 }
 import profile from "@/assets/images/profile.jpg";
-import useFadeIn from "../hooks/useFadeIn";
+import useFadeIn from "../../hooks/useFadeIn";
 
 const enjoy = [
   { id: 1, name: "NextJs" },
@@ -74,7 +74,10 @@ export default function About_Me() {
               </p>
               <div className="grid grid-rows-2 grid-flow-col">
                 {enjoy.map((item) => (
-                  <p key={item.id} className={`${"paragraph paragraphAlt mr-10"}`}>
+                  <p
+                    key={item.id}
+                    className={`${"paragraph paragraphAlt mr-10"}`}
+                  >
                     ▹{item.name}
                   </p>
                 ))}

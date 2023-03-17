@@ -1,14 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "@/styles/home.module.scss";
 
 function Home() {
   const router = useRouter();
 
+  /* 
+      const sectionId = currentSection && currentSection.getAtribute("id");
+      const url = new URL(window.location);
+      url.hash = sectionId;
+      window.history.pushState(null, null, url);
+  */
+
   return (
     <>
       <section
-        id={`${"Home"}`}
+        id={"Home"}
         className={`${styles.Home} ${"sectionBg1 fade-in"} ${"animContainer"}`}
       >
         <div className={`${"mainBlock"}`}>

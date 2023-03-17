@@ -2,7 +2,7 @@ import React, { use, useEffect, useRef, useState } from "react";
 import styles from "@/styles/contact.module.scss";
 import axios from "axios";
 import Link from "next/link";
-import useFadeIn from "../hooks/useFadeIn";
+import useFadeIn from "../../hooks/useFadeIn";
 
 function Contact_Me() {
   const [data, setData] = useState({
