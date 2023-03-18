@@ -20,7 +20,7 @@
   & li {
     transition: all ease 0.5s;
   }
-  & li:hover{
+  & li:hover {
     transform: scale(1.03);
   }
 }
@@ -42,7 +42,6 @@
   animation: fadeIn 1s;
 }
 
-
 .backToTop {
   opacity: 0.4;
   background-color: $background1;
@@ -61,6 +60,10 @@
   100% {
     opacity: 1;
   }
+}
+
+.loginButton {
+  background-color: $titlecolor;
 }
 
 @media screen and (min-width: 501px) {

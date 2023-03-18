@@ -31,6 +31,7 @@ function Contact_Me() {
       ...prevFormData,
       [event.target.name]: event.target.value,
     }));
+    console.log("Data", data);
   };
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
@@ -78,7 +79,7 @@ function Contact_Me() {
         <h1 className={"title self-start"}>04: Contact</h1>
         <p className="paragraph">
           Do you have a question or a proposal at hand? Maybe just drop by to
-          write an "hello"? Then feel free to use the form down bellow.
+          write an hello? Then feel free to use the form down bellow.
         </p>
         <div
           className={`${"flex flex-col justify-center w-full justify-between"}`}
@@ -91,7 +92,6 @@ function Contact_Me() {
                   onChange={handleInputFields}
                   placeholder="John/Johanna"
                   value={data.first_name}
-                  className="h-12 p-8"
                   name="first_name"
                   type="text"
                 />
@@ -102,7 +102,6 @@ function Contact_Me() {
                   onChange={handleInputFields}
                   placeholder="Doe"
                   value={data.last_name}
-                  className="h-12 p-8"
                   name="last_name"
                   type="text"
                 />
@@ -113,7 +112,6 @@ function Contact_Me() {
                   onChange={handleInputFields}
                   placeholder="email@email.com"
                   value={data.email}
-                  className="h-12 p-8"
                   name="email"
                   type="text"
                 />
@@ -135,7 +133,7 @@ function Contact_Me() {
                 placeholder="Hello João, how are you?"
                 onChange={handleInputFields}
                 value={data.message}
-                className={`${"h-32 p-8"} ${styles.textarea}`}
+                className={`${"h-32 p-8"}`}
                 name="message"
               />
               <button

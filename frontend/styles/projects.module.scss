@@ -1,5 +1,6 @@
 @import "./variables";
 @import "./lightbox";
+@import "./backbutton";
 
 .Projects {
   z-index: 3;
@@ -73,34 +74,6 @@
   &:hover {
     transform: scale(1.05);
   }
-}
-
-.back {
-  position: absolute;
-  left: 3%;
-  top: 3%;
-  border-radius: 100%;
-  border: 1px solid rgba(29, 28, 29, 0.05);
-  padding: 1rem 1rem;
-  margin: 0 0.1rem;
-  transition: all 0.5s ease-in-out;
-}
-
-.back:hover {
-  background-color: $background;
-}
-
-.back img {
-  width: 2.5rem;
-  height: 2.5rem;
-  transition: all 0.5s ease-in-out;
-  opacity: 0.6;
-}
-
-.back:hover img {
-  transform: scale(1.1);
-  // content: url("../assets/images/back_light.png");
-  opacity: 1;
 }
 
 @media (max-width: 700px) {

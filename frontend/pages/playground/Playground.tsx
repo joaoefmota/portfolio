@@ -54,30 +54,34 @@ function Playground() {
 
         <div className="grid grid-cols-3 gap-3 h-full w-full">
           {playgroundInfo &&
-            playgroundInfo.map((playground: PlaygroundProps) => (
-              <Link
-                href={playground.link}
-                key={playground.playground_id}
-                className={styles.tile}
-              >
-                <div className={styles.tileHeader}>
-                  <Image src={folder} alt={"folder-icon"} />
-                  <Image src={git} alt={"git-icon"} />
-                </div>
-                <h3 className={styles.tileTitle}>{playground.name}</h3>
-                <div className={styles.tileDescription}>
-                  {playground.content}
-                </div>
+            playgroundInfo
+              .map((playground: PlaygroundProps) => (
+                <Link
+                  href={playground.link}
+                  key={playground.playground_id}
+                  className={styles.tile}
+                >
+                  <div className={styles.tileHeader}>
+                    <Image src={folder} alt={"folder-icon"} />
+                    <Image src={git} alt={"git-icon"} />
+                  </div>
+                  <h3 className={styles.tileTitle}>{playground.name}</h3>
+                  <div className={styles.tileDescription}>
+                    {playground.content}
+                  </div>
 
-                <div>
-                  <ul className={styles.techList}>
-                    {paragraphedString(playground.tools).map((tool, index) => (
-                      <li key={index}>{tool}</li>
-                    ))}
-                  </ul>
-                </div>
-              </Link>
-            ))}
+                  <div>
+                    <ul className={styles.techList}>
+                      {paragraphedString(playground.tools).map(
+                        (tool, index) => (
+                          <li key={index}>{tool}</li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+                </Link>
+              ))
+              .slice(0, 6)}
         </div>
         <Link href={"/all-playground"}>
           <button type="button" className={styles.buttonMore}>

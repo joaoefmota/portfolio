@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useAxios from "@/hooks/useAxios";
 import axios from "axios";
 import Image from "next/image";
@@ -11,22 +11,25 @@ import Carousel, { Modal, ModalGateway } from "react-images";
 
 import back from "@/assets/images/back_dark.png";
 import styles from "@/styles/projects.module.scss";
+import useFadeIn from "@/hooks/useFadeIn";
+interface ProjectInfo {
+  tools: string;
+  packages: string;
+  link: string;
+  aka: string;
+  subTitle: string;
+  lg_content1: string;
+  lg_content2: string;
+  github: string;
+  content: string;
+}
+interface ImageSource {
+  source: string;
+}
 
 export default function ProjectPage() {
   const router = useRouter();
   const { id } = router.query;
-
-  interface ProjectInfo {
-    tools: string;
-    packages: string;
-    link: string;
-    aka: string;
-    subTitle: string;
-    lg_content1: string;
-    lg_content2: string;
-    github: string;
-    content: string;
-  }
 
   const APIURL = "http://localhost:5005";
   const [restOfImages, setRestOfImages] = useState<[]>([]);
@@ -41,9 +44,14 @@ export default function ProjectPage() {
     github: "",
     content: "",
   });
-
   const [photoIndex, setPhotoIndex] = useState<number>(0);
   const [lightBoxIsOpen, setLightBoxisOpen] = useState(false);
+  const { componentRef, isVisible } = useFadeIn(0.25);
+  const playgroundRef = useRef(null);
+
+  useEffect(() => {
+    componentRef.current = playgroundRef.current;
+  }, [componentRef, playgroundRef]);
 
   const project = useAxios<any>({
     url: id != null ? `${APIURL}/api/project-nr?id=${id}` : null,
@@ -68,10 +76,6 @@ export default function ProjectPage() {
         });
     },
   });
-
-  interface ImageSource {
-    source: string;
-  }
 
   const validImages = restOfImages.filter((image: ImageSource) =>
     image.source.includes("img")
@@ -117,7 +121,12 @@ export default function ProjectPage() {
       : undefined;
 
   return (
-    <section id={styles.ProjectID}>
+    <section
+      id={styles.ProjectID}
+      className={`${"sectionBg1"} 
+      ${isVisible ? "fade-in " : ""}`}
+      ref={playgroundRef}
+    >
       <div className={`${"mainBlock"}`} key={project.id}>
         <div className="flex flex-col items-left">
           <Link
@@ -208,7 +217,7 @@ export default function ProjectPage() {
         />
       </div>
 
-      <Link href={"/#Projects"} className={styles.back}>
+      <Link href={"/#Playground"} className={styles.back}>
         <Image src={back} width={25} alt={"go-back"} />
       </Link>
     </section>

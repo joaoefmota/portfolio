@@ -4,14 +4,7 @@ import styles from "@/styles/home.module.scss";
 
 function Home() {
   const router = useRouter();
-
-  /* 
-      const sectionId = currentSection && currentSection.getAtribute("id");
-      const url = new URL(window.location);
-      url.hash = sectionId;
-      window.history.pushState(null, null, url);
-  */
-
+  
   return (
     <>
       <section

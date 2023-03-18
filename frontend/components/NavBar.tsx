@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import $ from "jquery";
 import tinycolor from "tinycolor2";
 import debounce from "lodash/debounce";
 
@@ -16,75 +15,70 @@ import Hamburger from "hamburger-react";
 }
 import styles from "@/styles/NavBar.module.scss";
 
+function useHamburgerMenuColor() {
+  const router = useRouter();
+  const [menuColor, setMenuColor] = useState("#222823");
+
+  useEffect(() => {
+    function handleScroll() {
+      const sections = document.querySelectorAll(".sectionBg1, .sectionBg2");
+      const currentPosition = window.scrollY;
+
+      const currentSection = Array.from(sections).find((section) => {
+        const sectionTop = (section as HTMLElement).offsetTop;
+        const sectionHeight = (section as HTMLElement).offsetHeight;
+        return (
+          currentPosition >= sectionTop &&
+          currentPosition < sectionTop + sectionHeight
+        );
+      });
+
+      // console.log("currentSection", currentSection);
+
+      if (currentSection) {
+        const backgroundColor =
+          getComputedStyle(currentSection).getPropertyValue("background-color");
+        console.log("backgroundColor", backgroundColor);
+        const isLight = tinycolor(backgroundColor).isLight();
+        console.log("isLight", isLight);
+        setMenuColor(isLight ? "#222823" : "#e8e8e8");
+        console.log("menu color", menuColor);
+
+        const sectionId = currentSection.getAttribute("id");
+        const url = new URL(window.location.href);
+        url.hash = sectionId ?? "";
+        window.history.pushState(null, "", url);
+      }
+    }
+    handleScroll();
+    const debouncedHandleScroll = debounce(handleScroll, 40);
+
+    window.addEventListener("resize", debouncedHandleScroll);
+    window.addEventListener("scroll", debouncedHandleScroll);
+
+    return () => {
+      window.removeEventListener("resize", debouncedHandleScroll);
+      window.removeEventListener("scroll", debouncedHandleScroll);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return menuColor;
+}
+
 export default function NavBar() {
+  const color = useHamburgerMenuColor();
   const router = useRouter();
   const [isOpen, setisOpen] = useState(false);
   const [backToTop, setBackToTop] = useState(false);
 
-  useEffect(() => {
-    function checkBackground() {
-      let currentSection = null;
-      // Loop through all the sections and determine the current section
-      $(".sectionBg1, .sectionBg2").each(function () {
-        const sectionTop = $(this).offset()?.top;
-        const sectionHeight = $(this).outerHeight();
-        const scrollPosition = $(window).scrollTop();
-        if (
-          scrollPosition >= sectionTop &&
-          scrollPosition < sectionTop + sectionHeight
-        ) {
-          currentSection = this;
-          return false; // Exit the loop
-        }
-      });
-      // console.log("currentSEction", currentSection);
-      // Get the background color of the current section
-      const backgroundColor = $(currentSection).css("background-color");
-      // console.log("backgroundColor", backgroundColor);
-
-      // Determine if the background color is light or dark
-      const isLight = tinycolor(backgroundColor).isLight();
-      // console.log("isLight", isLight);
-      const colorClass = isLight ? "light" : "dark";
-
-      // Update the hamburger menu's class
-      $(".hamburger-react").removeClass("dark light").addClass(colorClass);
-
-
-    }
-
-    // debounce to prevent the icon from changing all of a sudden
-    // const debouncedCheckBackgroundColor = debounce(checkBackgroundColor, 100);
-
-    checkBackground();
-
-    // Add event listeners to the window object
-    $(window).on("resize", checkBackground);
-    $(window).on("scroll", checkBackground);
-
-    // Clean up function to remove event listeners
-    return () => {
-      $(window).off("resize", checkBackground);
-      $(window).off("scroll", checkBackground);
-    };
-  }, []);
-
-  /*
-        const sectionId = currentSection.getAttribute("id");
-      const url = new URL(window.location);
-      url.hash = sectionId;
-      window.history.pushState(null, null, url);
-  */
-
   function handleToggle() {
     const html = document.querySelector("html");
     setisOpen(!isOpen);
-    const hamburger = document.getElementsByClassName("hamburger-react");
-    // console.log("Hamburger", hamburger);
-    if (!isOpen) {
+    if (!isOpen && html != null) {
       html.style.overflow = "hidden";
     } else {
-      html.style.overflow = "auto";
+      html!.style.overflow = "auto";
     }
   }
 
@@ -92,15 +86,15 @@ export default function NavBar() {
     {
       id: 1,
       name: "01: About me",
-      link: "#About_Me",
+      link: "/#About_Me",
     },
     {
       id: 2,
       name: "02: Projects",
-      link: "#Projects",
+      link: "/#Projects",
     },
-    { id: 3, name: "03: Playground", link: "#Playground" },
-    { id: 4, name: "04: Contact", link: "#Contact" },
+    { id: 3, name: "03: Playground", link: "/#Playground" },
+    { id: 4, name: "04: Contact", link: "/#Contact" },
   ];
 
   useEffect(() => {
@@ -121,7 +115,7 @@ export default function NavBar() {
     window.scrollTo({
       top: 0,
     });
-    router.push("/");
+    router.push("/#Home");
   };
 
   return (
@@ -133,6 +127,7 @@ export default function NavBar() {
             onToggle={handleToggle}
             toggled={isOpen}
             toggle={setisOpen}
+            color={color}
           />
         </div>
         {backToTop && (
@@ -149,7 +144,7 @@ export default function NavBar() {
         <nav id={`${styles.menuContainer}`}>
           <ul className={"flex flex-col items-left justify-between"}>
             {links.map((item) => (
-              <li key={item.id}>
+              <li key={item.id} className="w-fit">
                 <Link
                   href={item.link}
                   className={styles.menuTitles}
@@ -160,6 +155,16 @@ export default function NavBar() {
               </li>
             ))}
           </ul>
+          <button
+            type="button"
+            onClick={() => {
+              router.push("/auth");
+              document.querySelector("html")!.style.overflow = "auto";
+            }}
+            className={styles.loginButton}
+          >
+            Log in
+          </button>
           <div className={styles.clickablesNav}>
             <h1>Visit my pages at:</h1>
             <Clicabkles_Nav />

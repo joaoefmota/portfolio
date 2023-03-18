@@ -86,17 +86,18 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const loginUser = async (req: Request, res: Response) => {
-  const { username, password, user_id } = req.body;
+  const { username, email, password } = req.body;
 
-  if (!username || !password) {
-    res.status(403).send("Incomplete credentials");
+  if (!username || !password || !email) {
+    res.status(403).json({validationErros: "Incomplete credentials"});
     return;
   }
 
   const user = await database
-    .query<RowDataPacket[]>("SELECT * FROM users WHERE username = ?", [
-      username,
-    ])
+    .query<RowDataPacket[]>(
+      "SELECT * FROM users WHERE username = ? AND email =?",
+      [username, email]
+    )
     .then(([result]) => {
       if (result.length === 0) return undefined;
       return result[0];
