@@ -82,7 +82,7 @@ export const postPlayground = async (req: Request, res: Response) => {
 
   try {
     const [query] = await database.query<OkPacket>(
-      "INSERT INTO playground (playground_id, name, content, tools, link) VALUES (?, ?, ?, ?, ?",
+      "INSERT INTO playground (playground_id, name, content, tools, link) VALUES (?, ?, ?, ?, ?)",
       [playground_id, name, content, tools, link]
     );
     const insertId: number = query.insertId;
@@ -109,12 +109,6 @@ export const putPlayground = async (req: Request, res: Response) => {
       /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
     );
     return uuidRegex.test(id);
-  }
-
-  // Validate query parameter
-  if (!isValidUUID(id)) {
-    res.status(400).send("Invalid id parameter");
-    return;
   }
 
   if (payloadSub !== id) {
@@ -153,7 +147,8 @@ export const putPlayground = async (req: Request, res: Response) => {
 export const deletePlayground = async (req: Request, res: Response) => {
   const id = req.query.id;
   const payloadSub: string = (req as AuthenticatedRequest).payload.sub;
-  if (payloadSub! == ADMIN) {
+  console.log("playload sub", payloadSub);
+  if (payloadSub != ADMIN) {
     res.status(403).send("Forbidden");
     return;
   }

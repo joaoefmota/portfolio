@@ -15,58 +15,60 @@ import Hamburger from "hamburger-react";
 }
 import styles from "@/styles/NavBar.module.scss";
 
-function useHamburgerMenuColor() {
-  const router = useRouter();
-  const [menuColor, setMenuColor] = useState("#222823");
-
-  useEffect(() => {
-    function handleScroll() {
-      const sections = document.querySelectorAll(".sectionBg1, .sectionBg2");
-      const currentPosition = window.scrollY;
-
-      const currentSection = Array.from(sections).find((section) => {
-        const sectionTop = (section as HTMLElement).offsetTop;
-        const sectionHeight = (section as HTMLElement).offsetHeight;
-        return (
-          currentPosition >= sectionTop &&
-          currentPosition < sectionTop + sectionHeight
-        );
-      });
-
-      // console.log("currentSection", currentSection);
-
-      if (currentSection) {
-        const backgroundColor =
-          getComputedStyle(currentSection).getPropertyValue("background-color");
-        console.log("backgroundColor", backgroundColor);
-        const isLight = tinycolor(backgroundColor).isLight();
-        console.log("isLight", isLight);
-        setMenuColor(isLight ? "#222823" : "#e8e8e8");
-        console.log("menu color", menuColor);
-
-        const sectionId = currentSection.getAttribute("id");
-        const url = new URL(window.location.href);
-        url.hash = sectionId ?? "";
-        window.history.pushState(null, "", url);
-      }
-    }
-    handleScroll();
-    const debouncedHandleScroll = debounce(handleScroll, 40);
-
-    window.addEventListener("resize", debouncedHandleScroll);
-    window.addEventListener("scroll", debouncedHandleScroll);
-
-    return () => {
-      window.removeEventListener("resize", debouncedHandleScroll);
-      window.removeEventListener("scroll", debouncedHandleScroll);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return menuColor;
-}
-
 export default function NavBar() {
+  const [menuColor, setMenuColor] = useState("#222823");
+  function useHamburgerMenuColor() {
+    useEffect(() => {
+      function handleScroll() {
+        const sections = document.querySelectorAll(".sectionBg1, .sectionBg2");
+        const currentPosition = window.scrollY;
+
+        const currentSection = Array.from(sections).find((section) => {
+          const sectionTop = (section as HTMLElement).offsetTop;
+          const sectionHeight = (section as HTMLElement).offsetHeight;
+          return (
+            currentPosition >= sectionTop &&
+            currentPosition < sectionTop + sectionHeight
+          );
+        });
+
+        console.log("currentSection", currentSection);
+
+        if (currentSection) {
+          const backgroundColor =
+            getComputedStyle(currentSection).getPropertyValue(
+              "background-color"
+            );
+          // console.log("backgroundColor", backgroundColor);
+          const isLight = tinycolor(backgroundColor).isLight();
+          // console.log("isLight", isLight);
+          setMenuColor(isLight ? "#222823" : "#e8e8e8");
+          // console.log("menu color", menuColor);
+
+         /*
+         const sectionId = currentSection.getAttribute("id");
+          const url = new URL(window.location.href);
+          url.hash = sectionId ?? "";
+          window.history.pushState(null, "", url); 
+          */ 
+        }
+      }
+      handleScroll();
+      const debouncedHandleScroll = debounce(handleScroll, 40);
+
+      window.addEventListener("resize", debouncedHandleScroll);
+      window.addEventListener("scroll", debouncedHandleScroll);
+
+      return () => {
+        window.removeEventListener("resize", debouncedHandleScroll);
+        window.removeEventListener("scroll", debouncedHandleScroll);
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return menuColor;
+  }
+
   const color = useHamburgerMenuColor();
   const router = useRouter();
   const [isOpen, setisOpen] = useState(false);
@@ -75,10 +77,17 @@ export default function NavBar() {
   function handleToggle() {
     const html = document.querySelector("html");
     setisOpen(!isOpen);
+    const hamburgerReactDiv = document.querySelectorAll(".hamburger-react div");
     if (!isOpen && html != null) {
       html.style.overflow = "hidden";
+      for (let i = 0; i < hamburgerReactDiv.length; i++) {
+        (hamburgerReactDiv[i] as HTMLElement).style.background = "#222823";
+      }
     } else {
-      html!.style.overflow = "auto";
+      html!.style.overflow = "overlay";
+      for (let i = 0; i < hamburgerReactDiv.length; i++) {
+        (hamburgerReactDiv[i] as HTMLElement).style.background = menuColor;
+      }
     }
   }
 

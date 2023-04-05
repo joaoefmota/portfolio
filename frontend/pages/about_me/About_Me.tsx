@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 import styles from "@/styles/about.module.scss";
-import fade from "@/styles/fade.module.scss";
 
 {
   /* IMAGES */
@@ -44,8 +43,8 @@ export default function About_Me() {
             className={`${"text-paragraph leading-relaxed paragraph paragraphAlt mb-5"}`}
           >
             I was born in the beautiful city of{" "}
-            <span className="span2">Porto, in Portugal</span>, but I'm currently
-            embracing my new adventure in{" "}
+            <span className="span2">Porto, in Portugal</span>, but I&apos;m
+            currently embracing my new adventure in{" "}
             <span className="span2">Frankfurt am Main, Germany</span>. When I am
             far from the keyboard, you can find me cooking, watching films/TV
             shows, or traveling around!
@@ -56,23 +55,23 @@ export default function About_Me() {
             I can say that it was only natural to follow a digital life. Since I
             was a kid that technology was up there in the top of my interests.
             The
-            <span className="span2"> Web Developer</span> "bug" got a biger
-            spark when I was completing my Multimedia masters, as I heads-on got
-            to know programming. Above all, I would describe myself as a
-            problem-solving type person, hence the emphasis on a
+            <span className="span2"> Web Developer</span> &quot;bug&quot; got a
+            biger spark when I was completing my Multimedia masters, as I
+            heads-on got to know programming. Above all, I would describe myself
+            as a problem-solving type person, hence the emphasis on a
             <span className="span2"> versatile profile</span>. I value autonomy,
-            and once working with others, you'll find I am the first to cheer
-            others as I love <span className="span2">teamwork</span>.
+            and once working with others, you&apos;ll find I am the first to
+            cheer others as I love <span className="span2">teamwork</span>.
           </p>
 
-          <div className="flex flex-row gap-5 items-center">
+          <div className="flex flex-row items-center">
             <div className="flex flex-col gap-2">
               <p
                 className={`${"text-paragraph leading-relaxed paragraph paragraphAlt"}`}
               >
                 A few examples of what I like to work with:
               </p>
-              <div className="grid grid-rows-2 grid-flow-col">
+              <div className={styles.grid}>
                 {enjoy.map((item) => (
                   <p
                     key={item.id}

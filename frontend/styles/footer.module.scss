@@ -1,5 +1,11 @@
 @import "./variables";
 
+.Footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .findMe {
   font-size: clamp(1rem, 1vw + 1rem, 15rem);
   color: $background;
@@ -9,10 +15,24 @@
   color: $background;
 }
 
+.quoteContianer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: max(8rem);
+  width: max(100%);
+}
+
+.quoteBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 .quote,
 .author {
   color: $background;
-  font-size: clamp(0.5rem, 0.5vw + 0.8rem, 10rem);
+  font-size: clamp(0.5rem, 0.5vw + 0.7rem, 10rem);
 }
 
 .quote {
@@ -27,8 +47,29 @@
 .getQuotes {
   background-color: $span2;
   color: $titlecolor;
+
   &:hover {
     background-color: $background;
     color: $titlecolor;
+  }
+}
+
+@media (max-width: 700px) {
+  .Footer {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .quoteBlock {
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .author {
+    text-align: start;
+  }
+  .designedBy {
+    text-align: center;
   }
 }

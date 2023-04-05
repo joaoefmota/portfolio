@@ -1,13 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
-import useFadeIn from "../../hooks/useFadeIn";
+import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
 
-import back from "@/assets/images/back_dark.png";
+{
+  /* STYLES */
+}
 import styles from "@/styles/login.module.scss";
-import { useRouter } from "next/router";
+{
+  /* HOOKS */
+}
+import useFadeIn from "../../hooks/useFadeIn";
+
+{
+  /* IMAGES */
+}
+import back from "@/assets/images/back_dark.png";
+import loginImg from "@/assets/images/login.png";
+import jwtDecode from "jwt-decode";
 
 export interface PlaygroundProps {}
 
@@ -17,7 +28,10 @@ function Login() {
   const [login, setLogin] = useState({ username: "", email: "", password: "" });
   const [authToken, setAuthToken] = useState<string>();
   // Error message for credential check
-  const [errorMsg, setErrorMsg] = useState<{ [key: string]: string }>({});
+  const [errorMessages, setErrorMessages] = useState<{ [key: string]: string }>(
+    {}
+  );
+  const [isSubmitted, setIsSubmited] = useState(false);
   const router = useRouter();
 
   const APIURL = "http://localhost:5005";
@@ -46,26 +60,69 @@ function Login() {
           setLogin({ username: "", email: "", password: "" });
           if (res.data.token == null) {
             console.error("No authentication token", res.data.error);
+            setIsSubmited(false);
             return;
           } else {
-            setAuthToken(res.data.token);
-            console.log("Login successful", authToken);
-            // router.push("/control");
+            setAuthToken(() => {
+              const token = res.data.token;
+              localStorage.setItem("token", token!);
+              //  sessionStorage.setItem("token", token!);
+              console.log("Login successful", token);
+              console.log("localStorage", window.localStorage.token);
+              return token;
+            });
+            setIsSubmited(true);
+            setTimeout(() => {
+              router.push("/control");
+            }, 1000);
           }
         }
       )
-      .catch((err: any) => {
-        if (err.response.status === 403) {
-          const serverErrors = err.response.data.validationErrors;
+      .catch((error) => {
+        if (error.response.status === 422) {
+          // console.log(error.response.data.validationErrors); // handle validation errors
+          setIsSubmited(false);
+          const serverErrors = error.response.data.validationErrors;
           const errors = {} as { [key: string]: string };
-
           serverErrors.forEach((error: { field: string; message: string }) => {
             errors[error.field] = error.message;
           });
-          setErrorMsg(errors);
+          setErrorMessages(errors);
+          // console.log("errors state", errorMessages);
+        } else {
+          setIsSubmited(false);
+          console.log(
+            "Unexpected error response status:",
+            error.response.status
+          );
         }
       });
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get(`http://localhost:5005/validateToken?token=${token}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((result) => {
+          if (result.status === 200) {
+            router.push("/control");
+          } else {
+            return;
+          }
+        })
+        .catch((err) => {
+          console.log("error validate", err);
+          return;
+        });
+    } else {
+      return;
+    }
+  }, [router]);
 
   useEffect(() => {
     componentRef.current = loginRef.current;
@@ -90,10 +147,10 @@ function Login() {
         }`}
         ref={loginRef}
       >
+        <h1 className={"title self-start"}>Login</h1>
         <article className={styles.loginContainer}>
-          <div className="flex flex-col items-center py-5 w-full">
-            <h1 className={"title mb-10 "}>Login</h1>
-            <form className="flex flex-col items-center sm:flex-wrap h-full w-full">
+          <div className="flex flex-col items-center w-1/2">
+            <form className="flex flex-col items-center sm:flex-wrap gap-3 h-full w-full">
               <div>
                 <label htmlFor="username" />
                 <input
@@ -102,7 +159,10 @@ function Login() {
                   name="username"
                   value={login.username}
                   onChange={loginHandler}
-                ></input>
+                />
+                {errorMessages.username && !isSubmitted && (
+                  <p className={"errorMessage"}>{errorMessages.username}</p>
+                )}
               </div>
               <div>
                 <label htmlFor="email" />
@@ -112,7 +172,10 @@ function Login() {
                   name="email"
                   value={login.email}
                   onChange={loginHandler}
-                ></input>
+                />
+                {errorMessages.email && !isSubmitted && (
+                  <p className={"errorMessage"}>{errorMessages.email}</p>
+                )}
               </div>
               <div>
                 <label htmlFor="password" />
@@ -122,15 +185,42 @@ function Login() {
                   name="password"
                   value={login.password}
                   onChange={loginHandler}
-                ></input>
+                />
+                {errorMessages.password && !isSubmitted && (
+                  <p className={"errorMessage"}>{errorMessages.password}</p>
+                )}
               </div>
               <button type="submit" onClick={submissionHandler}>
                 Login
               </button>
             </form>
           </div>
+          <div className="flex flex-col items-center gap-3 w-1/2">
+            <Image src={loginImg} alt={"login"} className="w-1/2" />
+            {isSubmitted && (
+              <div
+                className={
+                  "w-fit mx-auto mt-1 py-4 px-6  rounded-3xl bg-slate-700 "
+                }
+              >
+                <p
+                  className={
+                    "text-white text-center sm:text-xl md:text-2xl xl:text-2xl"
+                  }
+                >
+                  Loged in ✔
+                </p>
+                <p
+                  className={
+                    "text-white text-center sm:text-xl md:text-2xl xl:text-2xl"
+                  }
+                >
+                  You are awesome!
+                </p>
+              </div>
+            )}
+          </div>
         </article>
-
         <Link href={"/#Home"} className={styles.back}>
           <Image src={back} width={25} alt={"go-back"} />
         </Link>

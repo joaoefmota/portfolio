@@ -3,6 +3,7 @@ import styles from "@/styles/contact.module.scss";
 import axios from "axios";
 import Link from "next/link";
 import useFadeIn from "../../hooks/useFadeIn";
+import Footer from "@/components/Footer";
 
 function Contact_Me() {
   const [data, setData] = useState({
@@ -11,10 +12,10 @@ function Contact_Me() {
     email: "",
     message: "",
   });
-
   const [isSubmitted, setIsSubmited] = useState(false);
-  const [errors, setErrors] = useState<{ [key: string]: string }>();
-
+  const [errorMessages, setErrorMessages] = useState<{ [key: string]: string }>(
+    {}
+  );
   const { componentRef, isVisible } = useFadeIn(0.25);
 
   const contactRef = useRef(null);
@@ -22,17 +23,6 @@ function Contact_Me() {
   useEffect(() => {
     componentRef.current = contactRef.current;
   }, [componentRef, contactRef]);
-
-  const handleInputFields = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    // const { name, value } = event.target;
-    setData((prevFormData) => ({
-      ...prevFormData,
-      [event.target.name]: event.target.value,
-    }));
-    console.log("Data", data);
-  };
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
@@ -56,15 +46,35 @@ function Contact_Me() {
       })
       .catch((error) => {
         if (error.response.status === 422) {
-          const serverErrors = error.response.data.validationErrors;
+          console.log(error.response.data.validationErrors.details); // handle validation errors
+          const serverErrors = error.response.data.validationErrors.details;
           const errors = {} as { [key: string]: string };
-          serverErrors.forEach((error: { field: string; message: string }) => {
-            errors[error.field] = error.message;
-          });
-          setErrors(errors);
+          serverErrors.forEach(
+            (error: { path: [][number]; message: string }) => {
+              errors[error.path[0]] = error.message;
+            }
+          );
+          setErrorMessages(errors);
           setIsSubmited(false);
+          console.log("errors state", errorMessages);
+        } else {
+          console.log(
+            "Unexpected error response status:",
+            error.response.status
+          );
         }
       });
+  };
+
+  const handleInputFields = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    // const { name, value } = event.target;
+    setData((prevFormData) => ({
+      ...prevFormData,
+      [event.target.name]: event.target.value,
+    }));
+    console.log("Data", data);
   };
 
   return (
@@ -78,15 +88,15 @@ function Contact_Me() {
       >
         <h1 className={"title self-start"}>04: Contact</h1>
         <p className="paragraph">
-          Do you have a question or a proposal at hand? Maybe just drop by to
-          write an hello? Then feel free to use the form down bellow.
+          Do you have a question or a proposal at hand? Then feel free to use
+          the form down bellow.
         </p>
         <div
           className={`${"flex flex-col justify-center w-full justify-between"}`}
         >
-          <form className="flex flex-row sm:flex-wrap gap-5 h-full w-full mt-16 mb-16">
+          <form className="flex flex-row sm:flex-wrap gap-3 h-full w-full mt-5">
             <div className="w-1/2 sm:w-full">
-              <div className={styles.firstName}>
+              <div className={"firstName flex flex-col mb-3"}>
                 <label htmlFor="first-name">First name*</label>
                 <input
                   onChange={handleInputFields}
@@ -95,8 +105,11 @@ function Contact_Me() {
                   name="first_name"
                   type="text"
                 />
+                {errorMessages.first_name && !isSubmitted && (
+                  <p className={"errorMessage"}>{errorMessages.first_name}</p>
+                )}
               </div>
-              <div className={styles.lastName}>
+              <div className={"lastName flex flex-col mb-3"}>
                 <label htmlFor="last-name">Last name*</label>
                 <input
                   onChange={handleInputFields}
@@ -105,8 +118,11 @@ function Contact_Me() {
                   name="last_name"
                   type="text"
                 />
+                {errorMessages.last_name && !isSubmitted && (
+                  <p className={"errorMessage"}>{errorMessages.last_name}</p>
+                )}
               </div>
-              <div className={styles.email}>
+              <div className={"email flex flex-col mb-3"}>
                 <label htmlFor="email">Email*</label>
                 <input
                   onChange={handleInputFields}
@@ -115,19 +131,13 @@ function Contact_Me() {
                   name="email"
                   type="text"
                 />
-              </div>
-              <div>
-                <h2 className="paragraph">Or contact directly to:</h2>
-                <Link
-                  href={"mailto:joaoefmota@gmail.com"}
-                  className="text-2xl font-extrabold"
-                >
-                  joaoefmota@gmail.com
-                </Link>
+                {errorMessages.email && !isSubmitted && (
+                  <p className={"errorMessage"}>{errorMessages.email}</p>
+                )}
               </div>
             </div>
 
-            <div className={styles.message}>
+            <div className={"w-full min-h-full"}>
               <label htmlFor="message">Your message*</label>
               <textarea
                 placeholder="Hello João, how are you?"
@@ -136,13 +146,27 @@ function Contact_Me() {
                 className={`${"h-32 p-8"}`}
                 name="message"
               />
-              <button
-                onClick={handleSubmit}
-                className={styles.submit}
-                type="submit"
-              >
-                Submit
-              </button>
+              {errorMessages.message && !isSubmitted && (
+                <p className={"errorMessage"}>{errorMessages.message}</p>
+              )}
+              <div className="flex flex-row justify-between">
+                <div className="mt-2">
+                  <h2 className="paragraph">Or contact directly to:</h2>
+                  <Link
+                    href={"mailto:joaoefmota@gmail.com"}
+                    className="paragraph font-extrabold"
+                  >
+                    joaoefmota@gmail.com
+                  </Link>
+                </div>
+                <button
+                  onClick={handleSubmit}
+                  className={styles.submit}
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           </form>
         </div>
@@ -169,6 +193,7 @@ function Contact_Me() {
           </div>
         )}
       </section>
+      <Footer />
     </>
   );
 }

@@ -4,7 +4,7 @@ import styles from "@/styles/home.module.scss";
 
 function Home() {
   const router = useRouter();
-  
+
   return (
     <>
       <section
@@ -16,7 +16,7 @@ function Home() {
             <h3 className={"subtitle"}>Hello,</h3>
 
             <h3 className="subtitle">
-              I'm <span>João Mota,</span>
+              I&apos;m <span>João Mota,</span>
             </h3>
 
             <h2 className={"subtitle"}>
@@ -35,8 +35,12 @@ function Home() {
               problems.
             </p>
           </article>
-          <button className="mt-10" onClick={() => router.push("/#Projects")}>
-            Check out my Projects!
+          <button
+            type="button"
+            className="mt-10"
+            onClick={() => router.push("/#Projects")}
+          >
+           Check out my Projects!
           </button>
         </div>
       </section>

@@ -16,14 +16,14 @@ function GetQuotes() {
       .request(options)
       .then((response) => {
         setQuotes(response.data);
-        console.log("response.data", response.data);
+        // console.log("response.data", response.data);
       })
       .catch(function (error) {
         console.error(error);
       });
   }, []);
 
-  const shuffle = (array: []) => {
+  const shuffle = (array: number[]) => {
     if (!Array.isArray(array) || array === null || array === undefined) return;
     const output = [...array];
     for (let i = output.length - 1; i > 0; i -= 1) {
@@ -37,27 +37,27 @@ function GetQuotes() {
 
   const handleShuffle = () => {
     if (!quotes || !Array.isArray(quotes)) return;
-    const indices = quotes.map((_, i) => i); // underscore placeholder to ignore the value of the element
-    console.log("indices", indices);
+    const indices: number[] = quotes.map((_, i) => i); // underscore placeholder to ignore the value of the element
+    // console.log("indices", indices);
     const shuffledIndices = shuffle(indices);
-    console.log("shuffledIndices", shuffledIndices);
-    const shuffledQuotes = shuffledIndices.map((i) => quotes[i]); // new array with shuffled indices
-    console.log("shuffledQuotes", shuffledQuotes);
+    // console.log("shuffledIndices", shuffledIndices);
+    const shuffledQuotes = shuffledIndices!.map((i) => quotes[i]); // new array with shuffled indices
+    // console.log("shuffledQuotes", shuffledQuotes);
     setQuotes(shuffledQuotes);
   };
 
-  console.log("Quotes", quotes);
+  // console.log("Quotes", quotes);
   return (
-    <div>
+    <div className={styles.quoteContianer}>
       {quotes &&
         quotes
           .slice(0, 1)
           .map((quote: { text: string; author: string }, index: number) => (
-            <div key={index} className="flex flex-col gap-5 items-end">
-              <div className="">
-                <p className={styles.quote}>"{quote.text}"</p>
+            <div key={index} className={styles.quoteBlock}>
+              <div>
+                <p className={`${styles.quote}`}>&quot;{quote.text}&quot;</p>
                 <p className={styles.author}>{quote.author}</p>
-              </div>{" "}
+              </div>
               <button onClick={handleShuffle} className={styles.getQuotes}>
                 Get more Quotes!
               </button>

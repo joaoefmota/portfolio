@@ -43,12 +43,14 @@ export default function Projects() {
           return axios
             .get(`${APIURL}/images/?project=${project.name}`)
             .then((result) => {
+              /*
               console.log(
                 "result.data",
                 result.data.filter((image: { source: string | string[] }) =>
                   image.source.includes(`proj_container/${project.name}`)
                 )
               );
+              */
               const imageSet = result.data.filter(
                 (image: { source: string | string[] }) =>
                   image.source.includes(`proj_container/${project.name}`)

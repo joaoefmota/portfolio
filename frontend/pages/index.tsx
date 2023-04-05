@@ -5,7 +5,6 @@ import About_Me from "./about_me/About_Me";
 import Projects from "./projects/Projects";
 import Contact_Me from "./contacts/Contact_Me";
 import Playground from "./playground/Playground";
-import Footer from "../components/Footer";
 
 export default function LandingPage() {
   return (
@@ -27,7 +26,6 @@ export default function LandingPage() {
           <Playground />
           <Contact_Me />
         </main>
-        <Footer />
       </div>
     </>
   );

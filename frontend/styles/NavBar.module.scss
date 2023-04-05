@@ -31,7 +31,8 @@
 }
 
 .menuTitles {
-  font-size: clamp(1.5em, 6vw, 30em);
+  font-size: clamp(1rem, 4vw + 1rem, 30rem);
+  width: -moz-fit-content;
   width: fit-content;
   margin-bottom: 1rem;
   font-weight: $weight;

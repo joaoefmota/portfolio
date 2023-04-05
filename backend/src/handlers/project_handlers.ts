@@ -63,18 +63,17 @@ export const getProjectById = async (
 
 export const postProject = async (req: Request, res: Response) => {
   const {
-    name,
-    image_id,
-    content,
-    tools,
-    link,
-    packages,
-    github,
-    subTitle,
-    lg_content1,
-    aka,
-    lg_content2,
     project_id,
+    name,
+    subTitle,
+    content,
+    lg_content1,
+    lg_content2,
+    tools,
+    packages,
+    link,
+    github,
+    aka,
   } = req.body;
 
   if (
@@ -95,7 +94,7 @@ export const postProject = async (req: Request, res: Response) => {
   const existsQuery = "SELECT * FROM projects WHERE project_id =? OR name = ?";
   const [rows] = await database.query(existsQuery, [project_id, name]);
   const rowDataPacket = rows as RowDataPacket[];
-  if (rowDataPacket.length != 0) {
+  if (rowDataPacket.length !== 0) {
     const {
       exists,
       project_id: existingProjectId,
@@ -113,20 +112,19 @@ export const postProject = async (req: Request, res: Response) => {
 
   try {
     const [query] = await database.query<OkPacket>(
-      "INSERT INTO projects (name, image_id, content, tools, link, packages, github, subTitle, lg_content1, aka, lg_content2, project_id) VALUES  (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO projects (project_id, name, subTitle, content, lg_content1, lg_content2, tools, packages, link, github, aka) VALUES  (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
-        name,
-        image_id,
-        content,
-        tools,
-        link,
-        packages,
-        github,
-        subTitle,
-        lg_content1,
-        aka,
-        lg_content2,
         project_id,
+        name,
+        subTitle,
+        content,
+        lg_content1,
+        lg_content2,
+        tools,
+        packages,
+        link,
+        github,
+        aka,
       ]
     );
     const insertId: number = query.insertId;
@@ -134,6 +132,7 @@ export const postProject = async (req: Request, res: Response) => {
     fs.mkdirSync(`src/images/projects/${name}`);
   } catch (err: any) {
     if ((err.code = "ERR_DUP_ENTRY")) {
+      console.log(err);
       res.status(500).send(`The project with name: ${name} already exists`);
     } else {
       console.log(err);

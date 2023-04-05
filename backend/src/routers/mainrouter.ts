@@ -29,6 +29,10 @@ import {
   getAllPlayground,
   postPlayground,
 } from "../handlers/playground_handlers";
+import { validateLogin } from "../validators/login_validators";
+import { validateProjectSubmit } from "../validators/project_validators";
+import { validatePlayground } from "../validators/playground_validators";
+import { validateToken } from "../handlers/validateToken";
 
 const MainRouter = Router();
 
@@ -39,21 +43,22 @@ MainRouter.get("/images", getImages);
 MainRouter.get("/images-id", getImagesById);
 MainRouter.get("/api/playground", getAllPlayground);
 MainRouter.post("/contact", validateSubmit, submitContactForm);
-MainRouter.post("/api/login", loginUser);
+MainRouter.post("/api/login", validateLogin, loginUser);
 
 MainRouter.use(verifyToken, errorHandler);
 
+MainRouter.get("/validateToken", validateToken);
 MainRouter.get("/dashboard", dashboard);
 MainRouter.post("/api/user", createUser);
 MainRouter.get("/api/user-nr/", getUserById);
 MainRouter.delete("/api/user-nr/", deleteUserById);
 
-MainRouter.post("/api/projects/", postProject);
+MainRouter.post("/api/projects/", validateProjectSubmit, postProject);
 MainRouter.put("/api/project-nr/");
 MainRouter.delete("/api/project-nr/", deleteProjectById);
 
-MainRouter.post("/api/playground", postPlayground);
-MainRouter.delete("/apli/playground-nr/", deletePlayground);
+MainRouter.post("/api/playground", validatePlayground, postPlayground);
+MainRouter.delete("/api/playground-nr/", deletePlayground);
 
 MainRouter.post(
   "/api/projects/uploadMain",

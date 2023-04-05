@@ -13,6 +13,7 @@ export const uploadMainImage = async (req: Request, res: Response) => {
     }
 
     const projectName = req.query.projectName as string;
+    console.log("projectName", projectName);
     console.log("req.file Main", req.file);
 
     try {

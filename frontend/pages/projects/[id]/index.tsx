@@ -166,9 +166,7 @@ export default function ProjectPage() {
 
             <article className="flex flex-col px-10 gap-5">
               <h2 className={styles.subtitle}>{projectInfo.subTitle}</h2>
-              <p className="text-left text-xl paragraph mb-5">
-                {projectInfo.content}
-              </p>
+              <p className="text-left paragraph ">{projectInfo.content}</p>
               <div className="flex flex-col gap-5">
                 <p className="paragraph">{projectInfo.lg_content1}</p>
                 <p className="paragraph">{projectInfo.lg_content2}</p>
@@ -176,10 +174,10 @@ export default function ProjectPage() {
 
               <div className="flex flex-row gap-3 mt-3 w-3/4">
                 <div className="flex flex-col w-1/2 gap-2">
-                  <h2 className="text-4xl">Tools</h2>
+                  <h2 className="subtitle">Tools</h2>
                   <div className="grid grid-rows-2 grid-flow-col w-3/4">
                     {(tools ?? []).map((tool) => (
-                      <p className={"text-2xl"} key={tool}>
+                      <p className={"paragraph"} key={tool}>
                         {tool}
                       </p>
                     ))}
@@ -187,10 +185,10 @@ export default function ProjectPage() {
                 </div>
                 {projectInfo.packages != null ? (
                   <div className="flex flex-col w-1/2 gap-3">
-                    <h2 className="text-4xl">Packages</h2>
+                    <h2 className="subtitle">Packages</h2>
                     <div className="grid grid-rows-2 grid-flow-col">
                       {(packages ?? []).map((pack) => (
-                        <p className={"text-2xl"} key={pack}>
+                        <p className={"paragraph"} key={pack}>
                           {pack}
                         </p>
                       ))}
@@ -217,7 +215,7 @@ export default function ProjectPage() {
         />
       </div>
 
-      <Link href={"/#Playground"} className={styles.back}>
+      <Link href={"/#Projects"} className={styles.back}>
         <Image src={back} width={25} alt={"go-back"} />
       </Link>
     </section>

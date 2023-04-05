@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@next/font': 13.1.2
   '@types/jquery': ^3.5.16
+  '@types/jwt-decode': ^3.1.0
   '@types/lodash': ^4.14.191
   '@types/node': 18.11.18
   '@types/react': 18.0.26
@@ -14,6 +15,7 @@ specifiers:
   eslint-config-next: 13.1.2
   hamburger-react: ^2.5.0
   jquery: ^3.6.3
+  jwt-decode: ^3.1.2
   lodash: ^4.17.21
   next: 13.1.2
   postcss: ^8.4.21
@@ -22,6 +24,7 @@ specifiers:
   react-grid-gallery: ^1.0.0
   react-hydration-provider: ^1.0.2
   react-images: 1.2.0-beta.7
+  react-loading: ^2.0.3
   react-modal-image: ^2.6.0
   react-photo-gallery: ^8.0.0
   react-responsive-carousel: ^3.2.23
@@ -41,6 +44,7 @@ dependencies:
   eslint-config-next: 13.1.2_7uibuqfxkfaozanbtbziikiqje
   hamburger-react: 2.5.0_react@18.2.0
   jquery: 3.6.3
+  jwt-decode: 3.1.2
   lodash: 4.17.21
   next: 13.1.2_5mhhrw5dq6gnbuirj2awdzvyuu
   react: 18.2.0
@@ -48,6 +52,7 @@ dependencies:
   react-grid-gallery: 1.0.0_react@18.2.0
   react-hydration-provider: 1.0.2_react@18.2.0
   react-images: 1.2.0-beta.7_ib3m5ricvtkl2cll7qpr2f6lvq
+  react-loading: 2.0.3_react@18.2.0
   react-modal-image: 2.6.0
   react-photo-gallery: 8.0.0_biqbaboplfbrettd7655fr4n2y
   react-responsive-carousel: 3.2.23
@@ -57,6 +62,7 @@ dependencies:
 
 devDependencies:
   '@types/jquery': 3.5.16
+  '@types/jwt-decode': 3.1.0
   '@types/lodash': 4.14.191
   '@types/tinycolor2': 1.4.3
   autoprefixer: 10.4.13_postcss@8.4.21
@@ -290,6 +296,13 @@ packages:
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: false
+
+  /@types/jwt-decode/3.1.0:
+    resolution: {integrity: sha512-tthwik7TKkou3mVnBnvVuHnHElbjtdbM63pdBCbZTirCt3WAdM73Y79mOri7+ljsS99ZVwUFZHLMxJuJnv/z1w==}
+    deprecated: This is a stub types definition. jwt-decode provides its own type definitions, so you do not need this installed.
+    dependencies:
+      jwt-decode: 3.1.2
+    dev: true
 
   /@types/lodash/4.14.191:
     resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
@@ -1922,6 +1935,9 @@ packages:
       object.assign: 4.1.4
     dev: false
 
+  /jwt-decode/3.1.2:
+    resolution: {integrity: sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==}
+
   /language-subtag-registry/0.3.22:
     resolution: {integrity: sha512-tN0MCzyWnoz/4nHS6uxdlFWoUZT7ABptwKPQ52Ea7URk6vll88bWBVhodtnlfEuCcKWNGoc+uGbw1cwa9IKh/w==}
     dev: false
@@ -2504,6 +2520,15 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+    dev: false
+
+  /react-loading/2.0.3_react@18.2.0:
+    resolution: {integrity: sha512-Vdqy79zq+bpeWJqC+xjltUjuGApyoItPgL0vgVfcJHhqwU7bAMKzysfGW/ADu6i0z0JiOCRJjo+IkFNkRNbA3A==}
+    peerDependencies:
+      prop-types: ^15.6.0
+      react: '>=0.14.0'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-modal-image/2.6.0:
