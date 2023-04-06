@@ -149,7 +149,7 @@ function Login() {
       >
         <h1 className={"title self-start"}>Login</h1>
         <article className={styles.loginContainer}>
-          <div className="flex flex-col items-center w-1/2">
+          <div className="flex flex-col items-center w-1/2 sm:w-full">
             <form className="flex flex-col items-center sm:flex-wrap gap-3 h-full w-full">
               <div>
                 <label htmlFor="username" />
@@ -190,7 +190,11 @@ function Login() {
                   <p className={"errorMessage"}>{errorMessages.password}</p>
                 )}
               </div>
-              <button type="submit" onClick={submissionHandler}>
+              <button
+                type="submit"
+                onClick={submissionHandler}
+                className="sm:mb-5"
+              >
                 Login
               </button>
             </form>

@@ -20,10 +20,11 @@
 .gridColumn {
   display: grid;
   grid-template-rows: auto auto;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(355px, 1fr));
   grid-auto-flow: column;
   gap: 15px;
   padding: 0 1.5 rem;
+  margin-bottom: 0.5rem;
 }
 
 .tile {
@@ -38,8 +39,8 @@
   background-color: $tilebackground;
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: all ease 0.5s;
-  height: max(300px);
-  width: max(450px);
+  height: max(250px);
+  width: max(355px);
   &:hover {
     transform: translateY(-10px);
     h3 {
@@ -114,9 +115,31 @@
   }
 
   .gridColumn {
+    gap: 7px;
     display: flex;
     & Link {
       flex: 1;
+    }
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1024px) {
+  .tile {
+    height: max(200px);
+    width: max(270px);
+    padding: 1.25rem 1.5rem;
+    justify-content: center;
+  }
+
+  .gridColumn {
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 5px;
+  }
+
+  .tileHeader {
+    & img {
+      width: 25px;
+      height: 25px;
     }
   }
 }

@@ -151,7 +151,7 @@ export default function Projects({ authToken }: PropsAuth) {
             <input
               onChange={handleChange}
               placeholder="Packages or not"
-              value={projectData.link}
+              value={projectData.packages}
               name="packages"
               type="text"
             />

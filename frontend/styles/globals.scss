@@ -388,24 +388,24 @@ option {
     justify-content: flex-start;
   }
 
-  section,
-  footer {
-    padding: 1.5rem 1.5rem;
-  }
   button {
     max-width: -moz-fit-content;
     max-width: fit-content;
   }
-}
-
-@media (max-width: 768px) {
   header {
     position: absolute;
-    padding: 0 2rem;
+    padding: 0 0.5rem;
   }
 
   .swiper-button-next:after,
   .swiper-button-prev:after {
     font-size: 44px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  section,
+  footer {
+    padding: 1.5rem 1.5rem;
   }
 }

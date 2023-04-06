@@ -19,7 +19,7 @@ import styles from "@/styles/projects.module.scss";
 {
   /* TYPES */
 }
-import { ProjectInfoProps } from "@/types/ProjectInfoProps";
+import { ProjectProps } from "@/types/ProjectInfoProps";
 import useFadeIn from "../../hooks/useFadeIn";
 
 export default function Projects() {
@@ -39,7 +39,7 @@ export default function Projects() {
     transform: (projects) => {
       const _imagesMap = new Map();
       Promise.all(
-        projects.map((project: ProjectInfoProps) => {
+        projects.map((project: ProjectProps) => {
           return axios
             .get(`${APIURL}/images/?project=${project.name}`)
             .then((result) => {
@@ -96,7 +96,7 @@ export default function Projects() {
             className="mySwiper rounded"
           >
             {projectsArray != null
-              ? projectsArray.map((project: ProjectInfoProps) => (
+              ? projectsArray.map((project: ProjectProps) => (
                   <>
                     <SwiperSlide key={project.id}>
                       <ProjectTile
