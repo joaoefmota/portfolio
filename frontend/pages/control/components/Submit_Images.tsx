@@ -129,11 +129,12 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
         className="self-center"
       >
         <option value="">---</option>
-        {projectData.map((info) => (
-          <option key={info.name} value={info.name}>
-            {info.name}
-          </option>
-        ))}
+        {projectData &&
+          projectData.map((info) => (
+            <option key={info.name} value={info.name}>
+              {info.name}
+            </option>
+          ))}
       </select>
       <h2 className="title text-center">Main Image</h2>
       <div className="flex flex-row items-center gap-3 justify-center">
@@ -160,7 +161,7 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
             encType="multipart/form-data"
             className="grid grid-cols-2 gap-3"
           >
-            {otherImagesRefs.map((ref, index) => (
+            {otherImagesRefs && otherImagesRefs.map((ref, index) => (
               <div className="flex flex-col" key={index}>
                 <label>Other Image {index + 1}</label>
                 <input

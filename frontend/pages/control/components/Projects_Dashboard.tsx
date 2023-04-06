@@ -66,7 +66,7 @@ export default function Projects_Dashboard({ authToken }: PropsAuth) {
       <div className="flex flex-col">
         <Create_Project authToken={authToken} />
         <Submit_Images authToken={authToken} projectData={projectData} />
-        {/* <Delete_Project projectInfo={projectInfo.project_id} /> */}
+        <Delete_Project authToken={authToken} projectData={projectData} />
       </div>
     </div>
   );

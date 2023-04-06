@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { OkPacket, RowDataPacket } from "mysql2";
 import database from "../database";
 import { v4 as uuidv4 } from "uuid";
+import { TypedRequestQuery } from "../../types/express";
 
 const dataError = "Error retrieving data from the database";
 
