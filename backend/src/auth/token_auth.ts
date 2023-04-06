@@ -1,8 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+interface CustomRequest extends Request {
+  payload?: string | jwt.JwtPayload;
+}
+
 export const verifyToken = (
-  req: Request,
+  req: CustomRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -19,7 +23,7 @@ export const verifyToken = (
       throw new Error("Authorization header has not the 'Bearer' type");
     }
 
-    req.payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.payload = jwt.verify(token, process.env.JWT_SECRET as string);
     next();
   } catch (err) {
     console.error(err);

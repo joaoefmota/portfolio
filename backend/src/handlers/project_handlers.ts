@@ -2,6 +2,7 @@ import database from "../database";
 import { OkPacket, RowDataPacket } from "mysql2";
 import { Request, Response } from "express";
 import { getPlaygroundById } from "./playground_handlers";
+import { TypedRequestQuery } from "../../types/express";
 const fs = require("fs"); // to rename files, for example
 
 const ADMIN = process.env.ADMIN;

@@ -3,6 +3,7 @@ import database from "../database";
 import argon2 = require("argon2");
 import { OkPacket, RowDataPacket, FieldPacket } from "mysql2";
 import jwt from "jsonwebtoken";
+import { TypedRequestQuery } from "../../types/express";
 
 const ADMIN = process.env.ADMIN;
 

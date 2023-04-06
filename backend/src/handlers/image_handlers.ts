@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { RowDataPacket } from "mysql2";
 import database from "../database";
+import { TypedRequestQuery } from "../../types/express";
 
 const dataError = "Error retrieving data from the database";
 export interface ImageCountainer extends RowDataPacket {

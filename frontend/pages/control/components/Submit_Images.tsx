@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 interface SubmitProps {
   projectData: ProjectProps[];
-  authToken: string;
+  authToken: string | undefined;
 }
 
 export default function Submit_Images({ authToken, projectData }: SubmitProps) {
