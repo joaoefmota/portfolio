@@ -1,0 +1,42 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const fs = require("fs"); // to rename files, for example
+const project_handlers_1 = require("../handlers/project_handlers");
+const image_handlers_1 = require("../handlers/image_handlers");
+const contact_validators_1 = require("../validators/contact_validators");
+const contact_handler_1 = require("../handlers/contact_handler");
+const user_handler_1 = require("../handlers/user_handler");
+const token_auth_1 = require("../auth/token_auth");
+const secure_dashboard_1 = require("../handlers/secure.dashboard");
+const multer_handlers_1 = require("../handlers/multer_handlers");
+const playground_handlers_1 = require("../handlers/playground_handlers");
+const login_validators_1 = require("../validators/login_validators");
+const project_validators_1 = require("../validators/project_validators");
+const playground_validators_1 = require("../validators/playground_validators");
+const validateToken_1 = require("../handlers/validateToken");
+const MainRouter = (0, express_1.Router)();
+MainRouter.get("/api/projects", project_handlers_1.getAllProjects);
+MainRouter.get("/api/project", project_handlers_1.getProjectByName);
+MainRouter.get("/api/project-nr/", project_handlers_1.getProjectById);
+MainRouter.get("/images", image_handlers_1.getImages);
+MainRouter.get("/images-id", image_handlers_1.getImagesById);
+MainRouter.get("/api/playground", playground_handlers_1.getAllPlayground);
+MainRouter.post("/contact", contact_validators_1.validateSubmit, contact_handler_1.submitContactForm);
+MainRouter.post("/api/login", login_validators_1.validateLogin, user_handler_1.loginUser);
+MainRouter.use(token_auth_1.verifyToken, token_auth_1.errorHandler);
+MainRouter.get("/validateToken", validateToken_1.validateToken);
+MainRouter.get("/dashboard", secure_dashboard_1.dashboard);
+MainRouter.post("/api/user", user_handler_1.createUser);
+MainRouter.get("/api/user-nr/", user_handler_1.getUserById);
+MainRouter.delete("/api/user-nr/", user_handler_1.deleteUserById);
+MainRouter.post("/api/projects/", project_validators_1.validateProjectSubmit, project_handlers_1.postProject);
+MainRouter.put("/api/project-nr/");
+MainRouter.delete("/api/project-nr/", project_handlers_1.deleteProjectById);
+MainRouter.post("/api/playground", playground_validators_1.validatePlayground, playground_handlers_1.postPlayground);
+MainRouter.delete("/api/playground-nr/", playground_handlers_1.deletePlayground);
+MainRouter.post("/api/projects/uploadMain", 
+// rename the "field name" on the PostMan to avatar or whatever we want or the upload fails
+multer_handlers_1.uploadMainImage);
+MainRouter.post("/api/projects/uploadImages", multer_handlers_1.uploadProjectImages);
+exports.default = MainRouter;

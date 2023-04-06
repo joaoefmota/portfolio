@@ -62,7 +62,7 @@ export default function Delete_Playground({
       <div className="flex flex-row flex-wrap justify-center items-center gap-5">
         <select title="playground_id" value={playgroundId} onChange={handleId}>
           <option value="">---</option>
-          {playgroundData.map((info) => (
+          {playgroundData && playgroundData.map((info) => (
             <option key={info.playground_id} value={info.playground_id}>
               {info.playground_id}
             </option>
