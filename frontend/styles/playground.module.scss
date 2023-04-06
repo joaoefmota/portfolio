@@ -1,0 +1,145 @@
+@import "./variables";
+@import "./backbutton";
+
+.Playground {
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  height: $vh;
+  width: $vw;
+  opacity: 0;
+}
+
+.mainContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+}
+
+.gridColumn {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: repeat(auto-fit, minmax(355px, 1fr));
+  grid-auto-flow: column;
+  gap: 15px;
+  padding: 0 1.5 rem;
+  margin-bottom: 0.5rem;
+}
+
+.tile {
+  box-shadow: 0 10px 30px -15px $tilebackground;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 2rem 1.75rem;
+  border-radius: 5px;
+  background-color: $tilebackground;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all ease 0.5s;
+  height: max(250px);
+  width: max(355px);
+  &:hover {
+    transform: translateY(-10px);
+    h3 {
+      color: $span2;
+    }
+  }
+}
+
+.tileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  & img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.tileTitle {
+  margin: 0px 0px 10px;
+  color: $background1;
+  font-size: 20px;
+}
+
+.tileDescription {
+  color: $background1;
+  font-size: clamp(0.5rem, 0.5vw + 0.5rem, 10rem);
+  max-width: 35ch;
+}
+
+.techList {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 20px 0px 0px;
+  list-style: none;
+}
+
+.techList li {
+  margin-right: 15px;
+  line-height: 1.75;
+  color: $background1;
+  font-size: clamp(0.4rem, 0.5vw + 0.4rem, 10rem);
+}
+
+.buttonMore,
+.seeLess {
+  width: 100px;
+  height: 100px;
+  transition: all ease;
+  align-self: center;
+  margin-left: 0.5rem;
+}
+
+.buttonMore:hover {
+  transform: translateX(calc(5px));
+}
+
+.seeLess:hover {
+  transform: translateX(calc(-5px));
+}
+
+@media (max-width: 700px) {
+  .Playground {
+    height: fit-content;
+  }
+  .tile {
+    height: max(300px);
+    width: max(250px);
+  }
+
+  .gridColumn {
+    gap: 7px;
+    display: flex;
+    & Link {
+      flex: 1;
+    }
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1024px) {
+  .tile {
+    height: max(200px);
+    width: max(270px);
+    padding: 1.25rem 1.5rem;
+    justify-content: center;
+  }
+
+  .gridColumn {
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 5px;
+  }
+
+  .tileHeader {
+    & img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}

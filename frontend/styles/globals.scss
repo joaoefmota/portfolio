@@ -1,0 +1,411 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// https://coolors.co/08090a-a7a2a9-f4f7f5-575a5e-222823
+
+//Custom font-family from Google Fonts (Nunito)
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap");
+
+:root {
+  --background1: #fffff2;
+  --background: #e8e8e8;
+  --titlecolor: #222823;
+  --subtitlecolor: #6c686d;
+  --altText2: #a7a2a9;
+  --span2: #dab894;
+  --text: #575a5e;
+  --weight: 800;
+  --error: #ef271b;
+}
+
+/* html {
+  overflow-x: initial !important;
+}
+*/
+
+html {
+  scroll-behavior: smooth !important; /* In order for smooth scroll to work */
+  font-family: "Nunito", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  scrollbar-color: rgb(191, 192, 206, 0.5);
+  background-color: var(--background);
+  display: block;
+  overflow: overlay;
+  &::-webkit-scrollbar,
+  & *::-webkit-scrollbar {
+    width: 0.6rem;
+    padding: 20px 0;
+  }
+  &::-webkit-scrollbar-thumb,
+  & *::-webkit-scrollbar-thumb {
+    background-color: var(--span2);
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:focus,
+  & *::-webkit-scrollbar-thumb:focus {
+    background-color: rgb(144, 155, 170);
+  }
+  &::-webkit-scrollbar-thumb:active,
+  & *::-webkit-scrollbar-thumb:active {
+    background-color: rgb(144, 155, 170);
+  }
+  &::-webkit-scrollbar-thumb:hover,
+  & *::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(144, 155, 170, 0.5);
+  }
+  &::-webkit-scrollbar-corner,
+  & *::-webkit-scrollbar-corner {
+    background-color: rgb(191, 192, 206, 0.5);
+  }
+}
+
+body.scroll-to-top {
+  position: fixed !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1 {
+  font-weight: var(--weight);
+  color: var(--titlecolor);
+}
+
+h2 {
+  font-weight: var(--weight);
+  color: var(--subtitlecolor);
+}
+
+h3 {
+  font-weight: var(--weight);
+  color: var(--subtitlecolor);
+}
+
+p {
+  color: var(--text);
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+header {
+  width: 100%;
+  z-index: 1000;
+  max-height: 12rem;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+}
+
+main {
+  outline: none;
+}
+
+footer {
+  position: sticky;
+  width: 100vw;
+  top: 100vh;
+  padding: 2rem 10rem;
+  background-color: var(--titlecolor);
+  color: var(--background);
+  gap: 2rem;
+  z-index: 4;
+}
+
+section {
+  z-index: 3;
+  user-select: auto;
+  padding: 2rem 10rem;
+  background-color: var(--background);
+}
+
+.sectionBg1 {
+  background-color: var(--background);
+}
+
+.sectionBg2 {
+  background-color: var(--titlecolor);
+}
+
+article {
+  width: 100%;
+}
+
+input {
+  border: 0.5px solid black;
+  border-radius: 1rem;
+  resize: none;
+  background: var(--background);
+  max-width: 45ch;
+  padding: 2rem;
+  height: 3rem;
+}
+
+input,
+input::placeholder,
+textarea {
+  font-size: clamp(0.5rem, 0.5vw + 0.5rem, 10rem);
+}
+
+button {
+  background: var(--titlecolor);
+  border: 1px solid black;
+  color: var(--background1);
+  border-radius: 2rem;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  transition: all ease 0.15s;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: clamp(0.5rem, 1vw + 0.5rem, 10rem);
+  &[type="button"] {
+    background: var(--titlecolor);
+    color: var(--background1);
+  }
+  &:hover {
+    text-decoration: none;
+    opacity: 0.5;
+    background: var(--titlecolor);
+    color: var(--background1);
+  }
+}
+
+span {
+  color: var(--titlecolor);
+}
+.span2 {
+  color: var(--span2);
+}
+
+label {
+  font-size: clamp(0.4rem, 1vw + 0.4rem, 10rem);
+}
+
+textarea {
+  text-align: left;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  line-height: 30px;
+  border: 0.5px solid black;
+  border-radius: 1rem;
+  background: var(--background);
+  background-image: linear-gradient(
+    -45deg,
+    var(--titlecolor) 20px,
+    transparent 20px
+  );
+  resize: vertical;
+}
+
+select {
+  line-height: 30px;
+  border: 0.5px solid black;
+  border-radius: 1rem;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  background-color: var(--background);
+}
+
+option {
+  border: 0.5px solid black;
+  border-radius: 1rem;
+  background-color: var(--background);
+}
+
+#app {
+  position: relative;
+}
+
+.mainBlock {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  //align-items: center;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw + 0.5rem, 20rem);
+}
+
+.subtitle {
+  font-size: clamp(1rem, 3vw + 0.5rem, 15rem);
+}
+
+.paragraph {
+  font-size: clamp(0.5rem, 1vw + 0.5rem, 10rem);
+  // overflow: hidden;
+}
+
+.titleAlt {
+  color: var(--background);
+  align-self: flex-start;
+}
+
+.subtitleAlt {
+  color: var(--background);
+}
+
+.paragraphAlt {
+  color: var(--background);
+}
+
+.pTilePosition {
+  top: 87%;
+  right: 3%;
+}
+
+.shade {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  transition: all ease 0.5s;
+  background-size: cover;
+  opacity: 1;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide img {
+  display: block;
+  object-fit: cover;
+  position: relative;
+  z-index: -1;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--background1) !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 80px !important;
+  color: var(--background1);
+}
+
+.hamburger-react,
+.hamburger-react div {
+  transition: all 0.4s ease-in-out, background 0.1s ease-in-out !important;
+}
+
+.ril-image-current {
+  transform: none !important;
+}
+
+.react-photo-gallery--gallery div {
+  display: grid !important;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  & img {
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  & img:hover {
+    opacity: 0.5;
+  }
+}
+
+.slider-wrapper {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+}
+
+.errorMessage {
+  margin-top: 0.5rem;
+  color: var(--error);
+  font-style: italic;
+}
+
+/*
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation-name: fade-in;
+  animation-duration: 1s;
+  animation-fill-mode: both; // the element will retain its final state (opacity: 1) after the animation completes.
+}
+
+.is-visible {
+  opacity: 1;
+}
+
+*/
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s;
+  animation-fill-mode: forwards;
+}
+
+@media (max-width: 700px) {
+  .mainBlock {
+    justify-content: flex-start;
+  }
+
+  button {
+    max-width: -moz-fit-content;
+    max-width: fit-content;
+  }
+  header {
+    position: absolute;
+    padding: 0 0.5rem;
+  }
+
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 44px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  section,
+  footer {
+    padding: 1.5rem 1.5rem;
+  }
+}

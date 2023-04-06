@@ -1,0 +1,7 @@
+@import "./variables";
+@import "./mixin";
+
+.fade-in {
+  opacity: 0;
+  @include fade-in;
+}

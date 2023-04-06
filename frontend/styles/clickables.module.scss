@@ -1,0 +1,23 @@
+.containerNav {
+  text-align: center;
+}
+
+.iconsNav {
+  width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    flex-direction: row;
+    gap: 0;
+    position: sticky;
+  }
+
+  .icons {
+    width: 40%;
+  }
+
+  .iconsNav {
+    width: 25px;
+  }
+}

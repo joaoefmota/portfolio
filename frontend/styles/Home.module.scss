@@ -1,0 +1,27 @@
+@import "./variables";
+
+.Home {
+  z-index: 3;
+  user-select: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100svh;
+  width: $vw;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.textContainer {
+  width: min(1500px, 100%);
+}
+.pic {
+  margin: 0 2rem;
+  display: initial;
+  width: min(50%, 75%);
+}
+
+@media (max-width: 500px) {
+  .pic {
+    display: none;
+  }
+}
