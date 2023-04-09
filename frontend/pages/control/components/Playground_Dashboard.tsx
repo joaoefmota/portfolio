@@ -12,10 +12,11 @@ export default function Playground_Dashboard({ authToken }: PropsAuth) {
     tools: "",
     playground_id: "",
   });
+  const APIURL = process.env.API_URL;
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/api/playground")
+      .get(`${APIURL}/api/playground`)
       .then((result: AxiosResponse) => {
         console.log("result Playground", result.data);
         setPlaygroundData(result.data);

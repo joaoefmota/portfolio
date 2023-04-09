@@ -22,6 +22,7 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
   ];
+  const APIURL = process.env.API_URL;
 
   const handleSubmitMain = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -32,7 +33,7 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
     formData.append("uploaded_file", mainImageInputRef.current!.files![0]); // Append to the object the file we're getting from ref, to populate that object
     axios
       .post(
-        `http://localhost:5005/api/projects/uploadMain?projectName=${projectName}`,
+        `${APIURL}/api/projects/uploadMain?projectName=${projectName}`,
         formData,
         {
           headers: {
@@ -68,7 +69,7 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
 
     axios
       .post(
-        `http://localhost:5005/api/projects/uploadImages?projectName=${projectName}`,
+        `${APIURL}/api/projects/uploadImages?projectName=${projectName}`,
         formData,
         {
           headers: {
@@ -161,17 +162,18 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
             encType="multipart/form-data"
             className="grid grid-cols-2 gap-3"
           >
-            {otherImagesRefs && otherImagesRefs.map((ref, index) => (
-              <div className="flex flex-col" key={index}>
-                <label>Other Image {index + 1}</label>
-                <input
-                  placeholder={"File to upload"}
-                  type={"file"}
-                  name={"file"}
-                  ref={ref}
-                />
-              </div>
-            ))}
+            {otherImagesRefs &&
+              otherImagesRefs.map((ref, index) => (
+                <div className="flex flex-col" key={index}>
+                  <label>Other Image {index + 1}</label>
+                  <input
+                    placeholder={"File to upload"}
+                    type={"file"}
+                    name={"file"}
+                    ref={ref}
+                  />
+                </div>
+              ))}
             <button type="submit" onClick={handleSubmitOthers}>
               Send!
             </button>

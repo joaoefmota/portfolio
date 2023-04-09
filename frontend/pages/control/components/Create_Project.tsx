@@ -19,11 +19,12 @@ export default function Projects({ authToken }: PropsAuth) {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState<{ [key: string]: string }>({});
+  const APIURL = process.env.API_URL;
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event?.preventDefault();
     axios
-      .post("http://localhost:5005/api/projects/", projectData, {
+      .post(`${APIURL}/api/projects/`, projectData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,

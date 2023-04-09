@@ -31,7 +31,8 @@ export default function ProjectPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const APIURL = "http://localhost:5005";
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
+  
   const [restOfImages, setRestOfImages] = useState<[]>([]);
   const [projectInfo, setProjectInfo] = useState<ProjectInfo>({
     tools: "",

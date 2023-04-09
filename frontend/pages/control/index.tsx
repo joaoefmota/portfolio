@@ -28,6 +28,7 @@ export default function Control() {
   const [isTokenExpired, setIsTokenExpired] = useState(false);
   const controlRef = useRef(null);
   const router = useRouter();
+  const APIURL = process.env.API_URL;
 
   useEffect(() => {
     console.log("local Storage", localStorage.getItem("token"));
@@ -43,7 +44,7 @@ export default function Control() {
     const authUser = async () => {
       if (hasAccess && token) {
         try {
-          const result = await axios.get("http://localhost:5005/dashboard", {
+          const result = await axios.get(`${APIURL}/dashboard`, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,

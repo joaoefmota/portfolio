@@ -52,14 +52,17 @@ export default function About_Me() {
           <p
             className={`${"text-paragraph leading-relaxed paragraph paragraphAlt mb-5"}`}
           >
-            I can say that it was only natural to follow a digital life. Since I
-            was a kid that technology was up there in the top of my interests.
-            The
+            It was only natural to follow a digital life. Since I was a kid that
+            technology was up there at the top of my interests. The
             <span className="span2"> Web Developer</span> &quot;bug&quot; got a
-            biger spark when I was completing my Multimedia masters. Above all,
-            I would describe myself as a problem-solving type person. As you
-            start knowing me, you&apos;ll find I am the first to cheer others as
-            I love <span className="span2">teamwork</span>.
+            bigger spark when I was completing my Multimedia Msters.{" "}
+          </p>
+          <p
+            className={`${"text-paragraph leading-relaxed paragraph paragraphAlt mb-5"}`}
+          >
+            Above all, I would describe myself as a problem-solving type of person.
+            As you start knowing me, you&apos;ll find that I am the first to cheer
+            others, as I love <span className="span2">teamwork</span>!
           </p>
 
           <div className="flex flex-row items-center w-fit">

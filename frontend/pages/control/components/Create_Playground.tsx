@@ -12,6 +12,7 @@ export default function Create_Playground({ authToken }: PropsAuth) {
   });
   const [errorMsg, setErrorMsg] = useState<{ [key: string]: string }>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const APIURL = process.env.API_URL;
 
   const handleSumit = (
     event:
@@ -20,7 +21,7 @@ export default function Create_Playground({ authToken }: PropsAuth) {
   ) => {
     event.preventDefault();
     axios
-      .post("http://localhost:5005/api/playground", playgroundData, {
+      .post(`${APIURL}/api/playground`, playgroundData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,

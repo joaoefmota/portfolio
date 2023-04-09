@@ -34,7 +34,7 @@ function Login() {
   const [isSubmitted, setIsSubmited] = useState(false);
   const router = useRouter();
 
-  const APIURL = "http://localhost:5005";
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   function submissionHandler(
     event:
@@ -103,7 +103,7 @@ function Login() {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get(`http://localhost:5005/validateToken?token=${token}`, {
+        .get(`${APIURL}/validateToken?token=${token}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

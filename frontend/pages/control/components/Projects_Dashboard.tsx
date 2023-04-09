@@ -12,10 +12,11 @@ export default function Projects_Dashboard({ authToken }: PropsAuth) {
     name: "",
     subTitle: "",
   });
+  const APIURL = process.env.API_URL;
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/api/projects")
+      .get(`${APIURL}/api/projects`)
       .then((result: AxiosResponse) => {
         console.log("result Playground", result.data);
         setProjectData(result.data);
