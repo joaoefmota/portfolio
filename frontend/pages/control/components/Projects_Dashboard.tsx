@@ -19,7 +19,7 @@ export default function Projects_Dashboard({ authToken }: PropsAuth) {
       console.log("result Playground", result.data);
       setProjectData(result.data);
     });
-  }, []);
+  }, [APIURL]);
 
   return (
     <div className="flex flex-row">
