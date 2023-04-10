@@ -32,7 +32,7 @@ export default function ProjectPage() {
   const { id } = router.query;
 
   const APIURL = process.env.NEXT_PUBLIC_API_URL;
-  
+
   const [restOfImages, setRestOfImages] = useState<[]>([]);
   const [projectInfo, setProjectInfo] = useState<ProjectInfo>({
     tools: "",
