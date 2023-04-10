@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "@/styles/Playground.module.scss";
+import styles from "@/styles/playground.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 
