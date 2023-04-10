@@ -13,7 +13,7 @@ import Hamburger from "hamburger-react";
 {
   /* STYLES */
 }
-import styles from "@/styles/navBar.module.scss";
+import styles from "@/styles/NavBar.module.scss";
 
 export default function NavBar() {
   const [menuColor, setMenuColor] = useState("#222823");

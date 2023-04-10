@@ -2,7 +2,7 @@ import React from "react";
 import Clicabkles_Footer from "./Clickables_Footer";
 import GetQuotes from "./GetQuotes";
 
-import styles from "@/styles/footer.module.scss";
+import styles from "@/styles/Footer.module.scss";
 
 export default function Footer() {
   return (

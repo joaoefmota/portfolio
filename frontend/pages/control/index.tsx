@@ -11,7 +11,7 @@ import jwtDecode from "jwt-decode";
 
 import back from "@/assets/images/back_dark.png";
 
-import styles from "@/styles/control.module.scss";
+import styles from "@/styles/Control.module.scss";
 
 import Projects_Dashboard from "./components/Projects_Dashboard";
 import Playground_Dashboard from "./components/Playground_Dashboard";

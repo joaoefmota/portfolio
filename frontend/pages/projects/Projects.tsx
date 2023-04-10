@@ -14,7 +14,7 @@ import "swiper/css/navigation";
 {
   /* Styles */
 }
-import styles from "@/styles/projects.module.scss";
+import styles from "@/styles/Projects.module.scss";
 
 {
   /* TYPES */

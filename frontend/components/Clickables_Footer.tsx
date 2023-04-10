@@ -6,7 +6,7 @@ import github from "@/assets/images/github.png";
 import cv from "@/assets/images/cv.png";
 import linkedin from "@/assets/images/linkedin.png";
 
-import styles from "@/styles/clickables.module.scss";
+import styles from "@/styles/Clickables.module.scss";
 
 export default class Clickables extends Component {
   render() {
