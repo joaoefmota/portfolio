@@ -7,7 +7,7 @@ import axios, { AxiosResponse } from "axios";
 {
   /* STYLES */
 }
-import styles from "@/styles/Login.module.scss";
+import styles from "@/styles/login.module.scss";
 {
   /* HOOKS */
 }

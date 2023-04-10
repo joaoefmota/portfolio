@@ -8,7 +8,7 @@ import useFadeIn from "../../hooks/useFadeIn";
 import useAxios from "../../hooks/useAxios";
 
 import back from "@/assets/images/back_dark.png";
-import styles from "@/styles/Playground.module.scss";
+import styles from "@/styles/playground.module.scss";
 
 export interface PlaygroundProps {
   playground_id: number;
