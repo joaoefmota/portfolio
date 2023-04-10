@@ -21,7 +21,7 @@ export default function Playground_Dashboard({ authToken }: PropsAuth) {
         console.log("result Playground", result.data);
         setPlaygroundData(result.data);
       });
-  }, []);
+  }, [APIURL]);
 
   return (
     <div className="flex flex-row">

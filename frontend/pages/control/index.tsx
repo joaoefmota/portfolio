@@ -88,7 +88,7 @@ export default function Control() {
       }
     };
     authUser();
-  }, [hasAccess, router, token]);
+  }, [APIURL, hasAccess, router, token]);
 
   useEffect(() => {
     componentRef.current = controlRef.current;
