@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-import styles from "@/styles/About.module.scss";
+import styles from "@/styles/about.module.scss";
 
 {
   /* IMAGES */
