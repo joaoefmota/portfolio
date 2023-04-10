@@ -13,7 +13,7 @@ import Hamburger from "hamburger-react";
 {
   /* STYLES */
 }
-import styles from "@/styles/NavBar.module.scss";
+import styles from "@/styles/navBar.module.scss";
 
 export default function NavBar() {
   const [menuColor, setMenuColor] = useState("#222823");
@@ -45,12 +45,12 @@ export default function NavBar() {
           setMenuColor(isLight ? "#222823" : "#e8e8e8");
           // console.log("menu color", menuColor);
 
-         /*
+          /*
          const sectionId = currentSection.getAttribute("id");
           const url = new URL(window.location.href);
           url.hash = sectionId ?? "";
           window.history.pushState(null, "", url); 
-          */ 
+          */
         }
       }
       handleScroll();
