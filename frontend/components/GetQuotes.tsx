@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import styles from "@/styles/footer.module.scss";
+import styles from "@/styles/Footer.module.scss";
 
 function GetQuotes() {
   const [quotes, setQuotes] = useState<any[]>([]);
