@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import styles from "@/styles/home.module.scss";
+import styles from "../../styles/home.module.scss";
 
 function Home() {
   const router = useRouter();
