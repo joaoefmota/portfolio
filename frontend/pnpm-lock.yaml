@@ -1331,7 +1331,7 @@ packages:
       object-assign: 4.1.1
       promise: 7.3.1
       setimmediate: 1.0.5
-      ua-parser-js: 0.7.34
+      ua-parser-js: 0.7.35
     dev: false
 
   /file-entry-cache/6.0.1:
@@ -2448,8 +2448,8 @@ packages:
       use-sidecar: 1.1.2_kzbn2opkn2327fwg5yzwzya5o4
     dev: false
 
-  /react-focus-on/3.7.0_kzbn2opkn2327fwg5yzwzya5o4:
-    resolution: {integrity: sha512-TsCnbJr4qjqFatJ4U1N8qGSZH+FUzxJ5mJ5ta7TY2YnDmUbGGmcvZMTZgGjQ1fl6vlztsMyg6YyZlPAeeIhEUg==}
+  /react-focus-on/3.8.0_kzbn2opkn2327fwg5yzwzya5o4:
+    resolution: {integrity: sha512-xuH4jUPeRZ4oE0a85d7pA8pPhotb4U2iWK1CBATP/Xao/WEFHUZxxi5+ffWovjjUT7k53mXDm53TE2pvjLccsw==}
     engines: {node: '>=8.5.0'}
     peerDependencies:
       '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -2510,7 +2510,7 @@ packages:
       raf-schd: 4.0.3
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      react-focus-on: 3.7.0_kzbn2opkn2327fwg5yzwzya5o4
+      react-focus-on: 3.8.0_kzbn2opkn2327fwg5yzwzya5o4
       react-full-screen: 1.1.1_react@18.2.0
       react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
       react-view-pager: 0.6.0_biqbaboplfbrettd7655fr4n2y
@@ -3043,8 +3043,8 @@ packages:
     hasBin: true
     dev: false
 
-  /ua-parser-js/0.7.34:
-    resolution: {integrity: sha512-cJMeh/eOILyGu0ejgTKB95yKT3zOenSe9UGE3vj6WfiOwgGYnmATUsnDixMFvdU+rNMvWih83hrUP8VwhF9yXQ==}
+  /ua-parser-js/0.7.35:
+    resolution: {integrity: sha512-veRf7dawaj9xaWEu9HoTVn5Pggtc/qj+kqTOFvNiN1l0YdxwC1kvel57UCjThjGa3BHBihE8/UJAHI+uQHmd/g==}
     dev: false
 
   /unbox-primitive/1.0.2:
