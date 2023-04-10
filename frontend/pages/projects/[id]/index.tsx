@@ -147,24 +147,25 @@ export default function ProjectPage() {
                 setLightBoxisOpen(true);
               }}
             />
-            {lightBoxIsOpen && (
-              <ModalGateway>
-                <Modal
-                  onClose={() => {
-                    setPhotoIndex(0);
-                    setLightBoxisOpen(false);
-                  }}
-                >
-                  <Carousel
-                    currentIndex={photoIndex}
-                    views={photos.map((x) => ({
-                      ...x,
-                      source: x.src,
-                    }))}
-                  />
-                </Modal>
-              </ModalGateway>
-            )}
+            {lightBoxIsOpen &&
+              ((
+                <ModalGateway>
+                  <Modal
+                    onClose={() => {
+                      setPhotoIndex(0);
+                      setLightBoxisOpen(false);
+                    }}
+                  >
+                    <Carousel
+                      currentIndex={photoIndex}
+                      views={photos.map((x) => ({
+                        ...x,
+                        source: x.src,
+                      }))}
+                    />
+                  </Modal>
+                </ModalGateway>
+              ) as any)}
 
             <article className="flex flex-col gap-5">
               <h2 className={styles.subtitle}>{projectInfo.subTitle}</h2>
