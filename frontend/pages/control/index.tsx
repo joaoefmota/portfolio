@@ -28,7 +28,7 @@ export default function Control() {
   const [isTokenExpired, setIsTokenExpired] = useState(false);
   const controlRef = useRef(null);
   const router = useRouter();
-  const APIURL = process.env.API_URL;
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     console.log("local Storage", localStorage.getItem("token"));

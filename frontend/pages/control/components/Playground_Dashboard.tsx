@@ -12,7 +12,7 @@ export default function Playground_Dashboard({ authToken }: PropsAuth) {
     tools: "",
     playground_id: "",
   });
-  const APIURL = process.env.API_URL;
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     axios
