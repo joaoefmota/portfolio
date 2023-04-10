@@ -11,7 +11,7 @@ import Carousel, { Modal, ModalGateway } from "react-images";
 // import Carousel from "react-responsive-carousel";
 
 import back from "@/assets/images/back_dark.png";
-import styles from "@/styles/Projects.module.scss";
+import styles from "@/styles/projects.module.scss";
 import useFadeIn from "@/hooks/useFadeIn";
 interface ProjectInfo {
   tools: string;
