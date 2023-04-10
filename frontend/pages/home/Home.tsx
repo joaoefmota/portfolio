@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "@/styles/home.module.scss";
+import styles from "../../styles/home.module.scss";
 
 function Home() {
   const router = useRouter();
@@ -40,7 +40,7 @@ function Home() {
             className="mt-10"
             onClick={() => router.push("/#Projects")}
           >
-           Check out my Projects!
+            Check out my Projects!
           </button>
         </div>
       </section>
