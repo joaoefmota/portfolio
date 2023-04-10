@@ -12,15 +12,13 @@ export default function Projects_Dashboard({ authToken }: PropsAuth) {
     name: "",
     subTitle: "",
   });
-  const APIURL = process.env.API_URL;
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    axios
-      .get(`${APIURL}/api/projects`)
-      .then((result: AxiosResponse) => {
-        console.log("result Playground", result.data);
-        setProjectData(result.data);
-      });
+    axios.get(`${APIURL}/api/projects`).then((result: AxiosResponse) => {
+      console.log("result Playground", result.data);
+      setProjectData(result.data);
+    });
   }, []);
 
   return (
