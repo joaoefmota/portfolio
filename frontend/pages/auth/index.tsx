@@ -122,7 +122,7 @@ function Login() {
     } else {
       return;
     }
-  }, [router]);
+  }, [APIURL, router]);
 
   useEffect(() => {
     componentRef.current = loginRef.current;
