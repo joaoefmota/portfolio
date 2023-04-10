@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
+
 // import Carousel from "react-responsive-carousel";
 
 import back from "@/assets/images/back_dark.png";
@@ -146,8 +147,8 @@ export default function ProjectPage() {
                 setLightBoxisOpen(true);
               }}
             />
-            <ModalGateway>
-              {lightBoxIsOpen && (
+            {lightBoxIsOpen && (
+              <ModalGateway>
                 <Modal
                   onClose={() => {
                     setPhotoIndex(0);
@@ -162,8 +163,8 @@ export default function ProjectPage() {
                     }))}
                   />
                 </Modal>
-              )}
-            </ModalGateway>
+              </ModalGateway>
+            )}
 
             <article className="flex flex-col gap-5">
               <h2 className={styles.subtitle}>{projectInfo.subTitle}</h2>
