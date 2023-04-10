@@ -24,10 +24,12 @@ function Contact_Me() {
     componentRef.current = contactRef.current;
   }, [componentRef, contactRef]);
 
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
+
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
     axios
-      .post("http://localhost:5005/contact", data, {
+      .post(`${APIURL}/contact`, data, {
         headers: {
           Accept: "application/json, text/plain, */*",
           "Content-Type": "application/json",

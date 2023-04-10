@@ -28,8 +28,8 @@ function Playground() {
   const [playgroundInfo, setPlaygroundInfo] = useState<[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  const APIURL = "http://localhost:5005";
-
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
+  
   const project = useAxios<any>({
     url: `${APIURL}/api/playground`,
     initialValue: [],

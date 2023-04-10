@@ -23,11 +23,10 @@ import { ProjectProps } from "@/types/ProjectInfoProps";
 import useFadeIn from "../../hooks/useFadeIn";
 
 export default function Projects() {
-  const APIURL = "http://localhost:5005";
   const [imagesMap, setImagesMap] = useState<Map<string, string>>();
   const { componentRef, isVisible } = useFadeIn(0.25);
-
   const projectsRef = useRef(null);
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     componentRef.current = projectsRef.current;

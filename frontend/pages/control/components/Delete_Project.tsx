@@ -14,11 +14,12 @@ export default function Delete_Project({
   const [projectId, setProjectId] = useState<string>("");
   const [projectName, setProjectName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const APIURL = process.env.API_URL;
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     axios
-      .delete(`http://localhost:5005/api/project-nr/?project_id${projectId}`, {
+      .delete(`${APIURL}/api/project-nr/?project_id${projectId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,

@@ -14,11 +14,12 @@ export default function Delete_Playground({
   const [playgroundId, setPlaygroundId] = useState<string>("");
   const [projectName, setProjectName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const APIURL = process.env.API_URL;
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     axios
-      .delete(`http://localhost:5005/api/playground-nr/?id=${playgroundId}`, {
+      .delete(`${APIURL}/api/playground-nr/?id=${playgroundId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,
@@ -62,11 +63,12 @@ export default function Delete_Playground({
       <div className="flex flex-row flex-wrap justify-center items-center gap-5">
         <select title="playground_id" value={playgroundId} onChange={handleId}>
           <option value="">---</option>
-          {playgroundData && playgroundData.map((info) => (
-            <option key={info.playground_id} value={info.playground_id}>
-              {info.playground_id}
-            </option>
-          ))}
+          {playgroundData &&
+            playgroundData.map((info) => (
+              <option key={info.playground_id} value={info.playground_id}>
+                {info.playground_id}
+              </option>
+            ))}
         </select>
         {playgroundId && (
           <>
