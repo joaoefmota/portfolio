@@ -17,4 +17,4 @@ const optimization = {
   },
 };
 
-(module.exports = nextConfig), optimization;
+module.exports = nextConfig, optimization;
