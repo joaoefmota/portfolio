@@ -201,7 +201,7 @@ export default function Control() {
       className={`${"sectionBg1"} ${styles.Control} ${
         isVisible ? "fade-in " : ""
       }`}
-      ref={controlRef}
+      ref={componentRef}
     >
       <h1 className={"title self-start mb-10"}>Control Dashboard</h1>
 

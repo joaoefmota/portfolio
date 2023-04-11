@@ -145,7 +145,7 @@ function Login() {
         className={`${"sectionBg1"} ${styles.Login} ${
           isVisible ? "fade-in " : ""
         }`}
-        ref={loginRef}
+        ref={componentRef}
       >
         <h1 className={"title self-start"}>Login</h1>
         <article className={styles.loginContainer}>

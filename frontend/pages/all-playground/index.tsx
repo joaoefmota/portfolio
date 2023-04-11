@@ -50,7 +50,7 @@ function Playground() {
         className={`${"sectionBg1"} ${styles.Playground} ${
           isVisible ? "fade-in " : ""
         }`}
-        ref={playgroundRef}
+        ref={componentRef}
       >
         <h1 className={"title self-start mb-10"}>03: Playground</h1>
 

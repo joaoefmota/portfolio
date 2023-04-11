@@ -85,7 +85,7 @@ function Contact_Me() {
         className={`${styles.Contact} ${"sectionBg1"} ${
           isVisible ? "fade-in " : ""
         }`}
-        ref={contactRef}
+        ref={componentRef}
       >
         <h1 className={"title self-start"}>04: Contact</h1>
         <p className="paragraph">

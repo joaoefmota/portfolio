@@ -119,7 +119,7 @@ export default function ProjectPage() {
       id={styles.ProjectID}
       className={`${"sectionBg1"} 
       ${isVisible ? "fade-in " : ""}`}
-      ref={playgroundRef}
+      ref={componentRef}
     >
       <div className={`${"mainBlock"}`} key={project.id}>
         <div className="flex flex-col items-left">
