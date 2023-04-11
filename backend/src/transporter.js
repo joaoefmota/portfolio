@@ -8,7 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const transporter = nodemailer_1.default.createTransport({
     host: process.env.SMTP_SENDIN,
-    port: Number(process.env.SMTP_PORT_SENDIN) || 25,
+    port: Number(process.env.SMTP_PORT_SENDIN),
     secure: false,
     auth: {
         user: process.env.SMTP_SENDIN_USER,

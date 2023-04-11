@@ -22,7 +22,7 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
   ];
-  const APIURL = process.env.API_URL;
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   const handleSubmitMain = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -94,18 +94,16 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
   const handleName = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedName = event.target.value;
     setProjectName(selectedName);
-    console.log(
-      "find Name",
-      projectData.find((info) => info.name === selectedName)?.name
-    );
     setProjectName(
       projectData.find((info) => info.name === selectedName)?.name || ""
     );
   };
 
+  /*  
   useEffect(() => {
     console.log("projectName", projectName);
   }, [projectName]);
+  */
 
   useEffect(() => {
     if (isSubmitted) {

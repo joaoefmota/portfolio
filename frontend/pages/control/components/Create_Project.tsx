@@ -19,7 +19,7 @@ export default function Projects({ authToken }: PropsAuth) {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState<{ [key: string]: string }>({});
-  const APIURL = process.env.API_URL;
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event?.preventDefault();

@@ -36,7 +36,8 @@
   width: fit-content;
   margin-bottom: 1rem;
   font-weight: $weight;
-  color: $titlecolor;
+  color: $titlecolor !important;
+  cursor: pointer;
 }
 
 .clickablesNav,

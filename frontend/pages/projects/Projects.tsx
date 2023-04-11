@@ -75,7 +75,7 @@ export default function Projects() {
         className={`${"sectionBg1"} ${styles.Projects} ${
           isVisible ? "fade-in " : ""
         }`}
-        ref={projectsRef}
+        ref={componentRef}
       >
         <h1 className={"title self-start "}>02: Projects</h1>
         <p className="paragraph self-start">

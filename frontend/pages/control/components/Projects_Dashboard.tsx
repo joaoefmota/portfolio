@@ -16,7 +16,7 @@ export default function Projects_Dashboard({ authToken }: PropsAuth) {
 
   useEffect(() => {
     axios.get(`${APIURL}/api/projects`).then((result: AxiosResponse) => {
-      console.log("result Playground", result.data);
+      // console.log("result Playground", result.data);
       setProjectData(result.data);
     });
   }, [APIURL]);

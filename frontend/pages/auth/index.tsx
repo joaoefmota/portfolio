@@ -67,8 +67,8 @@ function Login() {
               const token = res.data.token;
               localStorage.setItem("token", token!);
               //  sessionStorage.setItem("token", token!);
-              console.log("Login successful", token);
-              console.log("localStorage", window.localStorage.token);
+              // console.log("Login successful", token);
+              // console.log("localStorage", window.localStorage.token);
               return token;
             });
             setIsSubmited(true);
@@ -135,7 +135,7 @@ function Login() {
       ...prevState,
       [event.target.name]: event.target.value,
     }));
-    console.log("login", login);
+    // console.log("login", login);
   };
 
   return (
@@ -145,7 +145,7 @@ function Login() {
         className={`${"sectionBg1"} ${styles.Login} ${
           isVisible ? "fade-in " : ""
         }`}
-        ref={loginRef}
+        ref={componentRef}
       >
         <h1 className={"title self-start"}>Login</h1>
         <article className={styles.loginContainer}>

@@ -58,7 +58,6 @@ function Contact_Me() {
           );
           setErrorMessages(errors);
           setIsSubmited(false);
-          console.log("errors state", errorMessages);
         } else {
           console.log(
             "Unexpected error response status:",
@@ -76,7 +75,7 @@ function Contact_Me() {
       ...prevFormData,
       [event.target.name]: event.target.value,
     }));
-    console.log("Data", data);
+    // console.log("Data", data);
   };
 
   return (
@@ -86,7 +85,7 @@ function Contact_Me() {
         className={`${styles.Contact} ${"sectionBg1"} ${
           isVisible ? "fade-in " : ""
         }`}
-        ref={contactRef}
+        ref={componentRef}
       >
         <h1 className={"title self-start"}>04: Contact</h1>
         <p className="paragraph">
@@ -98,7 +97,7 @@ function Contact_Me() {
         >
           <form className="flex flex-row sm:flex-wrap gap-3 h-full w-full mt-5">
             <div className="w-1/2 sm:w-full">
-              <div className={"firstName flex flex-col mb-3"}>
+              <div className={"firstName flex flex-col mb-3 sm:w-full"}>
                 <label htmlFor="first-name">First name*</label>
                 <input
                   onChange={handleInputFields}

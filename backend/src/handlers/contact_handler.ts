@@ -30,10 +30,9 @@ export const submitContactForm = (req: Request, res: Response) => {
   transporter
     .sendMail(mailOptions)
     .then((info) => {
-      console.warn(info);
-      
+      console.log(info);
     })
     .catch((err) => {
-      console.warn(err);      
+      console.log(err);
     });
 };
