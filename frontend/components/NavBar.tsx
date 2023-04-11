@@ -74,7 +74,7 @@ export default function NavBar() {
   const [isOpen, setisOpen] = useState(false);
   const [backToTop, setBackToTop] = useState(false);
 
-  function handleToggle(event) {
+  function handleToggle(event: string | boolean) {
     const html = document.querySelector("html");
     setisOpen(!isOpen);
     const hamburgerReactDiv = document.querySelectorAll(".hamburger-react div");
@@ -90,7 +90,7 @@ export default function NavBar() {
       }
     }
     if (event) {
-      const element = document.getElementById(event);
+      const element = document.getElementById(event as string);
       // console.log("element", element);
       if (element) {
         // 👇 Will scroll smoothly to the top of the next section
@@ -163,7 +163,6 @@ export default function NavBar() {
             {links.map((item) => (
               <li key={item.id} className="w-fit">
                 <p
-                  type="button"
                   className={styles.menuTitles}
                   onClick={() => {
                     handleToggle(item.link);

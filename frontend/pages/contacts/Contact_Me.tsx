@@ -97,7 +97,7 @@ function Contact_Me() {
         >
           <form className="flex flex-row sm:flex-wrap gap-3 h-full w-full mt-5">
             <div className="w-1/2 sm:w-full">
-              <div className={"firstName flex flex-col mb-3"}>
+              <div className={"firstName flex flex-col mb-3 sm:w-full"}>
                 <label htmlFor="first-name">First name*</label>
                 <input
                   onChange={handleInputFields}
