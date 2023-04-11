@@ -32,7 +32,7 @@ export default function NavBar() {
           );
         });
 
-        console.log("currentSection", currentSection);
+        // console.log("currentSection", currentSection);
 
         if (currentSection) {
           const backgroundColor =

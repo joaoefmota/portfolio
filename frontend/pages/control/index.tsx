@@ -31,7 +31,7 @@ export default function Control() {
   const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    console.log("local Storage", localStorage.getItem("token"));
+    // console.log("local Storage", localStorage.getItem("token"));
     let storedToken: string | undefined;
     if (window.localStorage.token) {
       storedToken = window.localStorage.token as string;
@@ -50,7 +50,7 @@ export default function Control() {
               Authorization: `Bearer ${token}`,
             },
           });
-          console.log("result TOKEN", result);
+          // console.log("result TOKEN", result);
           if (result == undefined) {
             console.log("No data received from the server");
             return;
@@ -95,19 +95,15 @@ export default function Control() {
   }, [componentRef, controlRef]);
 
   const handleClick = (event: string) => {
-    console.log("projectsOpen", projectsOpen);
-    console.log("playgroundOpen", playgroundOpen);
     if (event == "projects") {
       setProjectsOpen(true);
       setPlaygroundOpen(false);
-      console.log("You clicked Projects");
       if (projectsOpen) {
         setProjectsOpen(false);
       }
     } else if (event == "playground") {
       setPlaygroundOpen(true);
       setProjectsOpen(false);
-      console.log("You clicked Playground");
       if (playgroundOpen) {
         setPlaygroundOpen(false);
       }
@@ -128,7 +124,7 @@ export default function Control() {
     // console.log("decodedToken", decodedToken);
 
     const intervalId = setInterval(() => {
-      console.log("intervalId", intervalId);
+      // console.log("intervalId", intervalId);
       if (decodedToken.exp < Date.now() / 1000) {
         setIsTokenExpired(true);
         localStorage.removeItem("token");
@@ -138,12 +134,14 @@ export default function Control() {
     return () => clearInterval(intervalId);
   }, [router]);
 
+  /* 
   useEffect(() => {
     console.log("typeofToken", typeof token);
     console.log("login status", loginStatus);
     console.log("errorMsg", errorMsg);
     console.log("isTokenExpired", isTokenExpired);
   }, [errorMsg, isTokenExpired, loginStatus, token]);
+*/
 
   if (loginStatus === 401) {
     localStorage.clear();

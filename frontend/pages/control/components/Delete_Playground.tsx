@@ -14,7 +14,7 @@ export default function Delete_Playground({
   const [playgroundId, setPlaygroundId] = useState<string>("");
   const [projectName, setProjectName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const APIURL = process.env.API_URL;
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -41,21 +41,19 @@ export default function Delete_Playground({
   const handleId = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     setPlaygroundId(selectedId);
-    console.log(
-      "find Name",
-      playgroundData.find((info) => info.playground_id === selectedId)?.name
-    );
     setProjectName(
       playgroundData.find((info) => info.playground_id === selectedId)?.name ||
         ""
     );
   };
 
+  /* 
   useEffect(() => {
     console.log("playgroundId", playgroundId);
     console.log("projectName", projectName);
     console.log("playgroundData", playgroundData);
   }, [playgroundData, playgroundId, projectName]);
+*/
 
   return (
     <article>

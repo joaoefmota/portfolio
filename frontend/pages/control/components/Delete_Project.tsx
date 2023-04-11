@@ -14,7 +14,7 @@ export default function Delete_Project({
   const [projectId, setProjectId] = useState<string>("");
   const [projectName, setProjectName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const APIURL = process.env.API_URL;
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -41,20 +41,19 @@ export default function Delete_Project({
   const handleId = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     setProjectId(selectedId);
-    console.log(
-      "find Name",
-      projectData.find((info) => info.project_id === selectedId)?.name
-    );
     setProjectName(
       projectData.find((info) => info.project_id === selectedId)?.name || ""
     );
   };
 
-  useEffect(() => {
+  /* 
+    useEffect(() => {
     console.log("projectId", projectId);
     console.log("projectName", projectName);
     console.log("playgroundData", projectData);
   }, [projectData, projectId, projectName]);
+
+  */
 
   return (
     <article>
@@ -62,11 +61,12 @@ export default function Delete_Project({
       <div className="flex flex-row flex-wrap justify-center items-center gap-5">
         <select title="playground_id" value={projectId} onChange={handleId}>
           <option value="">---</option>
-          {projectData && projectData.map((info) => (
-            <option key={info.project_id} value={info.project_id}>
-              {info.project_id}
-            </option>
-          ))}
+          {projectData &&
+            projectData.map((info) => (
+              <option key={info.project_id} value={info.project_id}>
+                {info.project_id}
+              </option>
+            ))}
         </select>
         {projectId && (
           <>

@@ -18,7 +18,7 @@ export default function Playground_Dashboard({ authToken }: PropsAuth) {
     axios
       .get(`${APIURL}/api/playground`)
       .then((result: AxiosResponse) => {
-        console.log("result Playground", result.data);
+        // console.log("result Playground", result.data);
         setPlaygroundData(result.data);
       });
   }, [APIURL]);

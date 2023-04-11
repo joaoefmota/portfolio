@@ -57,8 +57,7 @@ function Contact_Me() {
             }
           );
           setErrorMessages(errors);
-          setIsSubmited(false);
-          console.log("errors state", errorMessages);
+          setIsSubmited(false);    
         } else {
           console.log(
             "Unexpected error response status:",
@@ -76,7 +75,7 @@ function Contact_Me() {
       ...prevFormData,
       [event.target.name]: event.target.value,
     }));
-    console.log("Data", data);
+    // console.log("Data", data);
   };
 
   return (

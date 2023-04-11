@@ -12,7 +12,7 @@ export default function Create_Playground({ authToken }: PropsAuth) {
   });
   const [errorMsg, setErrorMsg] = useState<{ [key: string]: string }>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const APIURL = process.env.API_URL;
+  const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   const handleSumit = (
     event:
@@ -81,9 +81,10 @@ export default function Create_Playground({ authToken }: PropsAuth) {
     }));
   };
 
-  useEffect(() => {
+  /*  useEffect(() => {
     console.log("errors state", errorMsg);
   }, [errorMsg]);
+  */
 
   return (
     <article>

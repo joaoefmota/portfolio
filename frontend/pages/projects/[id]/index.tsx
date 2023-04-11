@@ -64,12 +64,6 @@ export default function ProjectPage() {
       return axios
         .get(`${APIURL}/images/?project=${project.name}`)
         .then((result) => {
-          console.log(
-            "Result.data",
-            result.data.filter((image: { source: string | string[] }) =>
-              image.source.includes(`img`)
-            )
-          );
           setRestOfImages(
             result.data.filter((image: { source: string | string[] }) =>
               image.source.includes(`img`)
@@ -89,8 +83,6 @@ export default function ProjectPage() {
     height: 500,
   }));
 
-  console.log("photos", photos);
-  console.log("photoIndex", photoIndex);
   /* 
    const nextIndex = () => {
     restOfImages && setPhotoIndex((photoIndex + 1) % restOfImages.length);
