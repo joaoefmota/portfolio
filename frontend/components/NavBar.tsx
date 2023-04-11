@@ -74,7 +74,7 @@ export default function NavBar() {
   const [isOpen, setisOpen] = useState(false);
   const [backToTop, setBackToTop] = useState(false);
 
-  function handleToggle() {
+  function handleToggle(event) {
     const html = document.querySelector("html");
     setisOpen(!isOpen);
     const hamburgerReactDiv = document.querySelectorAll(".hamburger-react div");
@@ -89,21 +89,29 @@ export default function NavBar() {
         (hamburgerReactDiv[i] as HTMLElement).style.background = menuColor;
       }
     }
+    if (event) {
+      const element = document.getElementById(event);
+      // console.log("element", element);
+      if (element) {
+        // 👇 Will scroll smoothly to the top of the next section
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   }
 
   const links = [
     {
       id: 1,
       name: "01: About me",
-      link: "/#About_Me",
+      link: "About_Me",
     },
     {
       id: 2,
       name: "02: Projects",
-      link: "/#Projects",
+      link: "Projects",
     },
-    { id: 3, name: "03: Playground", link: "/#Playground" },
-    { id: 4, name: "04: Contact", link: "/#Contact" },
+    { id: 3, name: "03: Playground", link: "Playground" },
+    { id: 4, name: "04: Contact", link: "Contact" },
   ];
 
   useEffect(() => {
@@ -124,7 +132,7 @@ export default function NavBar() {
     window.scrollTo({
       top: 0,
     });
-    router.push("/#Home");
+    router.push("/");
   };
 
   return (
@@ -154,13 +162,15 @@ export default function NavBar() {
           <ul className={"flex flex-col items-left justify-between"}>
             {links.map((item) => (
               <li key={item.id} className="w-fit">
-                <Link
-                  href={item.link}
+                <p
+                  type="button"
                   className={styles.menuTitles}
-                  onClick={handleToggle}
+                  onClick={() => {
+                    handleToggle(item.link);
+                  }}
                 >
                   {item.name}
-                </Link>
+                </p>
               </li>
             ))}
           </ul>
