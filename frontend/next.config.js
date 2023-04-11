@@ -11,4 +11,10 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+const optimization = {
+  optimization: {
+    minimize: false, // disable minification
+  },
+};
+
+(module.exports = nextConfig), optimization;
