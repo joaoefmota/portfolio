@@ -10,7 +10,7 @@ import MainRouter from "./routers/mainrouter";
 
 dotenv.config();
 
-const EXPRESS_PORT = parseInt(process.env.EXPRESS_PORT ?? "5005", 10);
+const EXPRESS_PORT = process.env.PORT || 5005;
 
 const app = express();
 

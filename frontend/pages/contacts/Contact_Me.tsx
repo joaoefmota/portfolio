@@ -57,7 +57,7 @@ function Contact_Me() {
             }
           );
           setErrorMessages(errors);
-          setIsSubmited(false);    
+          setIsSubmited(false);
         } else {
           console.log(
             "Unexpected error response status:",
