@@ -3,7 +3,16 @@ import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.scss";
 
 function Home() {
-  const router = useRouter();
+  function handleClick(event: string) {
+    if (event) {
+      const element = document.getElementById(event as string);
+      // console.log("element", element);
+      if (element) {
+        // 👇 Will scroll smoothly to the top of the next section
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }
 
   return (
     <section
@@ -37,7 +46,9 @@ function Home() {
         <button
           type="button"
           className="mt-10"
-          onClick={() => router.push("/#Projects")}
+          onClick={() => {
+            handleClick("Projects");
+          }}
         >
           Check out my Projects!
         </button>
