@@ -28,19 +28,18 @@ function Home() {
           </h3>
 
           <h2 className={"subtitle"}>
-            a <span>Web Developer</span>, and I build things.
+            a <span>Junior Web Developer</span> who builds things on the web.
           </h2>
           <p
             className={`${"text-paragraph leading-relaxed mt-2"} ${"paragraph"}`}
           >
-            While coding, I like to build great user experiences with a keen eye
-            to details!
+            While coding, I like to aim for great user experiences with a keen
+            eye for details!
           </p>
           <p
             className={`${"text-paragraph leading-relaxed mt-2"} ${"paragraph"}`}
           >
-            I enjoy the most clean code, creativity, and autonomy to solve
-            problems.
+            I enjoy clean code, creativity, and autonomy to solve problems.
           </p>
         </article>
         <button
