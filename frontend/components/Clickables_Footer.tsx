@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import github from "@/assets/images/github.png";
-import cv from "@/assets/images/cv.png";
-import linkedin from "@/assets/images/linkedin.png";
+import github from "@/assets/images/github_light.png";
+import cv from "@/assets/images/cv_light.png";
+import linkedin from "@/assets/images/linkedin_light.png";
 
 import styles from "@/styles/clickables.module.scss";
 

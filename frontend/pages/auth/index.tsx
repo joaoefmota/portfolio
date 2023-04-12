@@ -31,7 +31,7 @@ function Login() {
   const [errorMessages, setErrorMessages] = useState<{ [key: string]: string }>(
     {}
   );
-  const [isSubmitted, setIsSubmited] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const router = useRouter();
 
   const APIURL = process.env.NEXT_PUBLIC_API_URL;
@@ -60,7 +60,7 @@ function Login() {
           setLogin({ username: "", email: "", password: "" });
           if (res.data.token == null) {
             console.error("No authentication token", res.data.error);
-            setIsSubmited(false);
+            setIsSubmitted(false);
             return;
           } else {
             setAuthToken(() => {
@@ -71,7 +71,7 @@ function Login() {
               // console.log("localStorage", window.localStorage.token);
               return token;
             });
-            setIsSubmited(true);
+            setIsSubmitted(true);
             setTimeout(() => {
               router.push("/control");
             }, 1000);
@@ -81,7 +81,7 @@ function Login() {
       .catch((error) => {
         if (error.response.status === 422) {
           // console.log(error.response.data.validationErrors); // handle validation errors
-          setIsSubmited(false);
+          setIsSubmitted(false);
           const serverErrors = error.response.data.validationErrors;
           const errors = {} as { [key: string]: string };
           serverErrors.forEach((error: { field: string; message: string }) => {
@@ -90,7 +90,7 @@ function Login() {
           setErrorMessages(errors);
           // console.log("errors state", errorMessages);
         } else {
-          setIsSubmited(false);
+          setIsSubmitted(false);
           console.log(
             "Unexpected error response status:",
             error.response.status
@@ -137,6 +137,19 @@ function Login() {
     }));
     // console.log("login", login);
   };
+
+  useEffect(() => {
+    if (isSubmitted) {
+      const intervalId = setInterval(() => {
+        setIsSubmitted(false);
+        clearInterval(intervalId);
+      }, 3 * 1000);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [isSubmitted]);
 
   return (
     <>
@@ -201,28 +214,16 @@ function Login() {
           </div>
           <div className="flex flex-col items-center gap-3 w-1/2">
             <Image src={loginImg} alt={"login"} className="w-1/2" />
-            {isSubmitted && (
-              <div
-                className={
-                  "w-fit mx-auto mt-1 py-4 px-6  rounded-3xl bg-slate-700 "
-                }
-              >
-                <p
-                  className={
-                    "text-white text-center sm:text-xl md:text-2xl xl:text-2xl"
-                  }
-                >
-                  Loged in ✔
+            {isSubmitted ? (
+              <div className={styles.submitButton}>
+                <p className={`${"paragraph"} ${styles.submitText}`}>
+                  You&apos;re loged in✔
                 </p>
-                <p
-                  className={
-                    "text-white text-center sm:text-xl md:text-2xl xl:text-2xl"
-                  }
-                >
-                  You are awesome!
+                <p className={`${"paragraph"} ${styles.submitText}`}>
+                  Welcome!
                 </p>
               </div>
-            )}
+            ) : null}
           </div>
         </article>
         <Link href={"/#Home"} className={styles.back}>
