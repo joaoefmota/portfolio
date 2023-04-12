@@ -1,0 +1,21 @@
+.submitButton {
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+  padding: 1.5rem 2rem;
+  border-radius: 30px;
+  background-color: rgb(34, 40, 35, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submitText {
+  color: #e8e8e8;
+}
+
+/* 
+
+"text-white text-center sm:text-xl md:text-2xl xl:text-2xl
+
+*/

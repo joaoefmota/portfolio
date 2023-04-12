@@ -185,23 +185,11 @@ function Contact_Me() {
           </form>
         </div>
         {isSubmitted ? (
-          <div
-            className={
-              "w-fit mx-auto mt-1 py-4 px-6  rounded-3xl bg-slate-700 "
-            }
-          >
-            <p
-              className={
-                "text-white text-center sm:text-xl md:text-2xl xl:text-2xl"
-              }
-            >
+          <div className={styles.submitButton}>
+            <p className={`${"paragraph"} ${styles.submitText}`}>
               Message sent ✔
             </p>
-            <p
-              className={
-                "text-white text-center sm:text-xl md:text-2xl xl:text-2xl"
-              }
-            >
+            <p className={`${"paragraph"} ${styles.submitText}`}>
               You are awesome!
             </p>
           </div>
