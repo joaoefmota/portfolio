@@ -21,11 +21,11 @@ function Home() {
     >
       <div className={`${"mainBlock"}`}>
         <article className={`${styles.textContainer}`}>
-          <h3 className={"subtitle"}>Hello,</h3>
+          <h2 className={"subtitle"}>Hello,</h2>
 
-          <h3 className="subtitle">
+          <h2 className="subtitle">
             I&apos;m <span>João Mota,</span>
-          </h3>
+          </h2>
 
           <h2 className={"subtitle"}>
             a <span>Junior Web Developer</span> who builds things on the web.
