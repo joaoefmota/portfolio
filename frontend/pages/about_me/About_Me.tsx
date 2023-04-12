@@ -55,13 +55,13 @@ export default function About_Me() {
             It was only natural to follow a digital life. Since I was a kid that
             technology was up there at the top of my interests. The
             <span className="span2"> Web Developer</span> &quot;bug&quot; got a
-            bigger spark when I was completing my Multimedia Msters.{" "}
+            bigger spark when I was completing my Multimedia Master.{" "}
           </p>
           <p
             className={`${"text-paragraph leading-relaxed paragraph paragraphAlt mb-5"}`}
           >
             Above all, I would describe myself as a problem-solving type of
-            person. As you start knowing me, you&apos;ll find that I am the
+            person. As you start to know me, you&apos;ll find that I am the
             first to cheer others, as I love{" "}
             <span className="span2">teamwork</span>!
           </p>
