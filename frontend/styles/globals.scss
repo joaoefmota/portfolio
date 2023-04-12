@@ -208,7 +208,9 @@ span {
 }
 
 label {
-  font-size: clamp(0.4rem, 1vw + 0.4rem, 10rem);
+  font-size: clamp(0.4rem, 1vw + 0.1rem, 10rem);
+  margin-left: 0.5rem;
+  opacity: 0.5;
 }
 
 select {
