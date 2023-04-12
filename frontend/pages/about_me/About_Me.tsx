@@ -16,7 +16,7 @@ const enjoy = [
   { id: 4, name: "Tailwind" },
   { id: 5, name: "Typescript" },
   { id: 6, name: "Copywriting" },
-  { id: 7, name: "Photography" },
+  { id: 7, name: "Heroku" },
   { id: 8, name: "Editing" },
 ];
 
