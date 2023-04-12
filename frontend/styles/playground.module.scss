@@ -110,7 +110,7 @@
     height: fit-content;
   }
   .tile {
-    height: max(300px);
+    height: max(270px);
     width: max(250px);
   }
 
@@ -120,6 +120,12 @@
     & Link {
       flex: 1;
     }
+  }
+
+  .buttonMore,
+  .seeLess {
+    width: 50px;
+    height: 50px;
   }
 }
 

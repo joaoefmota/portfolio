@@ -12,7 +12,7 @@ function Contact_Me() {
     email: "",
     message: "",
   });
-  const [isSubmitted, setIsSubmited] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessages, setErrorMessages] = useState<{ [key: string]: string }>(
     {}
   );
@@ -37,7 +37,7 @@ function Contact_Me() {
       })
       .then((res) => {
         if (res.status === 201) {
-          setIsSubmited(true);
+          setIsSubmitted(true);
           setData({
             first_name: "",
             last_name: "",
@@ -57,7 +57,7 @@ function Contact_Me() {
             }
           );
           setErrorMessages(errors);
-          setIsSubmited(false);
+          setIsSubmitted(false);
         } else {
           console.log(
             "Unexpected error response status:",
@@ -77,6 +77,19 @@ function Contact_Me() {
     }));
     // console.log("Data", data);
   };
+
+  useEffect(() => {
+    if (isSubmitted) {
+      const intervalId = setInterval(() => {
+        setIsSubmitted(false);
+        clearInterval(intervalId);
+      }, 3 * 1000);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [isSubmitted]);
 
   return (
     <>
@@ -171,7 +184,7 @@ function Contact_Me() {
             </div>
           </form>
         </div>
-        {isSubmitted && (
+        {isSubmitted ? (
           <div
             className={
               "w-fit mx-auto mt-1 py-4 px-6  rounded-3xl bg-slate-700 "
@@ -192,7 +205,7 @@ function Contact_Me() {
               You are awesome!
             </p>
           </div>
-        )}
+        ) : null}
       </section>
       <Footer />
     </>

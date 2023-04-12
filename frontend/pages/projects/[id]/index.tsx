@@ -4,15 +4,18 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import useFadeIn from "@/hooks/useFadeIn";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 
 // import Carousel from "react-responsive-carousel";
-
 import back from "@/assets/images/back_dark.png";
+
+{
+  /* STYLES */
+}
 import styles from "@/styles/projects.module.scss";
-import useFadeIn from "@/hooks/useFadeIn";
+
 interface ProjectInfo {
   tools: string;
   packages: string;
@@ -209,10 +212,12 @@ export default function ProjectPage() {
           className={styles.web}
         />
       </div>
-
-      <Link href={"/#Projects"} className={styles.back}>
-        <Image src={back} width={25} alt={"go-back"} />
-      </Link>
+      <Image
+        src={back}
+        alt={"go-back"}
+        className={styles.back}
+        onClick={() => router.back()}
+      />
     </section>
   );
 }
