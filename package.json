@@ -1,0 +1,24 @@
+{
+  "name": "template-start-scripts",
+  "version": "0.1.0",
+  "description": "Start scripts for a project containing frontend and backend with dev scripts each",
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c green,blue -t \"HH:mm:ss\" -p \"[{time} • {name}]\t\" \"npm --prefix ./backend run dev\" \"npm --prefix ./frontend run dev\"",
+    "test": "echo \"Error: no test script, create one to run tests across your packages\" && exit 1",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [
+    "start",
+    "scripts",
+    "dev",
+    "script",
+    "concurrently",
+    "fullstack"
+  ],
+  "author": "David Alexander Pfeiffer (davidmc971)",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}

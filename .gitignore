@@ -1,0 +1,7 @@
+**/node_modules
+**/.env*
+**/.env*local
+!**/.env*.sample
+**/.DS_Store
+**/dist
+**/build
