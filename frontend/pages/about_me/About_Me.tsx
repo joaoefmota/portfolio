@@ -21,12 +21,7 @@ const enjoy = [
 ];
 
 export default function About_Me() {
-  const { componentRef, isVisible } = useFadeIn(0.25);
-  const aboutRef = useRef(null); //change the section ref to aboutRef in order to work in local
-
-  useEffect(() => {
-    componentRef.current = aboutRef.current;
-  }, [componentRef, aboutRef]);
+  const { componentRef: aboutRef, isVisible } = useFadeIn(0.25);
 
   return (
     <section

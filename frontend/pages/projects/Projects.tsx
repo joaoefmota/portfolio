@@ -24,13 +24,8 @@ import useFadeIn from "../../hooks/useFadeIn";
 
 export default function Projects() {
   const [imagesMap, setImagesMap] = useState<Map<string, string>>();
-  const { componentRef, isVisible } = useFadeIn(0.25);
-  const projectsRef = useRef(null);
+  const { componentRef: projectsRef, isVisible } = useFadeIn(0.25);
   const APIURL = process.env.NEXT_PUBLIC_API_URL;
-
-  useEffect(() => {
-    componentRef.current = projectsRef.current;
-  }, [componentRef, projectsRef]);
 
   const projectsArray = useAxios({
     url: `${APIURL}/api/projects`,

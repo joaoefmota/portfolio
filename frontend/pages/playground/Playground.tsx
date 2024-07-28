@@ -23,8 +23,7 @@ function paragraphedString(string: string) {
 }
 
 function Playground() {
-  const { componentRef, isVisible } = useFadeIn(0.25);
-  const playgroundRef = useRef(null);
+  const { componentRef: playgroundRef, isVisible } = useFadeIn(0.25);
   const [playgroundInfo, setPlaygroundInfo] = useState<[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -39,10 +38,6 @@ function Playground() {
       return playground;
     },
   });
-
-  useEffect(() => {
-    componentRef.current = playgroundRef.current;
-  }, [componentRef, playgroundRef]);
 
   function handleClick(event: string) {
     if (event === "open") return setIsOpen(true);

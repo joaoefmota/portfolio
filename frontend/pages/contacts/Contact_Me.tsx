@@ -16,13 +16,7 @@ function Contact_Me() {
   const [errorMessages, setErrorMessages] = useState<{ [key: string]: string }>(
     {}
   );
-  const { componentRef, isVisible } = useFadeIn(0.25);
-
-  const contactRef = useRef(null);
-
-  useEffect(() => {
-    componentRef.current = contactRef.current;
-  }, [componentRef, contactRef]);
+  const { componentRef: contactRef, isVisible } = useFadeIn(0.25);
 
   const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
