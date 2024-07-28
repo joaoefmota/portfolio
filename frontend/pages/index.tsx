@@ -22,8 +22,10 @@ export default function LandingPage() {
         <main tabIndex={-1}>
           <Home />
           <About_Me />
+
           <Projects />
           <Playground />
+
           <Contact_Me />
         </main>
       </div>

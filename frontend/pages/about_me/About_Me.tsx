@@ -22,7 +22,7 @@ const enjoy = [
 
 export default function About_Me() {
   const { componentRef, isVisible } = useFadeIn(0.25);
-  const aboutRef = useRef(null); //change back this ref down there the section in order to work in local
+  const aboutRef = useRef(null); //change the section ref to aboutRef in order to work in local
 
   useEffect(() => {
     componentRef.current = aboutRef.current;
@@ -34,7 +34,7 @@ export default function About_Me() {
       className={`${"sectionBg2"} ${styles.About} ${
         isVisible ? "fade-in " : ""
       }`}
-      ref={componentRef}
+      ref={aboutRef}
     >
       <h1 className={"title titleAlt mb-10 self-start"}>01: About me</h1>
       <div className="flex sm:flex-col flex-row w-full items-center justify-center">
@@ -52,8 +52,8 @@ export default function About_Me() {
           <p
             className={`${"text-paragraph leading-relaxed paragraph paragraphAlt mb-5"}`}
           >
-            Since I was a kid that
-            technology was up there at the top of my interests. The
+            Since I was a kid that technology was up there at the top of my
+            interests. The
             <span className="span2"> Web Developer</span> &quot;bug&quot; got a
             bigger spark when I was completing my Multimedia Master.{" "}
           </p>

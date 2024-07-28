@@ -2,10 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    formats: ["image/avif", "image/webp"],
+    domains: ["localhost"],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cv-portfolio-back.herokuapp.com",
+        //hostname: "cv-portfolio-back.herokuapp.com",
+        hostname: "localhost",
       },
     ],
   },

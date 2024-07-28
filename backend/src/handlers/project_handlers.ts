@@ -7,15 +7,14 @@ const fs = require("fs"); // to rename files, for example
 
 const ADMIN = process.env.ADMIN;
 
+const dataError = "Error retrieving data from the database";
 interface AuthenticatedRequest extends Request {
   payload: {
     sub: string;
   };
 }
 
-const dataError = "Error retrieving data from the database";
-
-export const getAllProjects = async (req: Request, res: Response) => {
+export const getAllProjects = async (_: Request, res: Response) => {
   try {
     const [query] = await database.query("SELECT * FROM projects");
     res.status(200).json(query);
@@ -46,7 +45,7 @@ export const getProjectById = async (
   req: TypedRequestQuery<{ id: number }>,
   res: Response
 ) => {
-  const id = req.query.id;
+  const { id } = req.query;
   try {
     const [query] = await database.query("SELECT * FROM projects WHERE id=?", [
       id,
@@ -77,18 +76,7 @@ export const postProject = async (req: Request, res: Response) => {
     aka,
   } = req.body;
 
-  if (
-    name == null ||
-    project_id == null ||
-    content == null ||
-    tools === null ||
-    link === null ||
-    github === null ||
-    subTitle === null ||
-    lg_content1 === null ||
-    aka === null ||
-    lg_content2 === null
-  ) {
+  if (Object.values(req.body).some((value) => value === undefined)) {
     return res.status(401).send({ error: "Incorrect values" });
   }
 
@@ -146,11 +134,11 @@ export const deleteProjectById = async (
   req: Request | TypedRequestQuery<{ name: string; project_id: number }>,
   res: Response
 ) => {
-  const id = req.query.project_id;
-  const payloadSub: string = (req as AuthenticatedRequest).payload.sub;
+  const { project_id: id } = req.query;
+  const { sub } = (req as AuthenticatedRequest).payload;
   // console.log("reqPayload", payloadSub);
 
-  if (payloadSub !== ADMIN) {
+  if (sub !== ADMIN) {
     res.status(403).send("Forbidden");
     return;
   }

@@ -50,6 +50,7 @@ export default function Projects() {
                 )
               );
               */
+              //console.log("result", result);
               const imageSet = result.data.filter(
                 (image: { source: string | string[] }) =>
                   image.source.includes(`proj_container/${project.name}`)
@@ -66,7 +67,7 @@ export default function Projects() {
 
   // console.log("ProjectsArray", projectsArray);
 
-  // console.log("imagesMap", imagesMap);
+  console.log("imagesMap", imagesMap);
 
   return (
     <>
@@ -75,7 +76,7 @@ export default function Projects() {
         className={`${"sectionBg1"} ${styles.Projects} ${
           isVisible ? "fade-in " : ""
         }`}
-        ref={componentRef}
+        ref={projectsRef}
       >
         <h1 className={"title self-start "}>02: Projects</h1>
         <p className="paragraph self-start">
@@ -95,19 +96,21 @@ export default function Projects() {
             className="mySwiper rounded"
           >
             {projectsArray != null
-              ? projectsArray.map((project: ProjectProps) => (
-                  <>
-                    <SwiperSlide key={project.id}>
-                      <ProjectTile
-                        src={
-                          imagesMap ? imagesMap.get(project.name) : undefined
-                        }
-                        name={project.name}
-                        link={`/projects/${project.id}`}
-                      />
-                    </SwiperSlide>
-                  </>
-                ))
+              ? projectsArray.map((project: ProjectProps) => {
+                  return (
+                    <>
+                      <SwiperSlide key={project.id}>
+                        <ProjectTile
+                          src={
+                            imagesMap ? imagesMap.get(project.name) : undefined
+                          }
+                          name={project.name}
+                          link={`/projects/${project.id}`}
+                        />
+                      </SwiperSlide>
+                    </>
+                  );
+                })
               : null}
           </Swiper>
         </div>

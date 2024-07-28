@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { RowDataPacket } from "mysql2";
 import database from "../database";
 import { TypedRequestQuery } from "../../types/express";
@@ -28,7 +28,7 @@ export const getImages = (
 };
 
 export const getImagesById = (
-  req: TypedRequestQuery<{ project: string, image_id: number }>,
+  req: TypedRequestQuery<{ project: string; image_id: number }>,
   res: Response
 ) => {
   const { project, image_id } = req.query;

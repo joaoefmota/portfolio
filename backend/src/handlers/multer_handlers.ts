@@ -13,8 +13,6 @@ export const uploadMainImage = async (req: Request, res: Response) => {
     }
 
     const projectName = req.query.projectName as string;
-    console.log("projectName", projectName);
-    console.log("req.file Main", req.file);
 
     try {
       const requestedFile = req.file as Express.Multer.File;
@@ -23,20 +21,18 @@ export const uploadMainImage = async (req: Request, res: Response) => {
       const oldPath = `src/images/projects/proj_container/${requestedFile.filename}`;
       const newPath = `src/images/projects/proj_container/${requestedFile.originalname}`;
 
-      const rename = await fs.promises.rename(oldPath, newPath);
-      console.log("Rename complete!", rename);
+      await fs.promises.rename(oldPath, newPath);
 
       const [id] = (await database.query(
         "SELECT project_id FROM projects WHERE name = ?",
         [projectName]
       )) as RowDataPacket[];
 
-      const src = `/images/projects/proj_container/${requestedFile.originalname}`;
       const project_id = id[0].project_id;
 
       await database.query(
         "INSERT INTO images (src, project_id, image_id) VALUES (?, ?, ?)",
-        [src, project_id, 0]
+        [newPath, project_id, 0]
       );
 
       res.send("File uploaded");
@@ -71,7 +67,7 @@ export const uploadProjectImages = (req: Request, res: Response) => {
     if (requestedFiles == undefined) return;
 
     // update the file names and insert into the database
-    for (let index = 0; index < requestedFiles.length; index++) {
+    requestedFiles.forEach(async (_, index) => {
       const file = requestedFiles[index];
       const oldPath = `src/images/projects/${projectName}/${file.filename}`;
       const newPath = `src/images/projects/${projectName}/${file.originalname}`;
@@ -99,9 +95,7 @@ export const uploadProjectImages = (req: Request, res: Response) => {
         console.error(err);
         res.status(500).send(err);
       }
-    }
-
-    console.log("Uploaded Images", req.files);
+    });
     res.send("Files uploaded");
   });
 };

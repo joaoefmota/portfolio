@@ -1,6 +1,4 @@
 import { Router } from "express";
-import multer from "multer";
-const fs = require("fs"); // to rename files, for example
 
 import {
   deleteProjectById,

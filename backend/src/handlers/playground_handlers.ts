@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { OkPacket, RowDataPacket } from "mysql2";
 import database from "../database";
-import { v4 as uuidv4 } from "uuid";
 import { TypedRequestQuery } from "../../types/express";
 
 const dataError = "Error retrieving data from the database";
@@ -51,13 +50,7 @@ export const getPlaygroundById = async (
 
 export const postPlayground = async (req: Request, res: Response) => {
   const { playground_id, name, content, tools, link } = req.body;
-  if (
-    playground_id == null ||
-    name == null ||
-    content == null ||
-    tools === null ||
-    link === null
-  ) {
+  if (Object.values(req.body).some((value) => value === undefined)) {
     return res.status(401).send({ error: "Incorrect values" });
   }
 
@@ -102,16 +95,6 @@ export const putPlayground = async (req: Request, res: Response) => {
   const id = req.query.id;
   const payloadSub: string = (req as AuthenticatedRequest).payload.sub;
 
-  function isValidUUID(id: string | undefined): boolean {
-    if (!id) {
-      return false;
-    }
-    const uuidRegex = new RegExp(
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-    );
-    return uuidRegex.test(id);
-  }
-
   if (payloadSub !== id) {
     res.status(401).send({ error: "Unauthorized" });
     return;
@@ -148,7 +131,6 @@ export const putPlayground = async (req: Request, res: Response) => {
 export const deletePlayground = async (req: Request, res: Response) => {
   const id = req.query.id;
   const payloadSub: string = (req as AuthenticatedRequest).payload.sub;
-  console.log("playload sub", payloadSub);
   if (payloadSub != ADMIN) {
     res.status(403).send("Forbidden");
     return;
