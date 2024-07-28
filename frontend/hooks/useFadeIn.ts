@@ -6,6 +6,7 @@ const useFadeIn = (threshold = 0) => {
 
   useEffect(() => {
     const component = componentRef.current;
+    console.log(component);
 
     if (component) {
       const observer = new IntersectionObserver(
