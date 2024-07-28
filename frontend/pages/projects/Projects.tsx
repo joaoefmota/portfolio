@@ -61,7 +61,7 @@ export default function Projects() {
       <section
         id={"Projects"}
         className={`${"sectionBg1"} ${styles.Projects} ${
-          isVisible ? "fade-in " : ""
+          isVisible ? "fade-in" : ""
         }`}
         ref={projectsRef}
       >

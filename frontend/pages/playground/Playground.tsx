@@ -30,7 +30,7 @@ function Playground() {
 
   const APIURL = process.env.NEXT_PUBLIC_API_URL;
   
-  const project = useAxios<any>({
+  useAxios<any>({
     url: `${APIURL}/api/playground`,
     initialValue: [],
     transform: (playground) => {
