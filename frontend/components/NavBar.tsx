@@ -32,25 +32,13 @@ export default function NavBar() {
           );
         });
 
-        // console.log("currentSection", currentSection);
-
         if (currentSection) {
           const backgroundColor =
             getComputedStyle(currentSection).getPropertyValue(
               "background-color"
             );
-          // console.log("backgroundColor", backgroundColor);
           const isLight = tinycolor(backgroundColor).isLight();
-          // console.log("isLight", isLight);
           setMenuColor(isLight ? "#222823" : "#e8e8e8");
-          // console.log("menu color", menuColor);
-
-          /*
-         const sectionId = currentSection.getAttribute("id");
-          const url = new URL(window.location.href);
-          url.hash = sectionId ?? "";
-          window.history.pushState(null, "", url); 
-          */
         }
       }
       handleScroll();
@@ -63,7 +51,6 @@ export default function NavBar() {
         window.removeEventListener("resize", debouncedHandleScroll);
         window.removeEventListener("scroll", debouncedHandleScroll);
       };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return menuColor;
@@ -91,9 +78,7 @@ export default function NavBar() {
     }
     if (event) {
       const element = document.getElementById(event as string);
-      // console.log("element", element);
       if (element) {
-        // 👇 Will scroll smoothly to the top of the next section
         element.scrollIntoView({ behavior: "smooth" });
       }
     }

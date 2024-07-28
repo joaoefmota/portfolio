@@ -42,15 +42,6 @@ export default function Projects() {
           return axios
             .get(`${APIURL}/images/?project=${project.name}`)
             .then((result) => {
-              /*
-              console.log(
-                "result.data",
-                result.data.filter((image: { source: string | string[] }) =>
-                  image.source.includes(`proj_container/${project.name}`)
-                )
-              );
-              */
-              //console.log("result", result);
               const imageSet = result.data.filter(
                 (image: { source: string | string[] }) =>
                   image.source.includes(`proj_container/${project.name}`)
@@ -64,10 +55,6 @@ export default function Projects() {
       return projects;
     },
   });
-
-  // console.log("ProjectsArray", projectsArray);
-
-  console.log("imagesMap", imagesMap);
 
   return (
     <>

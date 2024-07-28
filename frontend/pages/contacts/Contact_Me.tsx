@@ -75,7 +75,6 @@ function Contact_Me() {
       ...prevFormData,
       [event.target.name]: event.target.value,
     }));
-    // console.log("Data", data);
   };
 
   useEffect(() => {

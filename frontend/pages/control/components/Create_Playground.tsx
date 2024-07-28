@@ -81,11 +81,6 @@ export default function Create_Playground({ authToken }: PropsAuth) {
     }));
   };
 
-  /*  useEffect(() => {
-    console.log("errors state", errorMsg);
-  }, [errorMsg]);
-  */
-
   return (
     <article>
       <h2 className="title text-center">Create a new Playground</h2>

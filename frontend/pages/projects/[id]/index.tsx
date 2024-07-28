@@ -86,22 +86,6 @@ export default function ProjectPage() {
     height: 500,
   }));
 
-  /* 
-   const nextIndex = () => {
-    restOfImages && setPhotoIndex((photoIndex + 1) % restOfImages.length);
-    console.log("nextIndex Function called", photoIndex);
-  };
-
-  const prevIndex = () => {
-    restOfImages &&
-      setPhotoIndex(
-        (photoIndex + restOfImages.length - 1) % restOfImages.length
-      );
-    console.log("prevIndex Function called", photoIndex);
-  };
-
-  */
-
   {
     /* Tools and Packages array */
   }

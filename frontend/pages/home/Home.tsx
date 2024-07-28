@@ -6,9 +6,7 @@ function Home() {
   function handleClick(event: string) {
     if (event) {
       const element = document.getElementById(event as string);
-      // console.log("element", element);
       if (element) {
-        // 👇 Will scroll smoothly to the top of the next section
         element.scrollIntoView({ behavior: "smooth" });
       }
     }

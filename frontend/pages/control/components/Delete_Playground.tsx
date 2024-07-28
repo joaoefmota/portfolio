@@ -47,14 +47,6 @@ export default function Delete_Playground({
     );
   };
 
-  /* 
-  useEffect(() => {
-    console.log("playgroundId", playgroundId);
-    console.log("projectName", projectName);
-    console.log("playgroundData", playgroundData);
-  }, [playgroundData, playgroundId, projectName]);
-*/
-
   return (
     <article>
       <h2 className="title text-center">Delete a Playground</h2>

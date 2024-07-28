@@ -31,7 +31,6 @@ export default function Control() {
   const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    // console.log("local Storage", localStorage.getItem("token"));
     let storedToken: string | undefined;
     if (window.localStorage.token) {
       storedToken = window.localStorage.token as string;
@@ -50,7 +49,6 @@ export default function Control() {
               Authorization: `Bearer ${token}`,
             },
           });
-          // console.log("result TOKEN", result);
           if (result == undefined) {
             console.log("No data received from the server");
             return;
@@ -64,7 +62,6 @@ export default function Control() {
             setLoginStatus((err as AxiosError).response?.status);
             setLoading(false);
             setErrorMsg("Token is sick");
-            // router.push("/auth");
           } else if (err && (err as AxiosError).response?.status === 401) {
             // Token is invalid or has expired - redirect to login page or display error message
             console.log("Error code 401: Token is invalid or has expired");
@@ -72,17 +69,14 @@ export default function Control() {
             setLoginStatus((err as AxiosError).response?.status);
             setErrorMsg("Token is invalid or has expired");
             setHasAccess(false);
-            // router.push("/auth");
           } else if (err && (err as AxiosError).code == "ERR_DUP_ENTRY") {
             console.log("The project with that name already exists.");
             setErrorMsg("The project with that name already exists.");
             setHasAccess(false);
-            // router.push("/auth");
           } else if (err && (err as AxiosError).code == "ERR_BAD_REQUEST") {
             console.log("Unauthorized");
             setErrorMsg("Unauthorized");
             setHasAccess(false);
-            // router.push("/auth");
           }
         }
       }
@@ -121,10 +115,8 @@ export default function Control() {
     }
 
     const decodedToken = jwtDecode(token) as { exp: number };
-    // console.log("decodedToken", decodedToken);
 
     const intervalId = setInterval(() => {
-      // console.log("intervalId", intervalId);
       if (decodedToken.exp < Date.now() / 1000) {
         setIsTokenExpired(true);
         localStorage.removeItem("token");
@@ -133,15 +125,6 @@ export default function Control() {
 
     return () => clearInterval(intervalId);
   }, [router]);
-
-  /* 
-  useEffect(() => {
-    console.log("typeofToken", typeof token);
-    console.log("login status", loginStatus);
-    console.log("errorMsg", errorMsg);
-    console.log("isTokenExpired", isTokenExpired);
-  }, [errorMsg, isTokenExpired, loginStatus, token]);
-*/
 
   if (loginStatus === 401) {
     localStorage.clear();

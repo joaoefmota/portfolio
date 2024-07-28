@@ -66,9 +66,6 @@ function Login() {
             setAuthToken(() => {
               const token = res.data.token;
               localStorage.setItem("token", token!);
-              //  sessionStorage.setItem("token", token!);
-              // console.log("Login successful", token);
-              // console.log("localStorage", window.localStorage.token);
               return token;
             });
             setIsSubmitted(true);
@@ -79,8 +76,7 @@ function Login() {
         }
       )
       .catch((error) => {
-        if (error.response.status === 422) {
-          // console.log(error.response.data.validationErrors); // handle validation errors
+        if (error.response.status === 422) {  
           setIsSubmitted(false);
           const serverErrors = error.response.data.validationErrors;
           const errors = {} as { [key: string]: string };
@@ -88,7 +84,6 @@ function Login() {
             errors[error.field] = error.message;
           });
           setErrorMessages(errors);
-          // console.log("errors state", errorMessages);
         } else {
           setIsSubmitted(false);
           console.log(
@@ -135,7 +130,6 @@ function Login() {
       ...prevState,
       [event.target.name]: event.target.value,
     }));
-    // console.log("login", login);
   };
 
   useEffect(() => {

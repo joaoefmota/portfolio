@@ -7,7 +7,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        //hostname: "cv-portfolio-back.herokuapp.com",
+        hostname: "web-production-5b14.up.railway.app",
+      },
+      {
+        protocol: "https",
         hostname: "localhost",
       },
     ],

@@ -16,7 +16,6 @@ function GetQuotes() {
       .request(options)
       .then((response) => {
         setQuotes(response.data);
-        // console.log("response.data", response.data);
       })
       .catch(function (error) {
         console.error(error);
@@ -37,16 +36,12 @@ function GetQuotes() {
 
   const handleShuffle = () => {
     if (!quotes || !Array.isArray(quotes)) return;
-    const indices: number[] = quotes.map((_, i) => i); // underscore placeholder to ignore the value of the element
-    // console.log("indices", indices);
+    const indices: number[] = quotes.map((_, i) => i);
     const shuffledIndices = shuffle(indices);
-    // console.log("shuffledIndices", shuffledIndices);
     const shuffledQuotes = shuffledIndices!.map((i) => quotes[i]); // new array with shuffled indices
-    // console.log("shuffledQuotes", shuffledQuotes);
     setQuotes(shuffledQuotes);
   };
 
-  // console.log("Quotes", quotes);
   return (
     <div className={styles.quoteContianer}>
       {quotes &&

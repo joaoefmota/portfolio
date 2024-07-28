@@ -46,15 +46,6 @@ export default function Delete_Project({
     );
   };
 
-  /* 
-    useEffect(() => {
-    console.log("projectId", projectId);
-    console.log("projectName", projectName);
-    console.log("playgroundData", projectData);
-  }, [projectData, projectId, projectName]);
-
-  */
-
   return (
     <article>
       <h2 className="title text-center">Delete a Playground</h2>

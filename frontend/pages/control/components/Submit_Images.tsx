@@ -27,7 +27,6 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
   const handleSubmitMain = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (mainImageInputRef == null) return; // check if ref was initialized
-    // console.log("mainImageInputRef", mainImageInputRef.current.files[0]);
     const formData = new FormData(); // Create new FormData object to hold the data we want to send
 
     formData.append("uploaded_file", mainImageInputRef.current!.files![0]); // Append to the object the file we're getting from ref, to populate that object
@@ -98,12 +97,6 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
       projectData.find((info) => info.name === selectedName)?.name || ""
     );
   };
-
-  /*  
-  useEffect(() => {
-    console.log("projectName", projectName);
-  }, [projectName]);
-  */
 
   useEffect(() => {
     if (isSubmitted) {
