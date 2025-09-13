@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import tinycolor from "tinycolor2";
-import debounce from "lodash/debounce";
 
 {
   /* COMPONENTS */
@@ -18,38 +17,44 @@ import styles from "@/styles/NavBar.module.scss";
 export default function NavBar() {
   const [menuColor, setMenuColor] = useState("#222823");
   function useHamburgerMenuColor() {
+
     useEffect(() => {
       function handleScroll() {
         const sections = document.querySelectorAll(".sectionBg1, .sectionBg2");
         const currentPosition = window.scrollY;
 
         const currentSection = Array.from(sections).find((section) => {
-          const sectionTop = (section as HTMLElement).offsetTop;
-          const sectionHeight = (section as HTMLElement).offsetHeight;
-          return (
-            currentPosition >= sectionTop &&
-            currentPosition < sectionTop + sectionHeight
-          );
+          const sectionEl = section as HTMLElement;
+          const sectionTop = sectionEl.offsetTop;
+          const sectionHeight = sectionEl.offsetHeight;
+          return currentPosition >= sectionTop && currentPosition < sectionTop + sectionHeight;
         });
 
         if (currentSection) {
-          const backgroundColor =
-            getComputedStyle(currentSection).getPropertyValue(
-              "background-color"
-            );
+          const backgroundColor = getComputedStyle(currentSection).getPropertyValue("background-color");
           const isLight = tinycolor(backgroundColor).isLight();
           setMenuColor(isLight ? "#222823" : "#e8e8e8");
         }
       }
-      handleScroll();
+
+      // Simple debounce function
+      function debounce(func: () => void, wait: number) {
+        let timeout: number | undefined;
+        return function () {
+          if (timeout) clearTimeout(timeout);
+          timeout = window.setTimeout(() => func(), wait);
+        };
+      }
+
+      handleScroll(); // call immediately on mount
       const debouncedHandleScroll = debounce(handleScroll, 40);
 
-      window.addEventListener("resize", debouncedHandleScroll);
       window.addEventListener("scroll", debouncedHandleScroll);
+      window.addEventListener("resize", debouncedHandleScroll);
 
       return () => {
-        window.removeEventListener("resize", debouncedHandleScroll);
         window.removeEventListener("scroll", debouncedHandleScroll);
+        window.removeEventListener("resize", debouncedHandleScroll);
       };
     }, []);
 
