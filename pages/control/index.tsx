@@ -209,7 +209,7 @@
 
 import React from 'react'
 
-export const ControlPage = () => {
+export default function ControlPage() {
   return (
     <div>Under construction</div>
   )
