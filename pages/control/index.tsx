@@ -206,3 +206,11 @@
 //     </section>
 //   );
 // }
+
+import React from 'react'
+
+export const ControlPage = () => {
+  return (
+    <div>Under construction</div>
+  )
+}
