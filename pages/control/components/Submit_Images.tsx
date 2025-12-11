@@ -120,7 +120,7 @@ export default function Submit_Images({ authToken, projectData }: Readonly<Submi
         className="self-center"
       >
         <option value="">---</option>
-        {projectData.map((info) => (
+        {projectData?.map((info) => (
           <option key={info.name} value={info.name}>
             {info.name}
           </option>
@@ -152,7 +152,7 @@ export default function Submit_Images({ authToken, projectData }: Readonly<Submi
             encType="multipart/form-data"
             className="grid grid-cols-2 gap-3"
           >
-            {otherImagesRefs.map((ref, index) => (
+            {otherImagesRefs?.map((ref, index) => (
               <div className="flex flex-col" key={index}>
                 <label>Other Image {index + 1}</label>
                 <input

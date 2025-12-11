@@ -24,7 +24,7 @@ export default function Playground_Dashboard({ authToken }: Readonly<PropsAuth>)
     <div className="flex flex-row">
       <div className="w-96 mx-auto">
         <div className="flex flex-row flex-wrap">
-          {playgroundData.map((info) => {
+          {playgroundData?.map((info) => {
             return (
               <ul key={info.playground_id} className="flex flex-row mb-5">
                 <li>

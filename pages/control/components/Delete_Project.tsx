@@ -52,7 +52,7 @@ export default function Delete_Project({
       <div className="flex flex-row flex-wrap justify-center items-center gap-5">
         <select title="project_id" value={projectId} onChange={handleId}>
           <option value="">---</option>
-          {projectData.map((info) => (
+          {projectData?.map((info) => (
             <option key={info.project_id} value={info.project_id}>
               {info.project_id}
             </option>

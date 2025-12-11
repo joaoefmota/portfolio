@@ -25,7 +25,7 @@ export default function Projects_Dashboard({ authToken }: Readonly<PropsAuth>) {
       <div className="w-96 mx-auto">
         <div className="flex flex-row flex-wrap">
           {projectInfo &&
-            projectData.map((info) => {
+            projectData?.map((info) => {
               return (
                 <ul key={info.project_id} className="flex flex-row mb-5">
                   <li>
