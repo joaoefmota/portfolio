@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useFadeIn from "@/hooks/useFadeIn";
-import Carousel, { Modal, ModalGateway } from "react-images";
 import back from "@/assets/images/back_dark.png";
 import styles from "@/styles/projects.module.scss";
 
@@ -115,7 +114,7 @@ export default function ProjectPage() {
                 setLightBoxisOpen(true);
               }}
             /> */}
-            {lightBoxIsOpen &&
+            {/* {lightBoxIsOpen &&
               ((
                 <ModalGateway>
                   <Modal
@@ -133,7 +132,7 @@ export default function ProjectPage() {
                     />
                   </Modal>
                 </ModalGateway>
-              ) as any)}
+              ) as any)} */}
 
             <article className="flex flex-col gap-5">
               <h2 className={styles.subtitle}>{projectInfo.subTitle}</h2>
@@ -154,7 +153,7 @@ export default function ProjectPage() {
                     ))}
                   </div>
                 </div>
-                {projectInfo.packages != null ? (
+                {projectInfo.packages ? (
                   <div className="flex flex-col gap-3">
                     <h2 className={styles.subtitle}>Packages</h2>
                     <div className="grid grid-rows-2 grid-flow-col w-fit">
@@ -190,6 +189,8 @@ export default function ProjectPage() {
         alt={"go-back"}
         className={styles.back}
         onClick={() => router.back()}
+        width={50}
+        height={50}
       />
     </section>
   );

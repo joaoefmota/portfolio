@@ -2,21 +2,19 @@ import React, { useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import axios from "axios";
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
 import styles from "@/styles/projects.module.scss";
 import ProjectTile from "../../components/ProjectTile";
 import { ProjectProps } from "@/types/ProjectInfoProps";
 import useFadeIn from "../../hooks/useFadeIn";
 import Carousel from "@/components/Carousel";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Projects() {
   const [imagesMap, setImagesMap] = useState<Map<string, string>>();
   const { componentRef: projectsRef, isVisible } = useFadeIn(0.25);
   const APIURL = process.env.NEXT_PUBLIC_API_URL;
+  const router = useRouter();
 
   const projectsArray = useAxios({
     url: `${APIURL}/api/projects`,
@@ -53,10 +51,11 @@ export default function Projects() {
         Some of the projects I was involved in.
       </p>
       <Carousel showPagination={true} showNavigation={true}>
-        {projectsArray.map((project: ProjectProps, index: number) => (
-          <div key={index} className="w-full">
+        {projectsArray.map((project: ProjectProps) => (
+          <div key={project.id} className="w-full cursor-pointer" onClick={() => {
+            router.push(`/projects/${project.id}`);
+          }}>
             <ProjectTile
-
               name={project.name}
               link={project.link}
             />
