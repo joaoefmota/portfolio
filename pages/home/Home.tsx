@@ -1,16 +1,16 @@
 import React from "react";
-import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.scss";
 
-function Home() {
-  function handleClick(event: string) {
-    if (event) {
-      const element = document.getElementById(event as string);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+function handleClick(event: string) {
+  if (event) {
+    const element = document.getElementById(event);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
   }
+}
+
+function Home() {
 
   return (
     <section

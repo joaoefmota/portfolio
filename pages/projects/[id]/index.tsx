@@ -5,15 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useFadeIn from "@/hooks/useFadeIn";
-import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
-
-// import Carousel from "react-responsive-carousel";
 import back from "@/assets/images/back_dark.png";
-
-{
-  /* STYLES */
-}
 import styles from "@/styles/projects.module.scss";
 
 interface ProjectInfo {
@@ -85,19 +78,15 @@ export default function ProjectPage() {
     width: 500,
     height: 500,
   }));
-
-  {
-    /* Tools and Packages array */
-  }
   if (project == null) return <p>Loading</p>;
 
   const tools =
-    projectInfo != null && projectInfo.tools != null
+    projectInfo?.tools
       ? projectInfo.tools.split(", ")
       : undefined;
 
   const packages =
-    projectInfo != null && projectInfo.packages != null
+    projectInfo?.packages
       ? projectInfo.packages.split(", ")
       : undefined;
 
@@ -119,13 +108,13 @@ export default function ProjectPage() {
             <h1 className={styles.title}>{projectInfo.aka}</h1>
           </Link>
           <div className="flex flex-col gap-10">
-            <Gallery
+            {/* <Gallery
               photos={photos}
               onClick={(event, obj) => {
                 setPhotoIndex(obj.index);
                 setLightBoxisOpen(true);
               }}
-            />
+            /> */}
             {lightBoxIsOpen &&
               ((
                 <ModalGateway>

@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import Create_Playground from "./Create_Playground";
+import React, { useEffect, useState } from "react";
+import CreatePlayground from "./Create_Playground";
 import axios, { AxiosResponse } from "axios";
 import { PlaygroundProps, PropsAuth } from "@/types/ProjectInfoProps";
-import Delete_Playground from "./Delete_Playground";
+import DeletePlayground from "./Delete_Playground";
 
-export default function Playground_Dashboard({ authToken }: PropsAuth) {
+export default function Playground_Dashboard({ authToken }: Readonly<PropsAuth>) {
   const [playgroundData, setPlaygroundData] = useState<PlaygroundProps[]>([]);
   const [playgroundInfo, setPlaygroundInfo] = useState({
     name: "",
@@ -24,30 +24,29 @@ export default function Playground_Dashboard({ authToken }: PropsAuth) {
     <div className="flex flex-row">
       <div className="w-96 mx-auto">
         <div className="flex flex-row flex-wrap">
-          {playgroundData &&
-            playgroundData.map((info) => {
-              return (
-                <ul key={info.playground_id} className="flex flex-row mb-5">
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPlaygroundInfo((prevForm) => ({
-                          ...prevForm,
-                          name: info.name,
-                          content: info.content,
-                          link: info.link,
-                          tools: info.tools,
-                          playground_id: String(info.playground_id),
-                        }));
-                      }}
-                    >
-                      {info.playground_id}
-                    </button>
-                  </li>
-                </ul>
-              );
-            })}
+          {playgroundData.map((info) => {
+            return (
+              <ul key={info.playground_id} className="flex flex-row mb-5">
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPlaygroundInfo((prevForm) => ({
+                        ...prevForm,
+                        name: info.name,
+                        content: info.content,
+                        link: info.link,
+                        tools: info.tools,
+                        playground_id: String(info.playground_id),
+                      }));
+                    }}
+                  >
+                    {info.playground_id}
+                  </button>
+                </li>
+              </ul>
+            );
+          })}
         </div>
         <ul className="flex flex-col gap-3 h-52">
           <li>
@@ -66,9 +65,9 @@ export default function Playground_Dashboard({ authToken }: PropsAuth) {
         </ul>
       </div>
       <div className="flex flex-col">
-        <Create_Playground authToken={authToken} />
+        <CreatePlayground authToken={authToken} />
         {authToken && (
-          <Delete_Playground
+          <DeletePlayground
             authToken={authToken}
             playgroundData={playgroundData}
           />

@@ -8,7 +8,7 @@ interface TilesProps {
   link: string;
 }
 
-export default function ProjectTile({ src, name, link }: TilesProps) {
+export default function ProjectTile({ src, name, link }: Readonly<TilesProps>) {
   return (
     <Link href={link}>
       <div className="shade relative w-full h-64 flex flex-col items-center justify-center">

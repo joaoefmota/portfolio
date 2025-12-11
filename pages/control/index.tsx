@@ -13,8 +13,8 @@ import back from "@/assets/images/back_dark.png";
 
 import styles from "@/styles/control.module.scss";
 
-import Projects_Dashboard from "./components/Projects_Dashboard";
-import Playground_Dashboard from "./components/Playground_Dashboard";
+import ProjectsDashboard from "./components/Projects_Dashboard";
+import PlaygroundDashboard from "./components/Playground_Dashboard";
 
 export default function Control() {
   const [loading, setLoading] = useState(true);
@@ -32,10 +32,10 @@ export default function Control() {
 
   useEffect(() => {
     let storedToken: string | undefined;
-    if (window.localStorage.token) {
-      storedToken = window.localStorage.token as string;
+    if (globalThis.localStorage.token) {
+      storedToken = globalThis.localStorage.token as string;
     } else {
-      storedToken = window.sessionStorage.token as string;
+      storedToken = globalThis.sessionStorage.token as string;
     }
     setToken(storedToken);
     if (storedToken) setHasAccess(true);
@@ -114,7 +114,7 @@ export default function Control() {
       return;
     }
 
-    const decodedToken = jwtDecode(token) as { exp: number };
+    const decodedToken = ((jwtDecode as unknown) as (token: string) => { exp: number })(token);
 
     const intervalId = setInterval(() => {
       if (decodedToken.exp < Date.now() / 1000) {
@@ -149,22 +149,20 @@ export default function Control() {
     setTimeout(() => {
       router.push("/auth");
     }, 3000);
-    {
-      return (
-        <div className="flex flex-col justify-center items-center gap-5 h-screen w-screen">
-          <ReactLoading
-            type={"bubbles"}
-            color="#222823"
-            height={200}
-            width={200}
-          />
-          <h2 className="subtitle">Your Token has expired</h2>
-          <p className="paragraph">
-            You&apos;ll be redirect to the login page in 3 seconds.
-          </p>
-        </div>
-      );
-    }
+    return (
+      <div className="flex flex-col justify-center items-center gap-5 h-screen w-screen">
+        <ReactLoading
+          type={"bubbles"}
+          color="#222823"
+          height={200}
+          width={200}
+        />
+        <h2 className="subtitle">Your Token has expired</h2>
+        <p className="paragraph">
+          You&apos;ll be redirect to the login page in 3 seconds.
+        </p>
+      </div>
+    );
   }
   if (loading) {
     return (
@@ -181,9 +179,8 @@ export default function Control() {
   return (
     <section
       id={"Control"}
-      className={`${"sectionBg1"} ${styles.Control} ${
-        isVisible ? "fade-in " : ""
-      }`}
+      className={`${"sectionBg1"} ${styles.Control} ${isVisible ? "fade-in " : ""
+        }`}
       ref={componentRef}
     >
       <h1 className={"title self-start mb-10"}>Control Dashboard</h1>
@@ -200,8 +197,8 @@ export default function Control() {
         </li>
       </ul>
 
-      {playgroundOpen && <Playground_Dashboard authToken={token} />}
-      {projectsOpen && <Projects_Dashboard authToken={token} />}
+      {playgroundOpen && <PlaygroundDashboard authToken={token} />}
+      {projectsOpen && <ProjectsDashboard authToken={token} />}
 
       <Link href={"/"} className={styles.back}>
         <Image src={back} width={25} alt={"go-back"} />

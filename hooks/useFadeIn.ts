@@ -6,18 +6,17 @@ const useFadeIn = (threshold = 0) => {
 
   useEffect(() => {
     const component = componentRef.current;
-    console.log(component);
 
     if (component) {
       const observer = new IntersectionObserver(
         (entries) => {
           console.log(entries);
-          entries.forEach((entry) => {
+          for (const entry of entries) {
             if (entry.isIntersecting) {
               setIsVisible(true);
               observer.unobserve(entry.target);
             }
-          });
+          }
         },
         { threshold }
       );

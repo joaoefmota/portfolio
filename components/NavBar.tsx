@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import tinycolor from "tinycolor2";
-
-{
-  /* COMPONENTS */
-}
 import Clicabkles_Nav from "./Clickables_Nav";
 import Hamburger from "hamburger-react";
-
-{
-  /* STYLES */
-}
 import styles from "@/styles/NavBar.module.scss";
 
 export default function NavBar() {
@@ -32,7 +23,7 @@ export default function NavBar() {
 
         if (currentSection) {
           const backgroundColor = getComputedStyle(currentSection).getPropertyValue("background-color");
-          const isLight = tinycolor(backgroundColor).isLight();
+          const isLight = backgroundColor === "rgb(232, 232, 232)"; // light background
           setMenuColor(isLight ? "#222823" : "#e8e8e8");
         }
       }

@@ -1,6 +1,6 @@
-import { PlaygroundProps, PropsAuth } from "@/types/ProjectInfoProps";
+import { PlaygroundProps } from "@/types/ProjectInfoProps";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface DeleteProps {
   playgroundData: PlaygroundProps[];
@@ -10,7 +10,7 @@ interface DeleteProps {
 export default function Delete_Playground({
   authToken,
   playgroundData,
-}: DeleteProps) {
+}: Readonly<DeleteProps>) {
   const [playgroundId, setPlaygroundId] = useState<string>("");
   const [projectName, setProjectName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -43,7 +43,7 @@ export default function Delete_Playground({
     setPlaygroundId(selectedId);
     setProjectName(
       playgroundData.find((info) => info.playground_id === selectedId)?.name ||
-        ""
+      ""
     );
   };
 
@@ -53,19 +53,16 @@ export default function Delete_Playground({
       <div className="flex flex-row flex-wrap justify-center items-center gap-5">
         <select title="playground_id" value={playgroundId} onChange={handleId}>
           <option value="">---</option>
-          {playgroundData &&
-            playgroundData.map((info) => (
-              <option key={info.playground_id} value={info.playground_id}>
-                {info.playground_id}
-              </option>
-            ))}
+          {playgroundData.map((info) => (
+            <option key={info.playground_id} value={info.playground_id}>
+              {info.playground_id}
+            </option>
+          ))}
         </select>
         {playgroundId && (
-          <>
-            <button type="button" onClick={handleSubmit}>
-              Submit
-            </button>
-          </>
+          <button type="button" onClick={handleSubmit}>
+            Submit
+          </button>
         )}
       </div>
       {isSubmitted && (
@@ -91,22 +88,3 @@ export default function Delete_Playground({
     </article>
   );
 }
-
-/*
-
-      {playgroundData &&
-        playgroundData.map((info) => {
-          return (
-            <button
-              type="button"
-              key={info.playground_id}
-              onClick={() =>
-                handleId({ target: { value: info.playground_id.toString() } })
-              }
-            >
-              {info.playground_id}
-            </button>
-          );
-        })}
-
-*/

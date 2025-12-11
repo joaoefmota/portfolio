@@ -1,10 +1,10 @@
 import { PropsAuth } from "@/types/ProjectInfoProps";
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export default function Projects({ authToken }: PropsAuth) {
+export default function Projects({ authToken }: Readonly<PropsAuth>) {
   const [projectData, setProjectData] = useState({
-    project_id: parseInt(""),
+    project_id: Number.parseInt(""),
     name: "",
     content: "",
     tools: "",
@@ -34,7 +34,7 @@ export default function Projects({ authToken }: PropsAuth) {
         if (res.status === 201) {
           setIsSubmitted(true);
           setProjectData({
-            project_id: parseInt(""),
+            project_id: Number.parseInt(""),
             name: "",
             content: "",
             tools: "",
@@ -53,9 +53,9 @@ export default function Projects({ authToken }: PropsAuth) {
           console.log("error:", error.response.data.projectValidation.details);
           const serverErrors = error.response.data.projectValidation.details;
           const errors = {} as { [key: string]: string };
-          serverErrors.forEach((error: { path: [string]; message: string }) => {
-            errors[error.path[0]] = error.message;
-          });
+          for (const err of serverErrors as { path: string[]; message: string }[]) {
+            errors[err.path[0]] = err.message;
+          }
           setErrorMsg(errors);
           setIsSubmitted(false);
           console.log("errors state", errorMsg);
@@ -96,8 +96,9 @@ export default function Projects({ authToken }: PropsAuth) {
       <form className="grid grid-cols-2 items-center justify-center">
         <div className="flex flex-col items-center gap-5">
           <div className="flex flex-col w-64">
-            <label>Name</label>
+            <label htmlFor="name">Name</label>
             <input
+              id="name"
               onChange={handleChange}
               placeholder="Project..."
               value={projectData.name}
@@ -109,8 +110,9 @@ export default function Projects({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col w-64">
-            <label>As known as</label>
+            <label htmlFor="aka">As known as</label>
             <input
+              id="aka"
               onChange={handleChange}
               placeholder="Aka"
               value={projectData.aka}
@@ -122,8 +124,9 @@ export default function Projects({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col w-64">
-            <label>Content</label>
+            <label htmlFor="content">Content</label>
             <input
+              id="content"
               onChange={handleChange}
               placeholder="Short description..."
               value={projectData.content}
@@ -135,8 +138,9 @@ export default function Projects({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col w-64">
-            <label>Tools</label>
+            <label htmlFor="tools">Tools</label>
             <input
+              id="tools"
               onChange={handleChange}
               placeholder="What tools..."
               value={projectData.tools}
@@ -148,8 +152,9 @@ export default function Projects({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col w-64">
-            <label>Packages</label>
+            <label htmlFor="packages">Packages</label>
             <input
+              id="packages"
               onChange={handleChange}
               placeholder="Packages or not"
               value={projectData.packages}
@@ -161,8 +166,9 @@ export default function Projects({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col w-64">
-            <label>Github</label>
+            <label htmlFor="github">Github</label>
             <input
+              id="github"
               onChange={handleChange}
               placeholder="GitHub"
               value={projectData.github}
@@ -176,8 +182,9 @@ export default function Projects({ authToken }: PropsAuth) {
         </div>
         <div className="flex flex-col items-center gap-5">
           <div className="flex flex-col w-64">
-            <label>Sub-Title</label>
+            <label htmlFor="subTitle">Sub-Title</label>
             <input
+              id="subTitle"
               onChange={handleChange}
               placeholder="subTitle"
               value={projectData.subTitle}
@@ -189,8 +196,9 @@ export default function Projects({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col w-64">
-            <label>Large Content 1</label>
+            <label htmlFor="lg_content1">Large Content 1</label>
             <input
+              id="lg_content1"
               onChange={handleChange}
               placeholder="lg_content1"
               value={projectData.lg_content1}
@@ -202,8 +210,9 @@ export default function Projects({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col w-64">
-            <label>Large Content 2</label>
+            <label htmlFor="lg_content2">Large Content 2</label>
             <input
+              id="lg_content2"
               onChange={handleChange}
               placeholder="lg_content2"
               value={projectData.lg_content2}
@@ -215,8 +224,9 @@ export default function Projects({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col w-64">
-            <label>Link</label>
+            <label htmlFor="link">Link</label>
             <input
+              id="link"
               onChange={handleChange}
               placeholder="www.link.com"
               value={projectData.link}
@@ -228,8 +238,9 @@ export default function Projects({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col w-64">
-            <label>Project Id</label>
+            <label htmlFor="project_id">Project Id</label>
             <input
+              id="project_id"
               onChange={handleChange}
               placeholder="Project_id: n"
               value={projectData.project_id}

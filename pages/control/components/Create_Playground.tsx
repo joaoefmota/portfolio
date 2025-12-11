@@ -1,8 +1,8 @@
 import { PropsAuth } from "@/types/ProjectInfoProps";
 import axios, { AxiosError } from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-export default function Create_Playground({ authToken }: PropsAuth) {
+export default function Create_Playground({ authToken }: Readonly<PropsAuth>) {
   const [playgroundData, setPlaygroundData] = useState({
     playground_id: "",
     name: "",
@@ -60,11 +60,9 @@ export default function Create_Playground({ authToken }: PropsAuth) {
               setIsSubmitted(false);
               const serverErrors = error.response.data.validationErrors.details;
               const errors = {} as { [key: string]: string };
-              serverErrors.forEach(
-                (error: { path: string; message: string }) => {
-                  errors[error.path] = error.message;
-                }
-              );
+              for (const err of serverErrors) {
+                errors[err.path] = err.message;
+              }
               setErrorMsg(errors);
             }
           }
@@ -87,8 +85,9 @@ export default function Create_Playground({ authToken }: PropsAuth) {
       <form className="grid grid-cols-2 items-center justify-center">
         <div className="flex flex-col items-center gap-5">
           <div className="flex flex-col">
-            <label>Name</label>
+            <label htmlFor="name">Name</label>
             <input
+              id="name"
               onChange={handleChange}
               placeholder="Playground..."
               value={playgroundData.name}
@@ -100,8 +99,9 @@ export default function Create_Playground({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col">
-            <label>Content</label>
+            <label htmlFor="content">Content</label>
             <input
+              id="content"
               onChange={handleChange}
               placeholder="Description..."
               value={playgroundData.content}
@@ -113,8 +113,9 @@ export default function Create_Playground({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col">
-            <label>Tools</label>
+            <label htmlFor="tools">Tools</label>
             <input
+              id="tools"
               onChange={handleChange}
               placeholder="What tools..."
               value={playgroundData.tools}
@@ -128,8 +129,9 @@ export default function Create_Playground({ authToken }: PropsAuth) {
         </div>
         <div className="flex flex-col items-center gap-5">
           <div className="flex flex-col">
-            <label>Link</label>
+            <label htmlFor="link">Link</label>
             <input
+              id="link"
               onChange={handleChange}
               placeholder="Link to"
               value={playgroundData.link}
@@ -141,8 +143,9 @@ export default function Create_Playground({ authToken }: PropsAuth) {
             )}
           </div>
           <div className="flex flex-col">
-            <label>Playground Id</label>
+            <label htmlFor="playground_id">Playground Id</label>
             <input
+              id="playground_id"
               onChange={handleChange}
               placeholder="Playground_id: n"
               value={playgroundData.playground_id}
@@ -154,7 +157,7 @@ export default function Create_Playground({ authToken }: PropsAuth) {
             )}
           </div>
 
-          <button onClick={handleSumit}>Submit Playground</button>
+          <button type="button" onClick={handleSumit}>Submit Playground</button>
         </div>
       </form>
       {isSubmitted && (

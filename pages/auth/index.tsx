@@ -3,24 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
-
-{
-  /* STYLES */
-}
 import styles from "@/styles/login.module.scss";
-{
-  /* HOOKS */
-}
 import useFadeIn from "../../hooks/useFadeIn";
-
-{
-  /* IMAGES */
-}
 import back from "@/assets/images/back_dark.png";
 import loginImg from "@/assets/images/login.png";
 import jwtDecode from "jwt-decode";
 
-export interface PlaygroundProps {}
+export interface PlaygroundProps { }
 
 function Login() {
   const { componentRef, isVisible } = useFadeIn(0.25);
@@ -76,7 +65,7 @@ function Login() {
         }
       )
       .catch((error) => {
-        if (error.response.status === 422) {  
+        if (error.response.status === 422) {
           setIsSubmitted(false);
           const serverErrors = error.response.data.validationErrors;
           const errors = {} as { [key: string]: string };
@@ -149,9 +138,8 @@ function Login() {
     <>
       <section
         id={"Login"}
-        className={`${"sectionBg1"} ${styles.Login} ${
-          isVisible ? "fade-in " : ""
-        }`}
+        className={`${"sectionBg1"} ${styles.Login} ${isVisible ? "fade-in " : ""
+          }`}
         ref={componentRef}
       >
         <h1 className={"title self-start"}>Login</h1>

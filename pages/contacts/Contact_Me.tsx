@@ -1,4 +1,4 @@
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/contact.module.scss";
 import axios from "axios";
 import Link from "next/link";
@@ -45,11 +45,9 @@ function Contact_Me() {
           console.log(error.response.data.validationErrors.details); // handle validation errors
           const serverErrors = error.response.data.validationErrors.details;
           const errors = {} as { [key: string]: string };
-          serverErrors.forEach(
-            (error: { path: [][number]; message: string }) => {
-              errors[error.path[0]] = error.message;
-            }
-          );
+          for (const err of serverErrors as { path: (string | number)[]; message: string }[]) {
+            errors[err.path[0]] = err.message;
+          }
           setErrorMessages(errors);
           setIsSubmitted(false);
         } else {
@@ -64,7 +62,6 @@ function Contact_Me() {
   const handleInputFields = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    // const { name, value } = event.target;
     setData((prevFormData) => ({
       ...prevFormData,
       [event.target.name]: event.target.value,
@@ -88,9 +85,8 @@ function Contact_Me() {
     <>
       <section
         id={"Contact"}
-        className={`${styles.Contact} ${"sectionBg1"} ${
-          isVisible ? "fade-in " : ""
-        }`}
+        className={`${styles.Contact} ${"sectionBg1"} ${isVisible ? "fade-in " : ""
+          }`}
         ref={contactRef}
       >
         <h1 className={"title self-start"}>04: Contact</h1>
