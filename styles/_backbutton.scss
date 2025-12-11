@@ -1,0 +1,26 @@
+.back {
+  position: absolute;
+  left: 3%;
+  top: 3%;
+  border-radius: 100%;
+  border: 1px solid rgba(29, 28, 29, 0);
+  padding: 0.5rem 0.5rem;
+  margin: 0 0.1rem;
+  transition: all 0.5s ease-in-out;
+  width: 4rem;
+}
+
+.back:hover {
+  transform: scale(1.1);
+  // content: url("../assets/images/back_light.png");
+  opacity: 1;
+  background-color: $background;
+}
+
+@media (max-width: 700px) {
+  .back {
+    width: 2rem;
+    height: 2rem;
+    padding: 0.1rem 0.2rem;
+  }
+}
