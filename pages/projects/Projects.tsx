@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import axios from "axios";
-import dynamic from "next/dynamic";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -11,17 +10,8 @@ import styles from "@/styles/projects.module.scss";
 import ProjectTile from "../../components/ProjectTile";
 import { ProjectProps } from "@/types/ProjectInfoProps";
 import useFadeIn from "../../hooks/useFadeIn";
-
-const Swiper = dynamic(
-  () => import("swiper/react").then((mod) => mod.Swiper),
-  { ssr: false }
-);
-const SwiperSlide = dynamic(
-  () => import("swiper/react").then((mod) => mod.SwiperSlide),
-  { ssr: false }
-);
-
-import { Pagination, Navigation } from "swiper/modules";
+import Carousel from "@/components/Carousel";
+import Image from "next/image";
 
 export default function Projects() {
   const [imagesMap, setImagesMap] = useState<Map<string, string>>();
@@ -38,11 +28,11 @@ export default function Projects() {
           return axios
             .get(`${APIURL}/images/?project=${project.name}`)
             .then((result) => {
-              const imageSet = result.data.filter((image: { source: string }) =>
+              const image = result.data.find((image: { source: string }) =>
                 image.source.includes(`proj_container/${project.name}`)
               );
-              if (imageSet[0]) {
-                _imagesMap.set(project.name, APIURL + imageSet[0].source);
+              if (image) {
+                _imagesMap.set(project.name, APIURL + image.source);
               }
             });
         })
@@ -60,32 +50,28 @@ export default function Projects() {
     >
       <h1 className="title self-start">02: Projects</h1>
       <p className="paragraph self-start">
-        Some of the projects I was involved in. Use the swiper slider below to
-        see them all!
+        Some of the projects I was involved in.
       </p>
-      <div className={styles.swiperContainer}>
-        {projectsArray.length > 0 && imagesMap && (
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={30}
-            loop={true}
-            pagination={{ clickable: true }}
-            navigation={true}
-            modules={[Pagination, Navigation]}
-            className="mySwiper rounded"
-          >
-            {projectsArray.map((project: ProjectProps) => (
-              <SwiperSlide key={project.id}>
-                <ProjectTile
-                  src={imagesMap.get(project.name)}
-                  name={project.name}
-                  link={`/projects/${project.id}`}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        )}
-      </div>
+      <Carousel showPagination={true} showNavigation={true}>
+        {projectsArray.map((project: ProjectProps, index: number) => (
+          <div key={index} className="w-full">
+            <ProjectTile
+
+              name={project.name}
+              link={project.link}
+            />
+            <Image
+              src={
+                imagesMap ? imagesMap.get(project.name) || "/placeholder.png" : "/placeholder.png"
+              }
+              alt={project.name}
+              width={600}
+              height={400}
+              className="w-full h-auto mt-4 rounded-lg object-cover"
+            />
+          </div>
+        ))}
+      </Carousel>
     </section>
   );
 }

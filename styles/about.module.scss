@@ -6,14 +6,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: $vh;
-  width: $vw;
+  min-height: $vh;
   opacity: 0;
 }
 
 .pic {
-  margin: 0 2rem;
-  width: 50%;
+  padding: 0 2rem;
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+  }
 }
 
 .grid {
@@ -34,4 +39,3 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
-

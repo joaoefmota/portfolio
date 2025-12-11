@@ -26,7 +26,7 @@ function Home() {
           </h2>
 
           <h2 className={"subtitle"}>
-            a <span>Junior Web Developer</span> who builds things on the web.
+            a <span>Web Developer</span> who builds things on the web.
           </h2>
           <p
             className={`${"text-paragraph leading-relaxed mt-2"} ${"paragraph"}`}
