@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import Create_Project from "./Create_Project";
-import Delete_Project from "./Delete_Project";
+import React, { useEffect, useState } from "react";
+import CreateProject from "./Create_Project";
+import DeleteProject from "./Delete_Project";
 import { ProjectProps, PropsAuth } from "@/types/ProjectInfoProps";
 import axios, { AxiosResponse } from "axios";
-import Submit_Images from "./Submit_Images";
+import SubmitImages from "./Submit_Images";
 
-export default function Projects_Dashboard({ authToken }: PropsAuth) {
+export default function Projects_Dashboard({ authToken }: Readonly<PropsAuth>) {
   const [projectData, setProjectData] = useState<ProjectProps[]>([]);
   const [projectInfo, setProjectInfo] = useState({
     project_id: "",
@@ -25,7 +25,7 @@ export default function Projects_Dashboard({ authToken }: PropsAuth) {
       <div className="w-96 mx-auto">
         <div className="flex flex-row flex-wrap">
           {projectInfo &&
-            projectData.map((info) => {
+            projectData?.map((info) => {
               return (
                 <ul key={info.project_id} className="flex flex-row mb-5">
                   <li>
@@ -62,9 +62,9 @@ export default function Projects_Dashboard({ authToken }: PropsAuth) {
         </div>
       </div>
       <div className="flex flex-col">
-        <Create_Project authToken={authToken} />
-        <Submit_Images authToken={authToken} projectData={projectData} />
-        <Delete_Project authToken={authToken} projectData={projectData} />
+        <CreateProject authToken={authToken} />
+        <SubmitImages authToken={authToken} projectData={projectData} />
+        <DeleteProject authToken={authToken} projectData={projectData} />
       </div>
     </div>
   );

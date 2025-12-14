@@ -1,9 +1,9 @@
 import Head from "next/head";
 import Home from "./home/Home";
 import NavBar from "../components/NavBar";
-import About_Me from "./about_me/About_Me";
+import AboutMe from "./about_me/About_Me";
 import Projects from "./projects/Projects";
-import Contact_Me from "./contacts/Contact_Me";
+import ContactMe from "./contacts/Contact_Me";
 import Playground from "./playground/Playground";
 
 export default function LandingPage() {
@@ -21,12 +21,12 @@ export default function LandingPage() {
         </header>
         <main tabIndex={-1}>
           <Home />
-          <About_Me />
+          <AboutMe />
 
           <Projects />
           <Playground />
 
-          <Contact_Me />
+          <ContactMe />
         </main>
       </div>
     </>

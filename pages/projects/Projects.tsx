@@ -1,31 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import axios from "axios";
 
-{
-  /* Components */
-}
-import ProjectTile from "../../components/ProjectTile";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation } from "swiper";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-{
-  /* Styles */
-}
 import styles from "@/styles/projects.module.scss";
-
-{
-  /* TYPES */
-}
+import ProjectTile from "../../components/ProjectTile";
 import { ProjectProps } from "@/types/ProjectInfoProps";
 import useFadeIn from "../../hooks/useFadeIn";
+import Carousel from "@/components/Carousel";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Projects() {
   const [imagesMap, setImagesMap] = useState<Map<string, string>>();
   const { componentRef: projectsRef, isVisible } = useFadeIn(0.25);
   const APIURL = process.env.NEXT_PUBLIC_API_URL;
+  const router = useRouter();
 
   const projectsArray = useAxios({
     url: `${APIURL}/api/projects`,
@@ -37,66 +26,51 @@ export default function Projects() {
           return axios
             .get(`${APIURL}/images/?project=${project.name}`)
             .then((result) => {
-              const imageSet = result.data.filter(
-                (image: { source: string | string[] }) =>
-                  image.source.includes(`proj_container/${project.name}`)
+              const image = result.data.find((image: { source: string }) =>
+                image.source.includes(`proj_container/${project.name}`)
               );
-              _imagesMap.set(project.name, APIURL + imageSet[0].source);
+              if (image) {
+                _imagesMap.set(project.name, APIURL + image.source);
+              }
             });
         })
-      ).then(() => {
-        setImagesMap(_imagesMap);
-      });
+      ).then(() => setImagesMap(_imagesMap));
       return projects;
     },
   });
 
   return (
-    <>
-      <section
-        id={"Projects"}
-        className={`${"sectionBg1"} ${styles.Projects} ${
-          isVisible ? "fade-in" : ""
+    <section
+      id="Projects"
+      className={`${"sectionBg1"} ${styles.Projects} ${isVisible ? "fade-in" : ""
         }`}
-        ref={projectsRef}
-      >
-        <h1 className={"title self-start "}>02: Projects</h1>
-        <p className="paragraph self-start">
-          Some of the projects I was involved in. Use the swiper slider bellow
-          to see them all!
-        </p>
-        <div className={styles.swiperContainer}>
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={30}
-            loop={true}
-            pagination={{
-              clickable: true,
-            }}
-            navigation={true}
-            modules={[Pagination, Navigation]}
-            className="mySwiper rounded"
-          >
-            {projectsArray != null
-              ? projectsArray.map((project: ProjectProps) => {
-                  return (
-                    <>
-                      <SwiperSlide key={project.id}>
-                        <ProjectTile
-                          src={
-                            imagesMap ? imagesMap.get(project.name) : undefined
-                          }
-                          name={project.name}
-                          link={`/projects/${project.id}`}
-                        />
-                      </SwiperSlide>
-                    </>
-                  );
-                })
-              : null}
-          </Swiper>
-        </div>
-      </section>
-    </>
+      ref={projectsRef}
+    >
+      <h1 className="title self-start">02: Projects</h1>
+      <p className="paragraph self-start">
+        Some of the projects I was involved in.
+      </p>
+      <Carousel showPagination={true} showNavigation={true}>
+        {projectsArray.map((project: ProjectProps) => (
+          <div key={project.id} className="w-full cursor-pointer" onClick={() => {
+            router.push(`/projects/${project.id}`);
+          }}>
+            <ProjectTile
+              name={project.name}
+              link={project.link}
+            />
+            <Image
+              src={
+                imagesMap ? imagesMap.get(project.name) || "/placeholder.png" : "/placeholder.png"
+              }
+              alt={project.name}
+              width={600}
+              height={400}
+              className="w-full h-auto rounded-lg object-cover"
+            />
+          </div>
+        ))}
+      </Carousel>
+    </section>
   );
 }

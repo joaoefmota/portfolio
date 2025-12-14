@@ -1,11 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import Image from "next/image";
 
 import styles from "@/styles/about.module.scss";
 
-{
-  /* IMAGES */
-}
 import profile from "@/assets/images/profile.jpg";
 import useFadeIn from "../../hooks/useFadeIn";
 
@@ -26,9 +23,8 @@ export default function About_Me() {
   return (
     <section
       id="About_Me"
-      className={`${"sectionBg2"} ${styles.About} ${
-        isVisible ? "fade-in " : ""
-      }`}
+      className={`${"sectionBg2"} ${styles.About} ${isVisible ? "fade-in " : ""
+        }`}
       ref={aboutRef}
     >
       <h1 className={"title titleAlt mb-10 self-start"}>01: About me</h1>

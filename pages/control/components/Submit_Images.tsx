@@ -1,5 +1,4 @@
-import useFadeIn from "@/hooks/useFadeIn";
-import { ProjectProps, PropsAuth } from "@/types/ProjectInfoProps";
+import { ProjectProps } from "@/types/ProjectInfoProps";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -8,7 +7,7 @@ interface SubmitProps {
   authToken: string | undefined;
 }
 
-export default function Submit_Images({ authToken, projectData }: SubmitProps) {
+export default function Submit_Images({ authToken, projectData }: Readonly<SubmitProps>) {
   const [projectName, setProjectName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const mainImageInputRef = useRef<HTMLInputElement>(null);
@@ -121,19 +120,19 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
         className="self-center"
       >
         <option value="">---</option>
-        {projectData &&
-          projectData.map((info) => (
-            <option key={info.name} value={info.name}>
-              {info.name}
-            </option>
-          ))}
+        {projectData?.map((info) => (
+          <option key={info.name} value={info.name}>
+            {info.name}
+          </option>
+        ))}
       </select>
       <h2 className="title text-center">Main Image</h2>
       <div className="flex flex-row items-center gap-3 justify-center">
         <form encType="multipart/form-data">
           <div className="flex flex-col">
-            <label>Main Image</label>
+            <label htmlFor="mainImage">Main Image</label>
             <input
+              id="mainImage"
               placeholder={"File to upload"}
               type={"file"}
               name={"uploaded_file"}
@@ -153,18 +152,17 @@ export default function Submit_Images({ authToken, projectData }: SubmitProps) {
             encType="multipart/form-data"
             className="grid grid-cols-2 gap-3"
           >
-            {otherImagesRefs &&
-              otherImagesRefs.map((ref, index) => (
-                <div className="flex flex-col" key={index}>
-                  <label>Other Image {index + 1}</label>
-                  <input
-                    placeholder={"File to upload"}
-                    type={"file"}
-                    name={"file"}
-                    ref={ref}
-                  />
-                </div>
-              ))}
+            {otherImagesRefs?.map((ref, index) => (
+              <div className="flex flex-col" key={index}>
+                <label>Other Image {index + 1}</label>
+                <input
+                  placeholder={"File to upload"}
+                  type={"file"}
+                  name={"file"}
+                  ref={ref}
+                />
+              </div>
+            ))}
             <button type="submit" onClick={handleSubmitOthers}>
               Send!
             </button>

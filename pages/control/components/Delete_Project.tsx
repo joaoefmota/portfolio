@@ -1,6 +1,6 @@
 import { ProjectProps } from "@/types/ProjectInfoProps";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface DeleteProps {
   projectData: ProjectProps[];
@@ -10,7 +10,7 @@ interface DeleteProps {
 export default function Delete_Project({
   projectData,
   authToken,
-}: DeleteProps) {
+}: Readonly<DeleteProps>) {
   const [projectId, setProjectId] = useState<string>("");
   const [projectName, setProjectName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -50,21 +50,18 @@ export default function Delete_Project({
     <article>
       <h2 className="title text-center">Delete a Playground</h2>
       <div className="flex flex-row flex-wrap justify-center items-center gap-5">
-        <select title="playground_id" value={projectId} onChange={handleId}>
+        <select title="project_id" value={projectId} onChange={handleId}>
           <option value="">---</option>
-          {projectData &&
-            projectData.map((info) => (
-              <option key={info.project_id} value={info.project_id}>
-                {info.project_id}
-              </option>
-            ))}
+          {projectData?.map((info) => (
+            <option key={info.project_id} value={info.project_id}>
+              {info.project_id}
+            </option>
+          ))}
         </select>
         {projectId && (
-          <>
-            <button type="button" onClick={handleSubmit}>
-              Submit
-            </button>
-          </>
+          <button type="button" onClick={handleSubmit}>
+            Submit
+          </button>
         )}
       </div>
       {isSubmitted && (

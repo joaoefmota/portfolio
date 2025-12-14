@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import styles from "@/styles/playground.module.scss";
 import Link from "next/link";
 import Image from "next/image";
@@ -28,7 +28,7 @@ function Playground() {
   const [isOpen, setIsOpen] = useState(false);
 
   const APIURL = process.env.NEXT_PUBLIC_API_URL;
-  
+
   useAxios<any>({
     url: `${APIURL}/api/playground`,
     initialValue: [],
@@ -45,94 +45,89 @@ function Playground() {
   }
 
   return (
-    <>
-      <section
-        id={"Playground"}
-        className={`${"sectionBg2"} ${styles.Playground} ${
-          isVisible ? "fade-in " : ""
+    <section
+      id={"Playground"}
+      className={`${"sectionBg2"} ${styles.Playground} ${isVisible ? "fade-in " : ""
         }`}
-        ref={playgroundRef}
-      >
-        <h1 className={"title titleAlt mb-10"}>03: Playground</h1>
-        <div className={styles.mainContainer}>
-          <div className={styles.gridColumn}>
-            {playgroundInfo &&
-              playgroundInfo.slice(0, 6).map((playground: PlaygroundProps) => (
-                <Link
-                  href={playground.link}
-                  key={playground.playground_id}
-                  className={styles.tile}
-                >
-                  <div className={styles.tileHeader}>
-                    <Image src={folder} alt={"folder-icon"} />
-                    <Image src={git} alt={"git-icon"} />
-                  </div>
-                  <h3 className={styles.tileTitle}>{playground.name}</h3>
-                  <div className={styles.tileDescription}>
-                    {playground.content}
-                  </div>
-                  <div>
-                    <ul className={styles.techList}>
-                      {paragraphedString(playground.tools).map(
-                        (tool, index) => (
-                          <li key={index}>{tool}</li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                </Link>
-              ))}
+      ref={playgroundRef}
+    >
+      <h1 className={"title titleAlt mb-10"}>03: Playground</h1>
+      <div className={styles.mainContainer}>
+        <div className={styles.gridColumn}>
+          {playgroundInfo.slice(0, 6).map((playground: PlaygroundProps) => (
+            <Link
+              href={playground.link}
+              key={playground.playground_id}
+              className={styles.tile}
+            >
+              <div className={styles.tileHeader}>
+                <Image src={folder} alt={"folder-icon"} />
+                <Image src={git} alt={"git-icon"} />
+              </div>
+              <h3 className={styles.tileTitle}>{playground.name}</h3>
+              <div className={styles.tileDescription}>
+                {playground.content}
+              </div>
+              <div>
+                <ul className={styles.techList}>
+                  {paragraphedString(playground.tools).map(
+                    (tool) => (
+                      <li key={tool}>{tool}</li>
+                    )
+                  )}
+                </ul>
+              </div>
+            </Link>
+          ))}
 
-            {isOpen === true &&
-              playgroundInfo &&
-              playgroundInfo.slice(6).map((playground: PlaygroundProps) => (
-                <Link
-                  href={playground.link}
-                  key={playground.playground_id}
-                  className={styles.tile}
-                >
-                  <div className={styles.tileHeader}>
-                    <Image src={folder} alt={"folder-icon"} />
-                    <Image src={git} alt={"git-icon"} />
-                  </div>
-                  <h3 className={styles.tileTitle}>{playground.name}</h3>
-                  <div className={styles.tileDescription}>
-                    {playground.content}
-                  </div>
-                  <div>
-                    <ul className={styles.techList}>
-                      {paragraphedString(playground.tools).map(
-                        (tool, index) => (
-                          <li key={index}>{tool}</li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                </Link>
-              ))}
-          </div>
-          {isOpen === false ? (
-            <Image
-              src={seeMore}
-              alt={"see-more"}
-              width={200}
-              height={200}
-              className={styles.buttonMore}
-              onClick={() => handleClick("open")}
-            />
-          ) : (
-            <Image
-              src={seeLess}
-              alt={"see-more"}
-              width={200}
-              height={200}
-              className={styles.seeLess}
-              onClick={() => handleClick("close")}
-            />
-          )}
+          {isOpen === true &&
+            playgroundInfo.slice(6).map((playground: PlaygroundProps) => (
+              <Link
+                href={playground.link}
+                key={playground.playground_id}
+                className={styles.tile}
+              >
+                <div className={styles.tileHeader}>
+                  <Image src={folder} alt={"folder-icon"} />
+                  <Image src={git} alt={"git-icon"} />
+                </div>
+                <h3 className={styles.tileTitle}>{playground.name}</h3>
+                <div className={styles.tileDescription}>
+                  {playground.content}
+                </div>
+                <div>
+                  <ul className={styles.techList}>
+                    {paragraphedString(playground.tools).map(
+                      (tool) => (
+                        <li key={tool}>{tool}</li>
+                      )
+                    )}
+                  </ul>
+                </div>
+              </Link>
+            ))}
         </div>
-      </section>
-    </>
+        {isOpen === false ? (
+          <Image
+            src={seeMore}
+            alt={"see-more"}
+            width={200}
+            height={200}
+            className={styles.buttonMore}
+            onClick={() => handleClick("open")}
+          />
+        ) : (
+          <Image
+            src={seeLess}
+            alt={"see-more"}
+            width={200}
+            height={200}
+            className={styles.seeLess}
+            onClick={() => handleClick("close")}
+          />
+        )}
+      </div>
+    </section>
   );
 }
 

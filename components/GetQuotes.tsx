@@ -3,23 +3,12 @@ import axios from "axios";
 import styles from "@/styles/footer.module.scss";
 
 function GetQuotes() {
-  const [quotes, setQuotes] = useState<any[]>([]);
+  const [quotes, setQuotes] = useState<{ text: string; author: string }[]>([]);
   useEffect(() => {
-    const options = {
-      async: true,
-      crossDomain: true,
-      url: "https://type.fit/api/quotes",
-      method: "GET",
-    };
-
     axios
-      .request(options)
-      .then((response) => {
-        setQuotes(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+      .get('/api/quotes')
+      .then((response) => setQuotes(response.data))
+      .catch((error) => console.error('Error fetching quotes:', error));
   }, []);
 
   const shuffle = (array: number[]) => {
@@ -44,20 +33,18 @@ function GetQuotes() {
 
   return (
     <div className={styles.quoteContianer}>
-      {quotes &&
-        quotes
-          .slice(0, 1)
-          .map((quote: { text: string; author: string }, index: number) => (
-            <div key={index} className={styles.quoteBlock}>
-              <div>
-                <p className={`${styles.quote}`}>&quot;{quote.text}&quot;</p>
-                <p className={styles.author}>{quote.author}</p>
-              </div>
-              <button onClick={handleShuffle} className={styles.getQuotes}>
-                Get more Quotes!
-              </button>
+      {quotes?.slice(0, 1)
+        .map((quote: { text: string; author: string }, index: number) => (
+          <div key={quote.author + ": " + index} className={styles.quoteBlock}>
+            <div>
+              <p className={`${styles.quote}`}>&quot;{quote.text}&quot;</p>
+              <p className={styles.author}>{quote.author}</p>
             </div>
-          ))}
+            <button onClick={handleShuffle} className={styles.getQuotes}>
+              Get more Quotes!
+            </button>
+          </div>
+        ))}
     </div>
   );
 }

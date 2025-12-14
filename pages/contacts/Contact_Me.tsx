@@ -1,4 +1,4 @@
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/contact.module.scss";
 import axios from "axios";
 import Link from "next/link";
@@ -45,11 +45,9 @@ function Contact_Me() {
           console.log(error.response.data.validationErrors.details); // handle validation errors
           const serverErrors = error.response.data.validationErrors.details;
           const errors = {} as { [key: string]: string };
-          serverErrors.forEach(
-            (error: { path: [][number]; message: string }) => {
-              errors[error.path[0]] = error.message;
-            }
-          );
+          for (const err of serverErrors as { path: (string | number)[]; message: string }[]) {
+            errors[err.path[0]] = err.message;
+          }
           setErrorMessages(errors);
           setIsSubmitted(false);
         } else {
@@ -64,7 +62,6 @@ function Contact_Me() {
   const handleInputFields = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    // const { name, value } = event.target;
     setData((prevFormData) => ({
       ...prevFormData,
       [event.target.name]: event.target.value,
@@ -88,9 +85,8 @@ function Contact_Me() {
     <>
       <section
         id={"Contact"}
-        className={`${styles.Contact} ${"sectionBg1"} ${
-          isVisible ? "fade-in " : ""
-        }`}
+        className={`${styles.Contact} ${"sectionBg1"} ${isVisible ? "fade-in " : ""
+          }`}
         ref={contactRef}
       >
         <h1 className={"title self-start"}>04: Contact</h1>
@@ -101,9 +97,9 @@ function Contact_Me() {
         <div
           className={`${"flex flex-col justify-center w-full justify-between"}`}
         >
-          <form className="flex flex-row sm:flex-wrap gap-3 h-full w-full mt-5">
-            <div className="w-1/2 sm:w-full">
-              <div className={"firstName flex flex-col mb-3 sm:w-full"}>
+          <form className="flex flex-col md:flex-row gap-3 mt-5">
+            <div className="w-full md:w-1/2">
+              <div className={"firstName flex flex-col mb-3"}>
                 <label htmlFor="first-name">First name*</label>
                 <input
                   onChange={handleInputFields}
@@ -144,13 +140,13 @@ function Contact_Me() {
               </div>
             </div>
 
-            <div className={"w-full min-h-full"}>
+            <div className={"w-full md:flex-1"}>
               <label htmlFor="message">Your message*</label>
               <textarea
                 placeholder="Hello João, how are you?"
                 onChange={handleInputFields}
                 value={data.message}
-                className={`${"h-32 p-8"}`}
+                className={`${"h-32! p-8"}`}
                 name="message"
               />
               {errorMessages.message && !isSubmitted && (
