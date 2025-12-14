@@ -97,9 +97,9 @@ function Contact_Me() {
         <div
           className={`${"flex flex-col justify-center w-full justify-between"}`}
         >
-          <form className="flex flex-row sm:flex-wrap gap-3 h-full w-full mt-5">
-            <div className="w-1/2 sm:w-full">
-              <div className={"firstName flex flex-col mb-3 sm:w-full"}>
+          <form className="flex flex-col md:flex-row gap-3 mt-5">
+            <div className="w-full md:w-1/2">
+              <div className={"firstName flex flex-col mb-3"}>
                 <label htmlFor="first-name">First name*</label>
                 <input
                   onChange={handleInputFields}
@@ -140,13 +140,13 @@ function Contact_Me() {
               </div>
             </div>
 
-            <div className={"w-full min-h-full"}>
+            <div className={"w-full md:flex-1"}>
               <label htmlFor="message">Your message*</label>
               <textarea
                 placeholder="Hello João, how are you?"
                 onChange={handleInputFields}
                 value={data.message}
-                className={`${"h-32 p-8"}`}
+                className={`${"h-32! p-8"}`}
                 name="message"
               />
               {errorMessages.message && !isSubmitted && (

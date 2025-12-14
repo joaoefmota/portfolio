@@ -29,7 +29,7 @@ export default function ProjectPage() {
 
   const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
-  const [restOfImages, setRestOfImages] = useState<[]>([]);
+  const [restOfImages, setRestOfImages] = useState<ImageSource[]>([]);
   const [projectInfo, setProjectInfo] = useState<ProjectInfo>({
     tools: "",
     packages: "",
@@ -99,7 +99,7 @@ export default function ProjectPage() {
       <div className={`${"mainBlock"}`} key={project.id}>
         <div className="flex flex-col items-left">
           <Link
-            href={projectInfo.link}
+            href={projectInfo.github}
             target="_blank"
             rel="noopener noreferrer"
             className="self-center"
@@ -107,32 +107,27 @@ export default function ProjectPage() {
             <h1 className={styles.title}>{projectInfo.aka}</h1>
           </Link>
           <div className="flex flex-col gap-10">
-            {/* <Gallery
-              photos={photos}
-              onClick={(event, obj) => {
-                setPhotoIndex(obj.index);
-                setLightBoxisOpen(true);
-              }}
-            /> */}
-            {/* {lightBoxIsOpen &&
-              ((
-                <ModalGateway>
-                  <Modal
-                    onClose={() => {
-                      setPhotoIndex(0);
-                      setLightBoxisOpen(false);
-                    }}
-                  >
-                    <Carousel
-                      currentIndex={photoIndex}
-                      views={photos.map((x) => ({
-                        ...x,
-                        source: x.src,
-                      }))}
-                    />
-                  </Modal>
-                </ModalGateway>
-              ) as any)} */}
+
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(100px,3fr))] gap-5">
+              {photos.map((photo, index) => (
+                <div
+                  key={index}
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setPhotoIndex(index);
+                    setLightBoxisOpen(true);
+                  }}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={`Project Image ${index + 1}`}
+                    width={600}
+                    height={400}
+                    className={styles.projectImage}
+                  />
+                </div>
+              ))}
+            </div>
 
             <article className="flex flex-col gap-5">
               <h2 className={styles.subtitle}>{projectInfo.subTitle}</h2>
@@ -170,7 +165,7 @@ export default function ProjectPage() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row justify-end">
+      <div className="flex flex-row justify-end mt-auto">
         <Link
           href={projectInfo.github}
           target="_blank"
@@ -192,6 +187,23 @@ export default function ProjectPage() {
         width={50}
         height={50}
       />
-    </section>
+      {lightBoxIsOpen && photos.length > 0 ? (
+        <dialog open
+          className="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
+          <div className="fixed inset-0 bg-gray-900/50 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in">
+            <div tabIndex={0} className="flex flex-col min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0" onClick={() => setLightBoxisOpen(false)}>
+              <Image
+                src={photos[photoIndex]?.src ?? ""}
+                alt={`Project Image ${photoIndex + 1}`}
+                width={800}
+                height={600}
+                className={styles.lightBoxImage}
+              />
+            </div>
+          </div>
+        </dialog>
+      ) : null
+      }
+    </section >
   );
 }

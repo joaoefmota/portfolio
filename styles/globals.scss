@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 // https://coolors.co/08090a-a7a2a9-f4f7f5-575a5e-222823
 
@@ -18,11 +16,6 @@
   --weight: 800;
   --error: #ef271b;
 }
-
-/* html {
-  overflow-x: initial !important;
-}
-*/
 
 html {
   scroll-behavior: smooth !important; /* In order for smooth scroll to work */
@@ -116,7 +109,6 @@ main {
 
 footer {
   position: sticky;
-  width: 100vw;
   top: 100vh;
   padding: 2rem 10rem;
   background-color: var(--titlecolor);

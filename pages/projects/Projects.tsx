@@ -66,7 +66,7 @@ export default function Projects() {
               alt={project.name}
               width={600}
               height={400}
-              className="w-full h-auto mt-4 rounded-lg object-cover"
+              className="w-full h-auto rounded-lg object-cover"
             />
           </div>
         ))}
