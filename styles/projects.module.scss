@@ -11,7 +11,10 @@
 }
 
 #ProjectID {
-  padding: 6rem 16rem;
+  padding: 6rem;
+  min-height: $vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .galleryGrid {
