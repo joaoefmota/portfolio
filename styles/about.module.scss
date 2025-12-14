@@ -6,7 +6,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: $vh;
   opacity: 0;
 }
 
@@ -31,9 +30,6 @@
   .pic {
     margin-top: 2rem;
     width: 100%;
-  }
-  .About {
-    height: fit-content;
   }
   .grid {
     grid-template-columns: repeat(2, 1fr);

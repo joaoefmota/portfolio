@@ -6,8 +6,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: $vh;
-  width: $vw;
+  min-height: $vh;
   padding-top: 0;
   padding-bottom: 0;
 }
